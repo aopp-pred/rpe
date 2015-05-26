@@ -8,7 +8,7 @@
 # Source file and headers used to generate the library code:
 gensrc = rawsrc/rp_emulator.F90
 genincdir = rawsrc/include
-geninc = $(wildcard $(genincdir)/*.h)
+geninc = $(wildcard $(genincdir)/*.i $(genincdir)/*.f90)
 
 # The processed source file:
 source = src/rp_emulator.f90

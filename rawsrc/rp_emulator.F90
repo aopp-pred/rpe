@@ -132,13 +132,19 @@ MODULE rp_emulator
 ! Interfaces for overloaded operators (external):
 !-----------------------------------------------------------------------
 
-    #include "interface_operators.h"
+    #include "interface_operators.i"
 
 !-----------------------------------------------------------------------
 ! Interfaces for overloaded intrinsic functions (external):
 !-----------------------------------------------------------------------
 
-    #include "interface_intrinsics.h"
+    #include "interface_intrinsics.i"
+
+!-----------------------------------------------------------------------
+! Interfaces for other extensions (external):
+!-----------------------------------------------------------------------
+
+    #include "interface_extras.i"
 
 CONTAINS
 
@@ -549,12 +555,18 @@ CONTAINS
 ! Overloaded operator definitions (external):
 !-----------------------------------------------------------------------
 
-    #include "implementation_operators.h"
+    #include "implementation_operators.f90"
 
 !-----------------------------------------------------------------------
 ! Overloaded intrinsic function definitions (external):
 !-----------------------------------------------------------------------
 
-    #include "implementation_intrinsics.h"
+    #include "implementation_intrinsics.f90"
+
+!-----------------------------------------------------------------------
+! Other extensions (external):
+!-----------------------------------------------------------------------
+
+    #include "implementation_extras.f90"
 
 END MODULE rp_emulator
