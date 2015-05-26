@@ -1,0 +1,4 @@
+{% macro typenamelist() -%}
+{% for i in range(types|length) -%}{{ types[i].name }}{% if loop.last %}{% else %}_{% endif %}{%- endfor %}
+{%- endmacro %}
+{{ function.name }}_ma_{{ typenamelist() }}

@@ -1,0 +1,14 @@
+# Directory where generated Fortran code is written:
+generated/
+
+# Byte-compiled / optimized / DLL files:
+__pycache__/
+*.py[cod]
+
+# Text editors:
+*~
+\#*\#
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
