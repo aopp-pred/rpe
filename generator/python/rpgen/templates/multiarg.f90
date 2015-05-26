@@ -20,4 +20,4 @@
         {% if function.reduce_precision -%}
         CALL reduce_precision (x)
         {%- endif %}
-    END FUNCTION {{ function.name }}_{{ typenamelist() }}_{{ types|length }}arg
+    END FUNCTION {{ function.name }}_ma_{{ typenamelist() }}

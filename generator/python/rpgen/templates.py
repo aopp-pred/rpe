@@ -18,16 +18,7 @@ def _remove_blanks(code):
 def render_template(name, **kwargs):
     fcode = '{}.f90'.format(name)
     fname = '{}.name'.format(name)
-    if name ==  'multiarg':
-        types = kwargs.get('types', None)
-        if types is None:
-            raise ValueError("cannot generate code for '{}' "
-                             "without a types keyword".format(name))
-        n = len(types)
-        base_template = TEMPLATE_ENVIRONMENT.get_template(fcode)
-        code_template = Template(base_template.render(select_block=_mselect(n)))
-    else:
-        code_template = TEMPLATE_ENVIRONMENT.get_template(fcode)
+    code_template = TEMPLATE_ENVIRONMENT.get_template(fcode)
     code = _remove_blanks(code_template.render(**kwargs))
     try:
         name_template = TEMPLATE_ENVIRONMENT.get_template(fname)

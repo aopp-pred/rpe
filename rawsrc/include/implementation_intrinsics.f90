@@ -414,24 +414,24 @@
         x = MIN(a, b%get_value())
     END FUNCTION min_real_rpe
 
-    ELEMENTAL FUNCTION min_rpe_rpe_rpe_3arg (a0, a1, a2) RESULT (x)
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe (a0, a1, a2) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
         TYPE(rpe_var) :: x
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value())
-    END FUNCTION min_rpe_rpe_rpe_3arg
+    END FUNCTION min_ma_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_rpe_rpe_rpe_rpe_4arg (a0, a1, a2, a3) RESULT (x)
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe (a0, a1, a2, a3) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
         CLASS(rpe_type), INTENT(IN) :: a3
         TYPE(rpe_var) :: x
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value())
-    END FUNCTION min_rpe_rpe_rpe_rpe_4arg
+    END FUNCTION min_ma_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_rpe_rpe_rpe_rpe_rpe_5arg (a0, a1, a2, a3, a4) RESULT (x)
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -439,9 +439,9 @@
         CLASS(rpe_type), INTENT(IN) :: a4
         TYPE(rpe_var) :: x
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value())
-    END FUNCTION min_rpe_rpe_rpe_rpe_rpe_5arg
+    END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_6arg (a0, a1, a2, a3, a4, a5) RESULT (x)
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -450,9 +450,9 @@
         CLASS(rpe_type), INTENT(IN) :: a5
         TYPE(rpe_var) :: x
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value())
-    END FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_6arg
+    END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_7arg (a0, a1, a2, a3, a4, a5, a6) RESULT (x)
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -462,9 +462,9 @@
         CLASS(rpe_type), INTENT(IN) :: a6
         TYPE(rpe_var) :: x
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value())
-    END FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_7arg
+    END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_8arg (a0, a1, a2, a3, a4, a5, a6, a7) RESULT (x)
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -475,9 +475,9 @@
         CLASS(rpe_type), INTENT(IN) :: a7
         TYPE(rpe_var) :: x
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value())
-    END FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_8arg
+    END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_9arg (a0, a1, a2, a3, a4, a5, a6, a7, a8) RESULT (x)
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7, a8) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -489,9 +489,9 @@
         CLASS(rpe_type), INTENT(IN) :: a8
         TYPE(rpe_var) :: x
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value())
-    END FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_9arg
+    END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_10arg (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) RESULT (x)
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -504,7 +504,7 @@
         CLASS(rpe_type), INTENT(IN) :: a9
         TYPE(rpe_var) :: x
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value(), a9%get_value())
-    END FUNCTION min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_10arg
+    END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     !-------------------------------------------------------------------
     ! Overloaded definitions for 'max':
@@ -531,24 +531,24 @@
         x = MAX(a, b%get_value())
     END FUNCTION max_real_rpe
 
-    ELEMENTAL FUNCTION max_rpe_rpe_rpe_3arg (a0, a1, a2) RESULT (x)
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe (a0, a1, a2) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
         TYPE(rpe_var) :: x
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value())
-    END FUNCTION max_rpe_rpe_rpe_3arg
+    END FUNCTION max_ma_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_rpe_rpe_rpe_rpe_4arg (a0, a1, a2, a3) RESULT (x)
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe (a0, a1, a2, a3) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
         CLASS(rpe_type), INTENT(IN) :: a3
         TYPE(rpe_var) :: x
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value())
-    END FUNCTION max_rpe_rpe_rpe_rpe_4arg
+    END FUNCTION max_ma_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_rpe_rpe_rpe_rpe_rpe_5arg (a0, a1, a2, a3, a4) RESULT (x)
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -556,9 +556,9 @@
         CLASS(rpe_type), INTENT(IN) :: a4
         TYPE(rpe_var) :: x
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value())
-    END FUNCTION max_rpe_rpe_rpe_rpe_rpe_5arg
+    END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_6arg (a0, a1, a2, a3, a4, a5) RESULT (x)
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -567,9 +567,9 @@
         CLASS(rpe_type), INTENT(IN) :: a5
         TYPE(rpe_var) :: x
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value())
-    END FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_6arg
+    END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_7arg (a0, a1, a2, a3, a4, a5, a6) RESULT (x)
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -579,9 +579,9 @@
         CLASS(rpe_type), INTENT(IN) :: a6
         TYPE(rpe_var) :: x
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value())
-    END FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_7arg
+    END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_8arg (a0, a1, a2, a3, a4, a5, a6, a7) RESULT (x)
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -592,9 +592,9 @@
         CLASS(rpe_type), INTENT(IN) :: a7
         TYPE(rpe_var) :: x
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value())
-    END FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_8arg
+    END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_9arg (a0, a1, a2, a3, a4, a5, a6, a7, a8) RESULT (x)
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7, a8) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -606,9 +606,9 @@
         CLASS(rpe_type), INTENT(IN) :: a8
         TYPE(rpe_var) :: x
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value())
-    END FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_9arg
+    END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_10arg (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) RESULT (x)
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) RESULT (x)
         CLASS(rpe_type), INTENT(IN) :: a0
         CLASS(rpe_type), INTENT(IN) :: a1
         CLASS(rpe_type), INTENT(IN) :: a2
@@ -621,7 +621,7 @@
         CLASS(rpe_type), INTENT(IN) :: a9
         TYPE(rpe_var) :: x
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value(), a9%get_value())
-    END FUNCTION max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_10arg
+    END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     !-------------------------------------------------------------------
     ! Overloaded definitions for 'minval':

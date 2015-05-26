@@ -12,15 +12,15 @@ all: operators intrinsics
 operators:
 	mkdir -p $(GDIR)
 	python python/generate_operators.py \
-			   -i $(GDIR)/interface_operators.h \
-			   -d $(GDIR)/implementation_operators.h \
+			   -i $(GDIR)/interface_operators.i \
+			   -d $(GDIR)/implementation_operators.f90 \
 			   -f
 
 intrinsics:
 	mkdir -p $(GDIR)
 	python python/generate_intrinsics.py \
-			   -i $(GDIR)/interface_intrinsics.h \
-			   -d $(GDIR)/implementation_intrinsics.h \
+			   -i $(GDIR)/interface_intrinsics.i \
+			   -d $(GDIR)/implementation_intrinsics.f90 \
 			   -f
 
 clean:

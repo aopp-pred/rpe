@@ -123,28 +123,28 @@
         MODULE PROCEDURE min_rpe_rpe
         MODULE PROCEDURE min_rpe_real
         MODULE PROCEDURE min_real_rpe
-        MODULE PROCEDURE min_rpe_rpe_rpe_3arg
-        MODULE PROCEDURE min_rpe_rpe_rpe_rpe_4arg
-        MODULE PROCEDURE min_rpe_rpe_rpe_rpe_rpe_5arg
-        MODULE PROCEDURE min_rpe_rpe_rpe_rpe_rpe_rpe_6arg
-        MODULE PROCEDURE min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_7arg
-        MODULE PROCEDURE min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_8arg
-        MODULE PROCEDURE min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_9arg
-        MODULE PROCEDURE min_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_10arg
+        MODULE PROCEDURE min_ma_rpe_rpe_rpe
+        MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
     END INTERFACE min
 
     INTERFACE max
         MODULE PROCEDURE max_rpe_rpe
         MODULE PROCEDURE max_rpe_real
         MODULE PROCEDURE max_real_rpe
-        MODULE PROCEDURE max_rpe_rpe_rpe_3arg
-        MODULE PROCEDURE max_rpe_rpe_rpe_rpe_4arg
-        MODULE PROCEDURE max_rpe_rpe_rpe_rpe_rpe_5arg
-        MODULE PROCEDURE max_rpe_rpe_rpe_rpe_rpe_rpe_6arg
-        MODULE PROCEDURE max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_7arg
-        MODULE PROCEDURE max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_8arg
-        MODULE PROCEDURE max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_9arg
-        MODULE PROCEDURE max_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_10arg
+        MODULE PROCEDURE max_ma_rpe_rpe_rpe
+        MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
+        MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
     END INTERFACE max
 
     INTERFACE minval
