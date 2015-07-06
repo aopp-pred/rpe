@@ -23,16 +23,16 @@ lib = lib/librpe.a
 .PHONY: all source library
 all: source library
 source: $(source)
-library: $(lib)
+library: $(lib) source
 
 # Generate the full source listing using the C preprocessor:
 $(source): $(gensrc) $(geninc)
 	cpp -I$(genincdir) $(gensrc) | sed '/^#/d' > $(source)
 
 # Compile the emulator source to generate a module and an object file:
-$(module): $(source)
+$(object): $(source)
 	gfortran -c -ffree-line-length-none -J$(moduledir) $(source) -o $(object)
-$(object): $(source) $(module)
+$(module): $(source) $(object)
 
 # Create a library archive from the compiled code:
 $(lib): $(object)
