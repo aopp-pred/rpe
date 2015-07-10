@@ -36,7 +36,8 @@ MODULE rp_emulator
     !: Logical flag for turning the emulator on/off.
     LOGICAL :: RPE_ACTIVE = .TRUE.
 
-    !: The number of bits to use in the reduced-precision mantissa.
+    !: The number of bits to use in the reduced-precision mantissa. A
+    !: maximum of 23 bits can be retained.
     INTEGER :: RPE_BITS = 23
 
 !-----------------------------------------------------------------------
@@ -375,6 +376,9 @@ CONTAINS
         INTEGER :: rounding_bit
         INTEGER :: zero_bits, bits
         IF (RPE_ACTIVE) THEN
+            ! First truncate the double-precision input to a single-precision
+            ! real number. The mantissa has a maximum of 23-bits.
+            y = REAL(x%get_value(), RPE_SINGLE_KIND)
             ! The rounding bit is the last bit that will be truncated
             ! (counting from 0 at the right-most bit).
             rounding_bit = 23 - RPE_BITS - 1
@@ -383,10 +387,8 @@ CONTAINS
             ! allows one to specify that the precision should be 23
             ! bits or more in the mantsissa.
             IF (rounding_bit .GE. 0) THEN
-                ! Truncate the double-precision input into single precision
-                ! first to simplify the calculation, and then copy its bit
-                ! representation into an integer so it can be manipulated:
-                y = REAL(x%get_value(), RPE_SINGLE_KIND)
+                ! Copy the single-precision bit representation of the input
+                ! into an integer so it can be manipulated:
                 bits = TRANSFER(y, bits)
                 IF (BTEST(bits, rounding_bit)) THEN
                     ! If the bit at which truncation occurs is set then
@@ -398,8 +400,9 @@ CONTAINS
                 ! number of bits.
                 zero_bits = 0
                 CALL MVBITS (zero_bits, 0, rounding_bit + 1, bits, 0)
-                x = TRANSFER(bits, y)
+                y = TRANSFER(bits, y)
             END IF
+            x = y
         END IF
     END SUBROUTINE reduce_precision
 
