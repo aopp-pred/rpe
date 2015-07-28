@@ -22,16 +22,19 @@ MODULE rp_emulator
 ! Module parameters and variables:
 !-----------------------------------------------------------------------
 
+    !: The Fortran kind of a single-precision and double-precision
+    !: floating-point number.
+    INTEGER, PARAMETER :: RPE_SINGLE_KIND = kind(1.0)
+    INTEGER, PARAMETER :: RPE_DOUBLE_KIND = kind(1.0d0)
+
     !: The Fortran kind of the real data type used by the emulator
     !: (usually 64-bit double-precision).
-    INTEGER, PARAMETER :: RPE_REAL_KIND = kind(1.0d0)
+    INTEGER, PARAMETER :: RPE_REAL_KIND = RPE_DOUBLE_KIND
     !: The Fortran kind of an alternate real data type (usually 32-bit
     !: single-precision), should be single-precision if RPE_REAL_KIND
     !: is double-precision or double-precision if RPE_REAL_KIND is
     !: single-precision.
-    INTEGER, PARAMETER :: RPE_ALTERNATE_KIND = kind(1.0)
-    !: The Fortran kind of a single-precision floating-point number.
-    INTEGER, PARAMETER :: RPE_SINGLE_KIND = kind(1.0)
+    INTEGER, PARAMETER :: RPE_ALTERNATE_KIND = RPE_SINGLE_KIND
     
     !: Logical flag for turning the emulator on/off.
     LOGICAL :: RPE_ACTIVE = .TRUE.
@@ -372,20 +375,17 @@ CONTAINS
     !     The `rpe_type` instance to truncate.
     !
         CLASS(rpe_type), INTENT(INOUT) :: x
-        REAL(KIND=RPE_SINGLE_KIND) :: y
+        REAL(KIND=RPE_DOUBLE_KIND) :: y
         INTEGER :: rounding_bit
-        INTEGER :: zero_bits, bits
+        INTEGER(KIND=8) :: zero_bits, bits
+        INTEGER(KIND=8), PARAMETER :: two = 2
         IF (RPE_ACTIVE) THEN
-            ! First truncate the double-precision input to a single-precision
-            ! real number. The mantissa has a maximum of 23-bits.
-            y = REAL(x%get_value(), RPE_SINGLE_KIND)
+            ! Cast the input to a double-precision value.
+            y = REAL(x%get_value(), RPE_DOUBLE_KIND)
             ! The rounding bit is the last bit that will be truncated
-            ! (counting from 0 at the right-most bit).
-            rounding_bit = 23 - RPE_BITS - 1
-            ! If the rounding bit is < 0 then we no need to do
-            ! anything, the full 23-bits of the mantissa remain (this
-            ! allows one to specify that the precision should be 23
-            ! bits or more in the mantsissa.
+            ! (counting from 0 at the right-most bit). Double precision values
+            ! have 52 bits in their mantissa.
+            rounding_bit = 52 - RPE_BITS - 1
             IF (rounding_bit .GE. 0) THEN
                 ! Copy the single-precision bit representation of the input
                 ! into an integer so it can be manipulated:
@@ -393,7 +393,7 @@ CONTAINS
                 IF (BTEST(bits, rounding_bit)) THEN
                     ! If the bit at which truncation occurs is set then
                     ! make sure the truncation rounds the number up:
-                    bits = bits + 2 ** (rounding_bit)
+                    bits = bits + two ** (rounding_bit)
                 END IF
                 ! Move rounding_bit + 1 bits from the number zero (all bits
                 ! set to zero) into the target to truncate at the given
