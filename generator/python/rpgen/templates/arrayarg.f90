@@ -14,7 +14,4 @@
         REAL(KIND=RPE_REAL_KIND){{ dimension_full(ndim) }} :: t
         t = a
         x = {{ function.name.upper() }}(t)
-        {% if function.reduce_precision %}
-        CALL reduce_precision (x)
-        {% endif %}
     END FUNCTION {{ function.name }}_{{ type1.name }}_{{ ndim }}d

@@ -17,7 +17,4 @@
         {{ typedef() }}
         {{ function.return_type.declaration }} :: x
         x = {{ function.name.upper() }}({% for i in range(types|length) -%}a{{ i }}{{ types[i].accessor }}{% if not loop.last %}, {% endif %}{%- endfor %})
-        {% if function.reduce_precision -%}
-        CALL reduce_precision (x)
-        {%- endif %}
     END FUNCTION {{ function.name }}_ma_{{ typenamelist() }}

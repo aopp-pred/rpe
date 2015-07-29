@@ -56,7 +56,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = COS(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION cos_rpe
 
     !-------------------------------------------------------------------
@@ -67,7 +66,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = SIN(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION sin_rpe
 
     !-------------------------------------------------------------------
@@ -78,7 +76,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = TAN(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION tan_rpe
 
     !-------------------------------------------------------------------
@@ -89,7 +86,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = ACOS(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION acos_rpe
 
     !-------------------------------------------------------------------
@@ -100,7 +96,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = ASIN(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION asin_rpe
 
     !-------------------------------------------------------------------
@@ -111,7 +106,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = ATAN(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION atan_rpe
 
     ELEMENTAL FUNCTION atan_rpe_rpe (a, b) RESULT (x)
@@ -119,7 +113,6 @@
         CLASS(rpe_type), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = ATAN(a%get_value(), b%get_value())
-        CALL reduce_precision (x)
     END FUNCTION atan_rpe_rpe
 
     ELEMENTAL FUNCTION atan_rpe_real (a, b) RESULT (x)
@@ -127,7 +120,6 @@
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = ATAN(a%get_value(), b)
-        CALL reduce_precision (x)
     END FUNCTION atan_rpe_real
 
     ELEMENTAL FUNCTION atan_real_rpe (a, b) RESULT (x)
@@ -135,7 +127,6 @@
         CLASS(rpe_type), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = ATAN(a, b%get_value())
-        CALL reduce_precision (x)
     END FUNCTION atan_real_rpe
 
     !-------------------------------------------------------------------
@@ -146,7 +137,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = COSH(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION cosh_rpe
 
     !-------------------------------------------------------------------
@@ -157,7 +147,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = SINH(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION sinh_rpe
 
     !-------------------------------------------------------------------
@@ -168,7 +157,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = TANH(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION tanh_rpe
 
     !-------------------------------------------------------------------
@@ -179,7 +167,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = EXP(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION exp_rpe
 
     !-------------------------------------------------------------------
@@ -190,7 +177,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = LOG(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION log_rpe
 
     !-------------------------------------------------------------------
@@ -201,7 +187,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = LOG10(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION log10_rpe
 
     !-------------------------------------------------------------------
@@ -212,7 +197,6 @@
         CLASS(rpe_type), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x = SQRT(a%get_value())
-        CALL reduce_precision (x)
     END FUNCTION sqrt_rpe
 
     !-------------------------------------------------------------------
@@ -264,7 +248,6 @@
         CLASS(rpe_type), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = ATAN2(a%get_value(), b%get_value())
-        CALL reduce_precision (x)
     END FUNCTION atan2_rpe_rpe
 
     ELEMENTAL FUNCTION atan2_rpe_real (a, b) RESULT (x)
@@ -272,7 +255,6 @@
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = ATAN2(a%get_value(), b)
-        CALL reduce_precision (x)
     END FUNCTION atan2_rpe_real
 
     ELEMENTAL FUNCTION atan2_real_rpe (a, b) RESULT (x)
@@ -280,7 +262,6 @@
         CLASS(rpe_type), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = ATAN2(a, b%get_value())
-        CALL reduce_precision (x)
     END FUNCTION atan2_real_rpe
 
     !-------------------------------------------------------------------
@@ -292,7 +273,6 @@
         CLASS(rpe_type), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = DIM(a%get_value(), b%get_value())
-        CALL reduce_precision (x)
     END FUNCTION dim_rpe_rpe
 
     ELEMENTAL FUNCTION dim_rpe_real (a, b) RESULT (x)
@@ -300,7 +280,6 @@
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = DIM(a%get_value(), b)
-        CALL reduce_precision (x)
     END FUNCTION dim_rpe_real
 
     ELEMENTAL FUNCTION dim_real_rpe (a, b) RESULT (x)
@@ -308,7 +287,6 @@
         CLASS(rpe_type), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = DIM(a, b%get_value())
-        CALL reduce_precision (x)
     END FUNCTION dim_real_rpe
 
     !-------------------------------------------------------------------
@@ -320,7 +298,6 @@
         CLASS(rpe_type), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = MOD(a%get_value(), b%get_value())
-        CALL reduce_precision (x)
     END FUNCTION mod_rpe_rpe
 
     ELEMENTAL FUNCTION mod_rpe_real (a, b) RESULT (x)
@@ -328,7 +305,6 @@
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = MOD(a%get_value(), b)
-        CALL reduce_precision (x)
     END FUNCTION mod_rpe_real
 
     ELEMENTAL FUNCTION mod_real_rpe (a, b) RESULT (x)
@@ -336,7 +312,6 @@
         CLASS(rpe_type), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x = MOD(a, b%get_value())
-        CALL reduce_precision (x)
     END FUNCTION mod_real_rpe
 
     !-------------------------------------------------------------------
@@ -721,7 +696,6 @@
         REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1)) :: t
         t = a
         x = SUM(t)
-        CALL reduce_precision (x)
     END FUNCTION sum_rpe_1d
 
     FUNCTION sum_rpe_2d (a) RESULT (x)
@@ -730,7 +704,6 @@
         REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2)) :: t
         t = a
         x = SUM(t)
-        CALL reduce_precision (x)
     END FUNCTION sum_rpe_2d
 
     FUNCTION sum_rpe_3d (a) RESULT (x)
@@ -739,7 +712,6 @@
         REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3)) :: t
         t = a
         x = SUM(t)
-        CALL reduce_precision (x)
     END FUNCTION sum_rpe_3d
 
     FUNCTION sum_rpe_4d (a) RESULT (x)
@@ -748,7 +720,6 @@
         REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3), SIZE(a, 4)) :: t
         t = a
         x = SUM(t)
-        CALL reduce_precision (x)
     END FUNCTION sum_rpe_4d
 
     FUNCTION sum_rpe_5d (a) RESULT (x)
@@ -757,5 +728,4 @@
         REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3), SIZE(a, 4), SIZE(a, 5)) :: t
         t = a
         x = SUM(t)
-        CALL reduce_precision (x)
     END FUNCTION sum_rpe_5d

@@ -15,14 +15,31 @@ PROGRAM test_rpe
     REAL(KIND=RPE_REAL_KIND) :: factor
     INTEGER :: i
 
+    RPE_BITS = 23
+
+
     ! Initialize the arrays:
-    normal = (/ 1.22319, 3.34234, 2.22211, 123.45678, -317.88194 /)
+    WRITE (*, '("Initialized with ", I0, "-bit mantissa:")') RPE_BITS
+    normal = (/ 1.2231923141234123d0, &
+                3.3423421431234123d0, &
+                2.2221132579875620d0, &
+                123.45678111112223d0, &
+                -317.8819499991110d0 /)
+    DO i = 1, 5
+        WRITE (*, *) normal(i), "# normal"
+    END DO
     reduced_c = normal
+    DO i = 1, 5
+        WRITE (*, *) reduced_c(i)%get_value(), "# reduced (concrete)"
+    END DO
     CALL init_shadow (reduced_p, normal)
-    factor = -1.21238546
+    DO i = 1, 5
+        WRITE (*, *) reduced_p(i)%get_value(), "# reduced (pointer)"
+    END DO
     
     ! Multiplication with a 4-bit mantissa:
     RPE_BITS = 4
+    factor = -1.21238546d0
     result_normal = normal * factor
     result_c = reduced_c * factor
     result_p = reduced_p * factor
@@ -35,6 +52,7 @@ PROGRAM test_rpe
     
     ! Multiplication with an 8-bit mantissa:
     RPE_BITS = 8
+    factor = -1.21238546d0
     result_normal = normal * factor
     result_c = reduced_c * factor
     result_p = reduced_p * factor

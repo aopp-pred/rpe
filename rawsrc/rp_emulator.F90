@@ -402,7 +402,7 @@ CONTAINS
                 CALL MVBITS (zero_bits, 0, rounding_bit + 1, bits, 0)
                 y = TRANSFER(bits, y)
             END IF
-            x = y
+            CALL x%set_value(y)
         END IF
     END SUBROUTINE reduce_precision
 
@@ -424,6 +424,7 @@ CONTAINS
         CLASS(rpe_type), INTENT(INOUT) :: r1
         CLASS(rpe_type), INTENT(IN)    :: r2
         CALL r1%set_value(r2%get_value())
+        CALL reduce_precision (r1)
     END SUBROUTINE assign_rpe_rpe
 
     ELEMENTAL SUBROUTINE assign_rpe_real (rpe, x)
@@ -440,6 +441,7 @@ CONTAINS
         CLASS(rpe_type),          INTENT(INOUT) :: rpe
         REAL(KIND=RPE_REAL_KIND), INTENT(IN)    :: x
         CALL rpe%set_value(x)
+        CALL reduce_precision (rpe)
     END SUBROUTINE assign_rpe_real
 
     ELEMENTAL SUBROUTINE assign_rpe_alternate (rpe, x)
@@ -456,6 +458,7 @@ CONTAINS
         CLASS(rpe_type),               INTENT(INOUT) :: rpe
         REAL(KIND=RPE_ALTERNATE_KIND), INTENT(IN)    :: x
         CALL rpe%set_value(x)
+        CALL reduce_precision (rpe)
     END SUBROUTINE assign_rpe_alternate
 
     ELEMENTAL SUBROUTINE assign_rpe_integer (rpe, x)
@@ -472,6 +475,7 @@ CONTAINS
         CLASS(rpe_type), INTENT(INOUT) :: rpe
         INTEGER(KIND=4), INTENT(IN)    :: x
         CALL rpe%set_value(x)
+        CALL reduce_precision (rpe)
     END SUBROUTINE assign_rpe_integer
 
     ELEMENTAL SUBROUTINE assign_rpe_long (rpe, x)
@@ -488,6 +492,7 @@ CONTAINS
         CLASS(rpe_type), INTENT(INOUT) :: rpe
         INTEGER(KIND=8), INTENT(IN)    :: x
         CALL rpe%set_value(x)
+        CALL reduce_precision (rpe)
     END SUBROUTINE assign_rpe_long
 
     ELEMENTAL SUBROUTINE assign_real_rpe (x, rpe)
