@@ -5,7 +5,7 @@ from __future__ import (absolute_import, print_function)
 class FortranType(object):
     """A Fortran data type."""
 
-    def __init__(self, name, declaration, accessor=None, polymorphic=False):
+    def __init__(self, name, declaration, accessor=None, rpe_instance=False):
         """Create a Fortran data type.
 
         **Arguments:**
@@ -23,6 +23,9 @@ class FortranType(object):
             If given, represents the extra syntax necessary to access
             the value contained within a type. Defaults to None (no
             accessor syntax).
+
+        *rpe_instance*
+            If `True` the type is an instance of `rpe_type` or subclass.
 
         **Examples:**
 
@@ -42,7 +45,7 @@ class FortranType(object):
         self.name = name
         self.declaration = declaration
         self.accessor = accessor or ''
-        self.polymorphic = polymorphic
+        self.rpe_instance = rpe_instance
 
 
 #: Fortran built-in LOGICAL data type.
@@ -61,11 +64,13 @@ REAL = FortranType('real', 'REAL(KIND=RPE_REAL_KIND)')
 REALALT = FortranType('realalt', 'REAL(KIND=RPE_ALTERNATE_KIND)')
 
 #: Fortran rpe_type polymorphic class.
-RPE_TYPE = FortranType('rpe', 'CLASS(rpe_type)',
-                       accessor='%get_value()', polymorphic=True)
+RPE_TYPE = FortranType('rpe', 'CLASS(rpe_type)', accessor=r'%get_value()',
+                       rpe_instance=True)
 
 #: Fortran rpe_shadow concrete type.
-RPE_SHADOW = FortranType('shadow', 'TYPE(rpe_shadow)', accessor='%get_value')
+RPE_SHADOW = FortranType('shadow', 'TYPE(rpe_shadow)', accessor=r'%get_value',
+                         rpe_instance=True)
 
 #: Fortran rpe_temporary contrete type.
-RPE_VAR = FortranType('var', 'TYPE(rpe_var)', accessor='%get_value')
+RPE_VAR = FortranType('var', 'TYPE(rpe_var)', accessor=r'%get_value',
+                      rpe_instance=True)
