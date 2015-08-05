@@ -3,6 +3,7 @@
 *.mod
 *.a
 *.exe
+*.x
 
 # Byte-compiled / optimized / DLL files:
 __pycache__/

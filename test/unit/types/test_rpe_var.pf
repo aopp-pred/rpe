@@ -1,0 +1,41 @@
+MODULE test_rpe_var
+! Tests for the `rpe_var` type.
+!
+    USE pfunit_mod
+    USE suite_common, ONLY : utest64_t, utest64
+    USE rp_emulator
+    IMPLICIT NONE
+    
+CONTAINS
+
+    @TEST
+    SUBROUTINE test_rpe_var_assign_reduce_default ()
+    ! Verify that the precision of a value assigned to an `rpe_var`
+    ! instance is reduced to the default number of bits by the
+    ! assignment operator when no precision level has been set.
+    !
+        TYPE(rpe_var) :: reduced
+        
+        reduced = utest64
+        @ASSERTEQUAL(reduced%get_value(), utest64_t(23))
+        
+    END SUBROUTINE test_rpe_var_assign_reduce_default
+        
+    @TEST
+    SUBROUTINE test_rpe_var_assign_reduce_specified ()
+    ! Verify that the precision of a value assigned to an `rpe_var`
+    ! instance is reduced to the instance's specified number of bits by
+    ! the assignment operator.
+    !
+        TYPE(rpe_var) :: reduced
+        INTEGER       :: nbits
+        
+        DO nbits = 1, 23
+            reduced%sbits = nbits
+            reduced = utest64
+            @ASSERTEQUAL(reduced%get_value(), utest64_t(nbits))
+        END DO
+        
+    END SUBROUTINE test_rpe_var_assign_reduce_specified
+
+END MODULE test_rpe_var

@@ -1,0 +1,4 @@
+# Ignore Fortran source, all the source in the unit test suites is generated
+# automatically (with a few execptions which are added manually to the
+# repository).
+*.F90

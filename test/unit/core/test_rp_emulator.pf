@@ -1,0 +1,66 @@
+MODULE test_rp_emulator
+! Tests for the top-level emulator functionality.
+!
+    USE pfunit_mod
+    USE suite_common, ONLY : utest64_t, utest64
+    USE rp_emulator
+    IMPLICIT NONE
+
+    @TESTCASE
+    TYPE, EXTENDS(TestCase) :: test_modify_defaults
+        INTEGER :: original_rpe_default_bits
+    CONTAINS
+        procedure :: setUp
+        procedure :: tearDown
+    END TYPE test_modify_defaults
+
+CONTAINS
+
+    SUBROUTINE setUp (this)
+        ! Record the state of default values in the rp_emulator module.
+        CLASS(test_modify_defaults), INTENT(INOUT) :: this
+        this%original_rpe_default_bits = RPE_DEFAULT_BITS
+    END SUBROUTINE setUp
+    
+    SUBROUTINE tearDown (this)
+        ! Ensure default values are reset to their state before the test
+        ! was run.
+        CLASS(test_modify_defaults), INTENT(INOUT) :: this
+        RPE_DEFAULT_BITS = this%original_rpe_default_bits
+    END SUBROUTINE tearDown
+
+    @TEST
+    SUBROUTINE test_rp_emulator_rpe_active_off (this)
+        CLASS(test_modify_defaults), INTENT(INOUT) :: this
+        TYPE(rpe_var) :: reduced
+
+        RPE_ACTIVE = .FALSE.
+        reduced = utest64
+        @ASSERTEQUAL(utest64, reduced%get_value())
+
+    END SUBROUTINE test_rp_emulator_rpe_active_off
+
+    @TEST
+    SUBROUTINE test_rp_emulator_rpe_active_on_default (this)
+        CLASS(test_modify_defaults), INTENT(INOUT) :: this
+        TYPE(rpe_var) :: reduced
+
+        RPE_ACTIVE = .TRUE.
+        reduced = utest64
+        @ASSERTEQUAL(utest64_t(RPE_DEFAULT_BITS), reduced%get_value())
+
+    END SUBROUTINE test_rp_emulator_rpe_active_on_default
+
+    @TEST
+    SUBROUTINE test_rp_emulator_rpe_active_on_explicit (this)
+        CLASS(test_modify_defaults), INTENT(INOUT) :: this
+        TYPE(rpe_var) :: reduced
+
+        RPE_ACTIVE = .TRUE.
+        RPE_DEFAULT_BITS = 8
+        reduced = utest64
+        @ASSERTEQUAL(utest64_t(8), reduced%get_value())
+
+    END SUBROUTINE test_rp_emulator_rpe_active_on_explicit
+
+END MODULE test_rp_emulator
