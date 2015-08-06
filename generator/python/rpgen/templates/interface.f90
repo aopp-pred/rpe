@@ -1,3 +1,4 @@
+    PUBLIC :: {{ interface_name }}
     INTERFACE {{ interface_name }}
         {% for name in procedure_names %}
         MODULE PROCEDURE {{ name }}
