@@ -43,11 +43,11 @@ MODULE rp_emulator
     LOGICAL, PUBLIC :: RPE_ACTIVE = .TRUE.
 
     !: The default number of bits to use in the reduced-precision significand.
-    INTEGER, PUBLIC :: RPE_DEFAULT_BITS = 23
+    INTEGER, PUBLIC :: RPE_DEFAULT_SBITS = 23
 
     !: An internal value used to represent the case where a reduced-precision
     !: number has no specified precision yet.
-    INTEGER, PARAMETER, PRIVATE :: RPE_BITS_UNSPECIFIED = -1
+    INTEGER, PARAMETER, PRIVATE :: RPE_SBITS_UNSPECIFIED = -1
 
 !-----------------------------------------------------------------------
 ! Module derived-type definitions:
@@ -63,7 +63,7 @@ MODULE rp_emulator
     ! set the contained value respectively.
     !
         !: The number of bits used in the significand.
-        INTEGER :: sbits = RPE_BITS_UNSPECIFIED
+        INTEGER :: sbits = RPE_SBITS_UNSPECIFIED
     CONTAINS
         PROCEDURE(get_value_interface), PUBLIC,  DEFERRED :: get_value
         PROCEDURE(set_value_interface), PRIVATE, DEFERRED :: set_value
@@ -382,7 +382,7 @@ CONTAINS
     ! Truncates the given floating-point number significand to the
     ! number of bits defined by the `sbits` member of the number. If the
     ! `sbits` attribute is not set it will truncate to the number of
-    ! bits specified by the current value of `RPE_DEFAULT_BITS`.
+    ! bits specified by the current value of `RPE_DEFAULT_SBITS`.
     !
     ! If the module variable RPE_ACTIVE is false this subroutine returns
     ! the unaltered input value, it only performs the bit truncation if
@@ -399,12 +399,12 @@ CONTAINS
         IF (RPE_ACTIVE) THEN
             ! Cast the input to a double-precision value.
             y = REAL(x%get_value(), RPE_DOUBLE_KIND)
-            IF (x%sbits == RPE_BITS_UNSPECIFIED) THEN
+            IF (x%sbits == RPE_SBITS_UNSPECIFIED) THEN
                 ! If the input does not have a specified precision then assume
                 ! the default precision. This is does not fix the precision of
                 ! the input variable, it will still use whatever is specified
                 ! as the default, even if that changes later.
-                truncation = RPE_DEFAULT_BITS
+                truncation = RPE_DEFAULT_SBITS
             ELSE
                 truncation = x%sbits
             END IF
@@ -483,8 +483,8 @@ CONTAINS
         INTEGER :: z
         SELECT TYPE (x)
         CLASS IS (rpe_type)
-            IF (x%sbits == RPE_BITS_UNSPECIFIED) THEN
-                z = RPE_DEFAULT_BITS
+            IF (x%sbits == RPE_SBITS_UNSPECIFIED) THEN
+                z = RPE_DEFAULT_SBITS
             ELSE
                 z = x%sbits
             END IF

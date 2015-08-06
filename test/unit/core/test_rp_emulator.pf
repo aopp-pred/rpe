@@ -8,7 +8,7 @@ MODULE test_rp_emulator
 
     @TESTCASE
     TYPE, EXTENDS(TestCase) :: test_modify_defaults
-        INTEGER :: original_rpe_default_bits
+        INTEGER :: original_rpe_default_sbits
     CONTAINS
         procedure :: setUp
         procedure :: tearDown
@@ -19,14 +19,14 @@ CONTAINS
     SUBROUTINE setUp (this)
         ! Record the state of default values in the rp_emulator module.
         CLASS(test_modify_defaults), INTENT(INOUT) :: this
-        this%original_rpe_default_bits = RPE_DEFAULT_BITS
+        this%original_rpe_default_sbits = RPE_DEFAULT_SBITS
     END SUBROUTINE setUp
     
     SUBROUTINE tearDown (this)
         ! Ensure default values are reset to their state before the test
         ! was run.
         CLASS(test_modify_defaults), INTENT(INOUT) :: this
-        RPE_DEFAULT_BITS = this%original_rpe_default_bits
+        RPE_DEFAULT_SBITS = this%original_rpe_default_sbits
     END SUBROUTINE tearDown
 
     @TEST
@@ -47,7 +47,7 @@ CONTAINS
 
         RPE_ACTIVE = .TRUE.
         reduced = utest64
-        @ASSERTEQUAL(utest64_t(RPE_DEFAULT_BITS), reduced%get_value())
+        @ASSERTEQUAL(utest64_t(RPE_DEFAULT_SBITS), reduced%get_value())
 
     END SUBROUTINE test_rp_emulator_rpe_active_on_default
 
@@ -57,7 +57,7 @@ CONTAINS
         TYPE(rpe_var) :: reduced
 
         RPE_ACTIVE = .TRUE.
-        RPE_DEFAULT_BITS = 8
+        RPE_DEFAULT_SBITS = 8
         reduced = utest64
         @ASSERTEQUAL(utest64_t(8), reduced%get_value())
 
