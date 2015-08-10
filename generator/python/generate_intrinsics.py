@@ -15,7 +15,7 @@ import rpgen.intrinsics as rpint
 import rpgen.types as rptypes
 
 
-FUNCTIONS = rpint.REGISTRY.items()
+FUNCTIONS = rpint.REGISTRY
 
 DIMENSIONS = (1, 2, 3, 4, 5)
 

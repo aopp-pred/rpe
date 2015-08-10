@@ -1,12 +1,8 @@
 """Fortran operator definitions."""
 from __future__ import (absolute_import, print_function)
 
-from .registry import Registry
 from . import types
 
-
-#: Registry of operators:
-REGISTRY = Registry()
 
 OPTYPE_UNARY = 1
 OPTYPE_BINARY= 2
@@ -46,7 +42,6 @@ RPE_OP_ADD = FortranOperator(
     '+',
     types.RPE_VAR,
     OPTYPE_UNARY | OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_ADD)
 
 #: Subtraction operator.
 RPE_OP_SUB = FortranOperator(
@@ -54,7 +49,6 @@ RPE_OP_SUB = FortranOperator(
     '-',
     types.RPE_VAR,
     OPTYPE_UNARY | OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_SUB)
 
 #: Multiplication operator.
 RPE_OP_MUL = FortranOperator(
@@ -62,7 +56,6 @@ RPE_OP_MUL = FortranOperator(
     '*',
     types.RPE_VAR,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_MUL)
 
 #: Division operator.
 RPE_OP_DIV = FortranOperator(
@@ -70,7 +63,6 @@ RPE_OP_DIV = FortranOperator(
     '/',
     types.RPE_VAR,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_DIV)
 
 #: Greater-than or equal-to operator.
 RPE_OP_GE = FortranOperator(
@@ -78,7 +70,6 @@ RPE_OP_GE = FortranOperator(
     '.GE.',
     types.LOGICAL,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_GE)
 
 #: Less-than or equal-to operator.
 RPE_OP_LE = FortranOperator(
@@ -86,7 +77,6 @@ RPE_OP_LE = FortranOperator(
     '.LE.',
     types.LOGICAL,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_LE)
 
 #: Greater-than operator.
 RPE_OP_GT = FortranOperator(
@@ -94,7 +84,6 @@ RPE_OP_GT = FortranOperator(
     '.GT.',
     types.LOGICAL,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_GT)
 
 #: Less-than operator.
 RPE_OP_LT = FortranOperator(
@@ -102,7 +91,6 @@ RPE_OP_LT = FortranOperator(
     '.LT.',
     types.LOGICAL,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_LT)
 
 #: Equal-to operator.
 RPE_OP_EQ = FortranOperator(
@@ -110,7 +98,6 @@ RPE_OP_EQ = FortranOperator(
     '==',
     types.LOGICAL,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_EQ)
 
 #: Not-equal-to operator.
 RPE_OP_NE = FortranOperator(
@@ -118,7 +105,6 @@ RPE_OP_NE = FortranOperator(
     '/=',
     types.LOGICAL,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_NE)
 
 #: Exponentiation operator.
 RPE_OP_POW = FortranOperator(
@@ -126,4 +112,18 @@ RPE_OP_POW = FortranOperator(
     '**',
     types.RPE_VAR,
     OPTYPE_BINARY)
-REGISTRY.register(RPE_OP_POW)
+
+
+REGISTRY = [
+    RPE_OP_ADD,
+    RPE_OP_SUB,
+    RPE_OP_MUL,
+    RPE_OP_DIV,
+    RPE_OP_GE,
+    RPE_OP_LE,
+    RPE_OP_GT,
+    RPE_OP_LT,
+    RPE_OP_EQ,
+    RPE_OP_NE,
+    RPE_OP_POW,
+]
