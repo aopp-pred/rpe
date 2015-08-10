@@ -1,0 +1,81 @@
+{"operators":
+    [
+        {"add":
+            {
+                "operator": "+",
+                "return_type": "rpe_var",
+                "operator_categories": ["unary", "binary"]
+            }
+        },
+        {"sub":
+            {
+                "operator": "-",
+                "return_type": "rpe_var",
+                "operator_categories": ["unary", "binary"]
+            }
+        },
+        {"mul":
+            {
+                "operator": "*",
+                "return_type": "rpe_var",
+                "operator_categories": ["binary"]}
+
+        },
+        {"div":
+            {
+                "operator": "/",
+                "return_type": "rpe_var",
+                "operator_categories": ["binary"]
+            }
+        },
+        {"ge":
+            {
+                "operator": ".GE.",
+                "return_type": "logical",
+                "operator_categories": ["binary"]
+            }
+        },
+        {"le":
+            {
+                "operator": ".LE.",
+                "return_type": "logical",
+                "operator_categories": ["binary"]
+            }
+        },
+        {"gt":
+            {
+                "operator": ".GT.",
+                "return_type": "logical",
+                "operator_categories": ["binary"]
+            }
+        },
+        {"lt":
+            {
+                "operator": ".LT.",
+                "return_type": "logical",
+                "operator_categories": ["binary"]
+            }
+        },
+        {"eq":
+            {
+                "operator": "==",
+                "return_type": "logical",
+                "operator_categories": ["binary"]
+            }
+        },
+        {"ne":
+            {
+                "operator": "/=",
+                "return_type": "logical",
+                "operator_categories": ["binary"]
+            }
+        },
+        {"pow":
+            {
+                "operator": "**",
+                "return_type": "rpe_var",
+                "operator_categories": ["binary"]
+            }
+        }
+    ]
+}

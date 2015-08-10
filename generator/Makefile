@@ -4,6 +4,7 @@
 #
 
 GDIR = generated
+CONFIGDIR = configs
 
 .PHONY: all operators intrinsics clean
 
@@ -14,14 +15,14 @@ operators:
 	python python/generate_operators.py \
 			   -i $(GDIR)/interface_operators.i \
 			   -d $(GDIR)/implementation_operators.f90 \
-			   -f
+			   -f $(CONFIGDIR)/operators.json
 
 intrinsics:
 	mkdir -p $(GDIR)
 	python python/generate_intrinsics.py \
 			   -i $(GDIR)/interface_intrinsics.i \
 			   -d $(GDIR)/implementation_intrinsics.f90 \
-			   -f
+			   -f $(CONFIGDIR)/intrinsics.json
 
 clean:
 	rm -f $(GDIR)/*.h

@@ -10,24 +10,13 @@ import os
 import sys
 
 from rpgen import generate_code, generate_interface
-import rpgen.operators as rpops
+from rpgen.operators import from_json as operators_from_json
 import rpgen.types as rptypes
 
 
-#: Operators to generate definitions for.
-OPERATORS = (rpops.RPE_OP_ADD, rpops.RPE_OP_SUB,
-             rpops.RPE_OP_MUL, rpops.RPE_OP_DIV,
-             rpops.RPE_OP_GE, rpops.RPE_OP_LE,
-             rpops.RPE_OP_GT, rpops.RPE_OP_LT,
-             rpops.RPE_OP_EQ, rpops.RPE_OP_NE,
-             rpops.RPE_OP_POW,)
-
 #: Types of variables that can be included in a binary operation with an
 #: rpe_type instance.
-BINARY_TYPES = (rptypes.INTEGER,
-                rptypes.LONG,
-                rptypes.REAL,
-                rptypes.REALALT,)
+BINARY_TYPES = [rptypes.INTEGER, rptypes.LONG, rptypes.REAL, rptypes.REALALT]
 
 #: Section header for the generated source code.
 HEADER = """    !-------------------------------------------------------------------
@@ -43,10 +32,10 @@ class Error(Exception):
 def generate_operator_suite(op):
     """Generate code and an interface for an operator."""
     blocks = []
-    if op.is_kind(rpops.OPTYPE_UNARY):
+    if 'unary' in op.operator_categories:
         blocks.append(generate_code('unaryop', type1=rptypes.RPE_TYPE,
                                     operator=op))
-    if op.is_kind(rpops.OPTYPE_BINARY):
+    if 'binary' in op.operator_categories:
         blocks.append(generate_code('binaryop', type1=rptypes.RPE_TYPE,
                                     type2=rptypes.RPE_TYPE, operator=op))
         blocks += [generate_code('binaryop', type1=rptypes.RPE_TYPE,
@@ -74,6 +63,7 @@ def main(argv=None):
                     help='file to write operator definitions to')
     ap.add_argument('-f', '--force', action='store_true', default=False,
                     help='write output even if it overwrites an existing file')
+    ap.add_argument('defn', help='operator definition file in JSON format')
     argns = ap.parse_args(argv[1:])
     try:
         if not argns.force:
@@ -102,7 +92,7 @@ def main(argv=None):
             raise Error(e)
         # Generate code for each operator:
         first = True
-        for op in OPERATORS:
+        for op in operators_from_json(argns.defn):
             interface, code = generate_operator_suite(op)
             if not first:
                 fi.write('\n\n')
