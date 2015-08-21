@@ -18,29 +18,32 @@ MODULE rp_emulator
 !
     IMPLICIT NONE
 
+    ! All definitions are private by default.
+    PRIVATE
+
 !-----------------------------------------------------------------------
 ! Module parameters and variables:
 !-----------------------------------------------------------------------
 
     !: The Fortran kind of a single-precision and double-precision
     !: floating-point number.
-    INTEGER, PARAMETER :: RPE_SINGLE_KIND = kind(1.0)
-    INTEGER, PARAMETER :: RPE_DOUBLE_KIND = kind(1.0d0)
+    INTEGER, PARAMETER, PUBLIC :: RPE_SINGLE_KIND = kind(1.0)
+    INTEGER, PARAMETER, PUBLIC :: RPE_DOUBLE_KIND = kind(1.0d0)
 
     !: The Fortran kind of the real data type used by the emulator
     !: (usually 64-bit double-precision).
-    INTEGER, PARAMETER :: RPE_REAL_KIND = RPE_DOUBLE_KIND
+    INTEGER, PARAMETER, PUBLIC :: RPE_REAL_KIND = RPE_DOUBLE_KIND
     !: The Fortran kind of an alternate real data type (usually 32-bit
     !: single-precision), should be single-precision if RPE_REAL_KIND
     !: is double-precision or double-precision if RPE_REAL_KIND is
     !: single-precision.
-    INTEGER, PARAMETER :: RPE_ALTERNATE_KIND = RPE_SINGLE_KIND
+    INTEGER, PARAMETER, PUBLIC :: RPE_ALTERNATE_KIND = RPE_SINGLE_KIND
     
     !: Logical flag for turning the emulator on/off.
-    LOGICAL :: RPE_ACTIVE = .TRUE.
+    LOGICAL, PUBLIC :: RPE_ACTIVE = .TRUE.
 
     !: The default number of bits to use in the reduced-precision significand.
-    INTEGER :: RPE_DEFAULT_BITS = 23
+    INTEGER, PUBLIC :: RPE_DEFAULT_BITS = 23
 
     !: An internal value used to represent the case where a reduced-precision
     !: number has no specified precision yet.
@@ -50,6 +53,7 @@ MODULE rp_emulator
 ! Module derived-type definitions:
 !-----------------------------------------------------------------------
 
+    PUBLIC :: rpe_type
     TYPE, ABSTRACT :: rpe_type
     ! An abstract base class for reduced-precision types.
     !
@@ -84,6 +88,7 @@ MODULE rp_emulator
 
     END INTERFACE
 
+    PUBLIC :: rpe_var
     TYPE, EXTENDS(rpe_type) :: rpe_var
     ! A reduced-precision floating-point number.
     !
@@ -96,6 +101,7 @@ MODULE rp_emulator
         PROCEDURE, PRIVATE :: set_value => set_var_value
     END TYPE
 
+    PUBLIC :: rpe_shadow
     TYPE, EXTENDS(rpe_type) :: rpe_shadow
     ! A reduced-precision 'shadow' of a floating-point number.
     !
@@ -113,6 +119,7 @@ MODULE rp_emulator
         PROCEDURE, PRIVATE :: set_value => set_shadow_value
     END TYPE
 
+    PUBLIC :: init_shadow
     INTERFACE init_shadow
     ! Interfaces for initializing `rpe_shadow` instances.
     !
@@ -123,6 +130,10 @@ MODULE rp_emulator
         MODULE PROCEDURE init_shadow_v4d
     END INTERFACE
 
+    ! Make the core emulator routines importable.
+    PUBLIC :: reduce_precision, significand_bits
+
+    PUBLIC ASSIGNMENT(=)
     INTERFACE ASSIGNMENT(=)
     ! Interfaces for the assignment operator with `rpe_type` instances.
     !
