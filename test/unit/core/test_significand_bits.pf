@@ -1,0 +1,100 @@
+MODULE test_significand_bits
+! Tests for the `significand_bits` function.
+!
+    USE pfunit_mod
+    USE rp_emulator
+    IMPLICIT NONE
+
+CONTAINS
+
+    @TEST
+    SUBROUTINE test_significand_bits_rpe_var ()
+        TYPE(rpe_var) :: input
+        INTEGER       :: result, expected
+
+        expected = RPE_DEFAULT_BITS
+        result = significand_bits(input)
+        @ASSERTEQUAL(expected, result)
+
+    END SUBROUTINE test_significand_bits_rpe_var
+
+    @TEST
+    SUBROUTINE test_significand_bits_rpe_var_explicit ()
+        TYPE(rpe_var) :: input
+        INTEGER       :: result, expected
+
+        expected = 5
+        input%sbits = 5
+        result = significand_bits(input)
+        @ASSERTEQUAL(expected, result)
+
+    END SUBROUTINE test_significand_bits_rpe_var_explicit
+
+    @TEST
+    SUBROUTINE test_significand_bits_rpe_shadow ()
+        TYPE(rpe_shadow) :: input
+        INTEGER          :: result, expected
+
+        expected = RPE_DEFAULT_BITS
+        result = significand_bits(input)
+        @ASSERTEQUAL(expected, result)
+
+    END SUBROUTINE test_significand_bits_rpe_shadow
+
+    @TEST
+    SUBROUTINE test_significand_bits_rpe_shadow_explicit ()
+        TYPE(rpe_shadow) :: input
+        INTEGER          :: result, expected
+
+        expected = 5
+        input%sbits = 5
+        result = significand_bits(input)
+        @ASSERTEQUAL(expected, result)
+
+    END SUBROUTINE test_significand_bits_rpe_shadow_explicit
+
+    @TEST
+    SUBROUTINE test_significand_bits_double_precision ()
+        REAL(KIND=RPE_DOUBLE_KIND) :: input
+        INTEGER                    :: result, expected
+
+        expected = 52
+        result = significand_bits(input)
+        @ASSERTEQUAL(expected, result)
+
+    END SUBROUTINE test_significand_bits_double_precision
+
+    @TEST
+    SUBROUTINE test_significand_bits_single_precision ()
+        REAL(KIND=RPE_SINGLE_KIND) :: input
+        INTEGER                    :: result, expected
+
+        expected = 23
+        result = significand_bits(input)
+        @ASSERTEQUAL(expected, result)
+
+    END SUBROUTINE test_significand_bits_single_precision
+
+    @TEST
+    SUBROUTINE test_significand_bits_integer ()
+        INTEGER :: input
+        INTEGER :: result, expected
+
+        expected = 0
+        result = significand_bits(input)
+        @ASSERTEQUAL(expected, result)
+
+    END SUBROUTINE test_significand_bits_integer
+
+    @TEST
+    SUBROUTINE test_significand_bits_complex ()
+        COMPLEX :: input
+        INTEGER :: result, expected
+
+        expected = 0
+        result = significand_bits(input)
+        @ASSERTEQUAL(expected, result)
+
+    END SUBROUTINE test_significand_bits_complex
+
+END MODULE test_significand_bits

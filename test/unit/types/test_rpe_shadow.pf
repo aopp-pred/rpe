@@ -1,0 +1,206 @@
+MODULE test_rpe_shadow
+! Tests for the `rpe_var` type.
+!
+    USE pfunit_mod
+    USE suite_common, ONLY : utest64_t, utest64
+    USE rp_emulator
+    IMPLICIT NONE
+    
+CONTAINS
+
+    @TEST
+    SUBROUTINE test_rpe_shadow_assign_reduce_default ()
+    ! Verify that the precision of a value assigned to an `rpe_shadow`
+    ! instance is reduced to the default number of bits by the
+    ! assignment operator when no precision level has been set.
+    !
+        REAL(KIND=RPE_REAL_KIND) :: real_target
+        TYPE(rpe_shadow)         :: real_shadow
+        
+        CALL init_shadow (real_shadow, real_target)
+        
+        real_shadow = utest64
+        @ASSERTEQUAL(real_shadow%get_value(), utest64_t(23))
+        
+    END SUBROUTINE test_rpe_shadow_assign_reduce_default
+        
+    @TEST
+    SUBROUTINE test_rpe_shadow_assign_reduce_specified ()
+    ! Verify that the precision of a value assigned to an `rpe_shadow`
+    ! instance is reduced to the instance's specified number of bits by
+    ! the assignment operator.
+    !
+        REAL(KIND=RPE_REAL_KIND) :: real_target
+        TYPE(rpe_shadow)         :: real_shadow
+        INTEGER                  :: nbits
+        
+        CALL init_shadow (real_shadow, real_target)
+        
+        DO nbits = 1, 23
+            real_shadow%sbits = nbits
+            real_shadow = utest64
+            @ASSERTEQUAL(real_shadow%get_value(), utest64_t(nbits))
+        END DO
+        
+    END SUBROUTINE test_rpe_shadow_assign_reduce_specified
+
+    @TEST
+    SUBROUTINE test_init_shadow_scalar ()
+    ! Test initializing a scalar `rpe_shadow` instance.
+    !
+        REAL(KIND=RPE_REAL_KIND) :: real_target
+        TYPE(rpe_shadow)         :: real_shadow
+
+        ! Give the shadow 23 bits of significand precision and initialize
+        ! it to point at the target (this does not incur loss of precision
+        ! at this stage).
+        real_shadow%sbits = 23
+        CALL init_shadow (real_shadow, real_target)
+
+        ! Set the value of the target and check that the target and the shadow
+        ! have the same value.
+        real_target = utest64
+        @ASSERTEQUAL(real_target, real_shadow%get_value())
+
+        ! Set the value of the shadow to the same value, this assignment should
+        ! cause a loss of precision, so verify that both the target and the
+        ! shadow have the expected values.
+        real_shadow = utest64
+        @assertEqual(real_shadow%get_value(), utest64_t(23))
+        @assertEqual(real_target, real_shadow%get_value())
+
+    END SUBROUTINE test_init_shadow_scalar
+    
+    @TEST
+    SUBROUTINE test_init_shadow_1d ()
+    ! Test initializing a scalar `rpe_shadow` instance.
+    !
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(2) :: real_target
+        TYPE(rpe_shadow),         DIMENSION(2) :: real_shadow
+        INTEGER                                :: i
+
+        ! Give the shadow 23 bits of significand precision and initialize
+        ! it to point at the target (this does not incur loss of precision
+        ! at this stage).
+        real_shadow%sbits = 23
+        CALL init_shadow (real_shadow, real_target)
+
+        ! Set the value of the target and check that the target and the shadow
+        ! have the same value.
+        real_target = utest64
+        DO i = 1, 2
+            @ASSERTEQUAL(real_target(i), real_shadow(i)%get_value())
+        END DO
+
+        ! Set the value of the shadow to the same value, this assignment should
+        ! cause a loss of precision, so verify that both the target and the
+        ! shadow have the expected values.
+        real_shadow = utest64
+        DO i = 1, 2
+            @ASSERTEQUAL(real_shadow(i)%get_value(), utest64_t(23))
+            @ASSERTEQUAL(real_target(i), real_shadow(i)%get_value())
+        END DO
+
+    END SUBROUTINE test_init_shadow_1d
+
+    @TEST
+    SUBROUTINE test_init_shadow_2d ()
+    ! Test initializing a scalar `rpe_shadow` instance.
+    !
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(2, 2) :: real_target
+        TYPE(rpe_shadow),         DIMENSION(2, 2) :: real_shadow
+        INTEGER                                   :: i, j
+
+        ! Give the shadow 23 bits of significand precision and initialize
+        ! it to point at the target (this does not incur loss of precision
+        ! at this stage).
+        real_shadow%sbits = 23
+        CALL init_shadow (real_shadow, real_target)
+
+        ! Set the value of the target and check that the target and the shadow
+        ! have the same value.
+        real_target = utest64
+        DO i = 1, 2
+            DO j = 1, 2
+                @ASSERTEQUAL(real_target(i, j), real_shadow(i, j)%get_value())
+            END DO
+        END DO
+
+        ! Set the value of the shadow to the same value, this assignment should
+        ! cause a loss of precision, so verify that both the target and the
+        ! shadow have the expected values.
+        real_shadow = utest64
+        DO i = 1, 2
+            DO j = 1, 2
+                @ASSERTEQUAL(real_shadow(i, j)%get_value(), utest64_t(23))
+                @ASSERTEQUAL(real_target(i, j), real_shadow(i, j)%get_value())
+            END DO
+        END DO
+
+    END SUBROUTINE test_init_shadow_2d
+    
+    @TEST
+    SUBROUTINE test_init_shadow_3d ()
+    ! Test initializing a scalar `rpe_shadow` instance.
+    !
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(2, 2, 2) :: real_target
+        TYPE(rpe_shadow),         DIMENSION(2, 2, 2) :: real_shadow
+        INTEGER                                      :: i, j, k
+    
+        ! Give the shadow 23 bits of significand precision and initialize
+        ! it to point at the target (this does not incur loss of precision
+        ! at this stage).
+        real_shadow%sbits = 23
+        CALL init_shadow (real_shadow, real_target)
+    
+        ! Set the value of the target and check that the target and the shadow
+        ! have the same value.
+        real_target = utest64
+        DO i = 1, 2; DO j = 1, 2; DO k = 1, 2
+            @ASSERTEQUAL(real_target(i, j, k), real_shadow(i, j, k)%get_value())
+        END DO; END DO; END DO
+    
+        ! Set the value of the shadow to the same value, this assignment should
+        ! cause a loss of precision, so verify that both the target and the
+        ! shadow have the expected values.
+        real_shadow = utest64
+        DO i = 1, 2; DO j = 1, 2; DO k = 1, 2
+            @ASSERTEQUAL(real_shadow(i, j, k)%get_value(), utest64_t(23))
+            @ASSERTEQUAL(real_target(i, j, k), real_shadow(i, j, k)%get_value())
+        END DO; END DO; END DO
+    
+    END SUBROUTINE test_init_shadow_3d
+    
+    @TEST
+    SUBROUTINE test_init_shadow_4d ()
+    ! Test initializing a scalar `rpe_shadow` instance.
+    !
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(2, 2, 2, 2) :: real_target
+        TYPE(rpe_shadow),         DIMENSION(2, 2, 2, 2) :: real_shadow
+        INTEGER                                         :: i, j, k, l
+    
+        ! Give the shadow 23 bits of significand precision and initialize
+        ! it to point at the target (this does not incur loss of precision
+        ! at this stage).
+        real_shadow%sbits = 23
+        CALL init_shadow (real_shadow, real_target)
+    
+        ! Set the value of the target and check that the target and the shadow
+        ! have the same value.
+        real_target = utest64
+        DO i = 1, 2; DO j = 1, 2; DO k = 1, 2; DO l = 1, 2
+            @ASSERTEQUAL(real_target(i, j, k, l), real_shadow(i, j, k, l)%get_value())
+        END DO; END DO; END DO; END DO
+    
+        ! Set the value of the shadow to the same value, this assignment should
+        ! cause a loss of precision, so verify that both the target and the
+        ! shadow have the expected values.
+        real_shadow = utest64
+        DO i = 1, 2; DO j = 1, 2; DO k = 1, 2; DO l = 1, 2;
+            @ASSERTEQUAL(real_shadow(i, j, k, l)%get_value(), utest64_t(23))
+            @ASSERTEQUAL(real_target(i, j, k, l), real_shadow(i, j, k, l)%get_value())
+        END DO; END DO; END DO; END DO
+    
+    END SUBROUTINE test_init_shadow_4d
+
+END MODULE test_rpe_shadow

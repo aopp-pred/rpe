@@ -12,6 +12,9 @@
         {{ type1.declaration }}{{ dimension(ndim) }}, INTENT(IN) :: a
         {{ function.return_type.declaration }} :: x
         REAL(KIND=RPE_REAL_KIND){{ dimension_full(ndim) }} :: t
+        {% if function.return_type.rpe_instance %}
+        x%sbits = MAXVAL(significand_bits(a))
+        {% endif %}
         t = a
         x = {{ function.name.upper() }}(t)
     END FUNCTION {{ function.name }}_{{ type1.name }}_{{ ndim }}d

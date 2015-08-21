@@ -1,0 +1,215 @@
+MODULE test_assignment_rpe_rpe
+! Tests for assigning `rpe_type` instances to other `rpe_type` instances.
+!
+    USE pfunit_mod
+    USE suite_common, ONLY : utest64, utest64_t
+    USE rp_emulator
+    IMPLICIT NONE
+
+CONTAINS
+
+!-----------------------------------------------------------------------
+! Assigning an `rpe_var` instance to an `rpe_var` instance.
+!
+
+    @TEST
+    SUBROUTINE test_assign_rpe_var_rpe_var_sbits_default ()
+        TYPE(rpe_var) :: assignee, value_holder
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_var_rpe_var_sbits_default
+
+    @TEST
+    SUBROUTINE test_assign_rpe_var_rpe_var_sbits_explicit ()
+        TYPE(rpe_var) :: assignee, value_holder
+        value_holder%sbits = 4
+        assignee%sbits = 4
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_var_rpe_var_sbits_explicit
+    
+    @TEST
+    SUBROUTINE test_assign_rpe_var_rpe_var_lower_to_higher ()
+        TYPE(rpe_var) :: assignee, value_holder
+        value_holder%sbits = 16
+        assignee%sbits = 4
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(utest64_t(assignee%sbits), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_var_rpe_var_lower_to_higher
+
+    @TEST
+    SUBROUTINE test_assign_rpe_var_rpe_var_higher_to_lower ()
+        TYPE(rpe_var) :: assignee, value_holder
+        value_holder%sbits = 4
+        assignee%sbits = 16
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(utest64_t(value_holder%sbits), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_var_rpe_var_higher_to_lower
+
+!-----------------------------------------------------------------------
+! Assigning an `rpe_shadow` instance to an `rpe_var` instance.
+!
+
+    @TEST
+    SUBROUTINE test_assign_rpe_shadow_rpe_shadow_sbits_default ()
+        TYPE(rpe_shadow)         :: assignee, value_holder
+        REAL(KIND=RPE_REAL_KIND) :: assignee_target, value_holder_target
+        CALL init_shadow (value_holder, value_holder_target)
+        CALL init_shadow (assignee, assignee_target)
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_shadow_rpe_shadow_sbits_default
+    
+    @TEST
+    SUBROUTINE test_assign_rpe_shadow_rpe_shadow_sbits_explicit ()
+        TYPE(rpe_shadow)         :: assignee, value_holder
+        REAL(KIND=RPE_REAL_KIND) :: assignee_target, value_holder_target
+        CALL init_shadow (value_holder, value_holder_target)
+        CALL init_shadow (assignee, assignee_target)
+        value_holder%sbits = 4
+        assignee%sbits = 4
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_shadow_rpe_shadow_sbits_explicit
+    
+    @TEST
+    SUBROUTINE test_assign_rpe_shadow_rpe_shadow_lower_to_higher ()
+        TYPE(rpe_shadow)         :: assignee, value_holder
+        REAL(KIND=RPE_REAL_KIND) :: assignee_target, value_holder_target
+        CALL init_shadow (value_holder, value_holder_target)
+        CALL init_shadow (assignee, assignee_target)
+        value_holder%sbits = 16
+        assignee%sbits = 4
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(utest64_t(assignee%sbits), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_shadow_rpe_shadow_lower_to_higher
+
+    @TEST
+    SUBROUTINE test_assign_rpe_shadow_rpe_shadow_higher_to_lower ()
+        TYPE(rpe_shadow)         :: assignee, value_holder
+        REAL(KIND=RPE_REAL_KIND) :: assignee_target, value_holder_target
+        CALL init_shadow (value_holder, value_holder_target)
+        CALL init_shadow (assignee, assignee_target)
+        value_holder%sbits = 4
+        assignee%sbits = 16
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(utest64_t(value_holder%sbits), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_shadow_rpe_shadow_higher_to_lower
+
+!-----------------------------------------------------------------------
+! Assigning an `rpe_shadow` instance to an `rpe_shadow` instance.
+!
+
+    @TEST
+    SUBROUTINE test_assign_rpe_var_rpe_shadow_sbits_default ()
+        TYPE(rpe_var)            :: assignee
+        TYPE(rpe_shadow)         :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: value_holder_target
+        CALL init_shadow (value_holder, value_holder_target)
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_var_rpe_shadow_sbits_default
+    
+    @TEST
+    SUBROUTINE test_assign_rpe_var_rpe_shadow_sbits_explicit ()
+        TYPE(rpe_var)            :: assignee
+        TYPE(rpe_shadow)         :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: value_holder_target
+        CALL init_shadow (value_holder, value_holder_target)
+        value_holder%sbits = 4
+        assignee%sbits = 4
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_var_rpe_shadow_sbits_explicit
+    
+    @TEST
+    SUBROUTINE test_assign_rpe_var_rpe_shadow_lower_to_higher ()
+        TYPE(rpe_var)            :: assignee
+        TYPE(rpe_shadow)         :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: value_holder_target
+        CALL init_shadow (value_holder, value_holder_target)
+        value_holder%sbits = 16
+        assignee%sbits = 4
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(utest64_t(assignee%sbits), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_var_rpe_shadow_lower_to_higher
+
+    @TEST
+    SUBROUTINE test_assign_rpe_var_rpe_shadow_higher_to_lower ()
+        TYPE(rpe_var)            :: assignee
+        TYPE(rpe_shadow)         :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: value_holder_target
+        CALL init_shadow (value_holder, value_holder_target)
+        value_holder%sbits = 4
+        assignee%sbits = 16
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(utest64_t(value_holder%sbits), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_var_rpe_shadow_higher_to_lower
+
+!-----------------------------------------------------------------------
+! Assigning an `rpe_var` instance to an `rpe_shadow` instance.
+!
+
+    @TEST
+    SUBROUTINE test_assign_rpe_shadow_rpe_var_sbits_default ()
+        TYPE(rpe_shadow)         :: assignee
+        TYPE(rpe_var)            :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: assignee_target
+        CALL init_shadow (assignee, assignee_target)
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_shadow_rpe_var_sbits_default
+
+    @TEST
+    SUBROUTINE test_assign_rpe_shadow_rpe_var_sbits_explicit ()
+        TYPE(rpe_shadow)         :: assignee
+        TYPE(rpe_var)            :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: assignee_target
+        CALL init_shadow (assignee, assignee_target)
+        value_holder%sbits = 4
+        assignee%sbits = 4
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_shadow_rpe_var_sbits_explicit
+
+    @TEST
+    SUBROUTINE test_assign_rpe_shadow_rpe_var_lower_to_higher ()
+        TYPE(rpe_shadow)         :: assignee
+        TYPE(rpe_var)            :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: assignee_target
+        CALL init_shadow (assignee, assignee_target)
+        value_holder%sbits = 16
+        assignee%sbits = 4
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(utest64_t(assignee%sbits), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_shadow_rpe_var_lower_to_higher
+
+    @TEST
+    SUBROUTINE test_assign_rpe_shadow_rpe_var_higher_to_lower ()
+        TYPE(rpe_shadow)         :: assignee
+        TYPE(rpe_var)            :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: assignee_target
+        CALL init_shadow (assignee, assignee_target)
+        value_holder%sbits = 4
+        assignee%sbits = 16
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(utest64_t(value_holder%sbits), assignee%get_value())
+    END SUBROUTINE test_assign_rpe_shadow_rpe_var_higher_to_lower
+
+END MODULE test_assignment_rpe_rpe

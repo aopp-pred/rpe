@@ -1,16 +1,13 @@
-# Makefile for reduced-precision emulator tests.
+# Makefile for all test suites.
 #
 
-MODULEDIR=../modules
-LIBDIR=../lib
-LIBS=-lrpe
+# Phony target declarations.
+.PHONY: unit_tests test
 
-.PHONY: all test_simple test_bits
+# Build the unit test suite.
+unit_tests:
+	make -C unit unittests.x
 
-all: test_simple test_bits
-
-test_simple: test_simple/test.f90 $(LIBDIR)/librpe.a
-	gfortran -o test_simple/test.exe -I$(MODULEDIR) test_simple/test.f90 -L$(LIBDIR) $(LIBS)
-
-test_bits: test_bits/test.f90 $(LIBDIR)/librpe.a
-	gfortran -o test_bits/test.exe -I$(MODULEDIR) test_bits/test.f90 -L$(LIBDIR) $(LIBS)
+# A target to run all the test suites.
+test: unit_tests
+	./runtests.sh

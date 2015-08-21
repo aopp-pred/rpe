@@ -39,9 +39,12 @@ MODULE rp_emulator
     !: Logical flag for turning the emulator on/off.
     LOGICAL :: RPE_ACTIVE = .TRUE.
 
-    !: The number of bits to use in the reduced-precision mantissa. A
-    !: maximum of 23 bits can be retained.
-    INTEGER :: RPE_BITS = 23
+    !: The default number of bits to use in the reduced-precision significand.
+    INTEGER :: RPE_DEFAULT_BITS = 23
+
+    !: An internal value used to represent the case where a reduced-precision
+    !: number has no specified precision yet.
+    INTEGER, PARAMETER, PRIVATE :: RPE_BITS_UNSPECIFIED = -1
 
 !-----------------------------------------------------------------------
 ! Module derived-type definitions:
@@ -55,6 +58,8 @@ MODULE rp_emulator
     ! `get_value` and `set_value` which return the contained value and
     ! set the contained value respectively.
     !
+        !: The number of bits used in the significand.
+        INTEGER :: sbits = RPE_BITS_UNSPECIFIED
     CONTAINS
         PROCEDURE(get_value_interface), PUBLIC,  DEFERRED :: get_value
         PROCEDURE(set_value_interface), PRIVATE, DEFERRED :: set_value
@@ -263,8 +268,8 @@ CONTAINS
     ! * x: real(kind=RPE_REAL_KIND) [input]
     !       A real-valued variable to shadow with `this`.
     !
-        TYPE(rpe_shadow),                INTENT(OUT) :: this
-        REAL(KIND=RPE_REAL_KIND), TARGET, INTENT(IN)  :: x
+        TYPE(rpe_shadow),                 INTENT(INOUT) :: this
+        REAL(KIND=RPE_REAL_KIND), TARGET, INTENT(IN)    :: x
         this%ptr => x
     END SUBROUTINE init_shadow_scalar
 
@@ -279,8 +284,8 @@ CONTAINS
     ! * x: real(kind=RPE_REAL_KIND), dimension(:) [input]
     !       A real-valued variable to shadow with `this`.
     !
-        TYPE(rpe_shadow),         DIMENSION(:),         INTENT(OUT) :: this
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(:), TARGET, INTENT(IN)  :: x
+        TYPE(rpe_shadow),         DIMENSION(:),         INTENT(INOUT) :: this
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(:), TARGET, INTENT(IN)    :: x
         INTEGER :: i
         DO i = 1, SIZE(x, 1)
             this(i)%ptr => x(i)
@@ -298,8 +303,8 @@ CONTAINS
     ! * x: real(kind=RPE_REAL_KIND), dimension(:, :) [input]
     !       A real-valued variable to shadow with `this`.
     !
-        TYPE(rpe_shadow),         DIMENSION(:, :),         INTENT(OUT) :: this
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(:, :), TARGET, INTENT(IN)  :: x
+        TYPE(rpe_shadow),         DIMENSION(:, :),         INTENT(INOUT) :: this
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(:, :), TARGET, INTENT(IN)    :: x
         INTEGER :: i, j
         DO i = 1, SIZE(x, 1)
             DO j = 1, SIZE(x, 2)
@@ -319,8 +324,8 @@ CONTAINS
     ! * x: real(kind=RPE_REAL_KIND), dimension(:, :, :) [input]
     !       A real-valued variable to shadow with `this`.
     !
-        TYPE(rpe_shadow),         DIMENSION(:, :, :),         INTENT(OUT) :: this
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(:, :, :), TARGET, INTENT(IN)  :: x
+        TYPE(rpe_shadow),         DIMENSION(:, :, :),         INTENT(INOUT) :: this
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(:, :, :), TARGET, INTENT(IN)    :: x
         INTEGER :: i, j, k
         DO i = 1, SIZE(x, 1)
             DO j = 1, SIZE(x, 2)
@@ -342,8 +347,8 @@ CONTAINS
     ! * x: real(kind=RPE_REAL_KIND), dimension(:, :, :, :) [input]
     !       A real-valued variable to shadow with `this`.
     !
-        TYPE(rpe_shadow),         DIMENSION(:, :, :, :),         INTENT(OUT) :: this
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(:, :, :, :), TARGET, INTENT(IN)  :: x
+        TYPE(rpe_shadow),         DIMENSION(:, :, :, :),         INTENT(INOUT) :: this
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(:, :, :, :), TARGET, INTENT(IN)    :: x
         INTEGER :: i, j, k, l
         DO i = 1, SIZE(x, 1)
             DO j = 1, SIZE(x, 2)
@@ -364,7 +369,7 @@ CONTAINS
     ! Reduce the precision of a `rpe_type` instance.
     !
     ! Truncates the given floating-point number significand to the
-    ! number of bits defined by the module variable RPE_BITS. If the
+    ! number of bits defined by the `sbits` member of the number. If the
     ! module variable RPE_ACTIVE is false this subroutine returns the
     ! unaltered input value, it only performs the bit truncation if
     ! RPE_ACTIVE is true.
@@ -384,8 +389,16 @@ CONTAINS
             y = REAL(x%get_value(), RPE_DOUBLE_KIND)
             ! The rounding bit is the last bit that will be truncated
             ! (counting from 0 at the right-most bit). Double precision values
-            ! have 52 bits in their mantissa.
-            rounding_bit = 52 - RPE_BITS - 1
+            ! have 52 bits in their significand.
+            IF (x%sbits == RPE_BITS_UNSPECIFIED) THEN
+                ! If the input does not have a specified precision then assume
+                ! the default precision. This is does not fix the precision of
+                ! the input variable, it will still use whatever is specified
+                ! as the default, even if that changes later.
+                rounding_bit = 52 - RPE_DEFAULT_BITS - 1
+            ELSE
+                rounding_bit = 52 - x%sbits - 1
+            END IF
             IF (rounding_bit .GE. 0) THEN
                 ! Copy the single-precision bit representation of the input
                 ! into an integer so it can be manipulated:
@@ -405,6 +418,42 @@ CONTAINS
             CALL x%set_value(y)
         END IF
     END SUBROUTINE reduce_precision
+
+    ELEMENTAL FUNCTION significand_bits (x) RESULT (z)
+    ! Retrieve the number of bits in a floating point significand.
+    !
+    ! This returns actual values for inputs of type `rpe_type` or `real`
+    ! and 0 for anything else. This function is usually used to find the
+    ! highest precision level involved in a floating-point calculation.
+    !
+    ! Arguments:
+    !
+    ! * x: class(*) [input]
+    !       A scalar input of any type.
+    !
+    ! Returns:
+    !
+    ! * z: integer [output]
+    !       The number of bits in the significand of the input floating-point
+    !       value, or 0 if the input was not a floating-point value.
+    !
+        CLASS(*), INTENT(IN) :: x
+        INTEGER :: z
+        SELECT TYPE (x)
+        CLASS IS (rpe_type)
+            IF (x%sbits == RPE_BITS_UNSPECIFIED) THEN
+                z = RPE_DEFAULT_BITS
+            ELSE
+                z = x%sbits
+            END IF
+        TYPE IS (REAL(KIND=RPE_DOUBLE_KIND))
+            z = 52
+        TYPE IS (REAL(KIND=RPE_SINGLE_KIND))
+            z = 23
+        CLASS DEFAULT
+            z = 0
+        END SELECT
+    END FUNCTION significand_bits
 
 !-----------------------------------------------------------------------
 ! Overloaded assignment definitions:

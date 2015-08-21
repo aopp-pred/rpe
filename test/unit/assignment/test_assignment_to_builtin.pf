@@ -1,0 +1,107 @@
+MODULE test_assignment_to_builtin
+! Tests for assigning built-on tpyed variables from `rpe_type` instances.
+!
+    USE pfunit_mod
+    USE suite_common, ONLY : utest64_t, utest64
+    USE rp_emulator
+    IMPLICIT NONE
+
+CONTAINS
+
+    @TEST
+    SUBROUTINE test_assign_real_rpe_var ()
+        REAL(KIND=RPE_REAL_KIND) :: assignee
+        TYPE(rpe_var)            :: value_holder
+
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee)
+
+    END SUBROUTINE test_assign_real_rpe_var
+
+    @TEST
+    SUBROUTINE test_assign_real_rpe_shadow ()
+        REAL(KIND=RPE_REAL_KIND) :: assignee
+        TYPE(rpe_shadow)         :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: target
+
+        CALL init_shadow (value_holder, target)
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(value_holder%get_value(), assignee)
+
+    END SUBROUTINE test_assign_real_rpe_shadow
+
+    @TEST
+    SUBROUTINE test_assign_alternate_rpe_var ()
+        REAL(KIND=RPE_ALTERNATE_KIND) :: assignee
+        TYPE(rpe_var)                 :: value_holder
+
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(REAL(value_holder%get_value(), RPE_ALTERNATE_KIND), assignee)
+
+    END SUBROUTINE test_assign_alternate_rpe_var
+
+    @TEST
+    SUBROUTINE test_assign_alternate_rpe_shadow ()
+        REAL(KIND=RPE_ALTERNATE_KIND) :: assignee
+        TYPE(rpe_shadow)              :: value_holder
+        REAL(KIND=RPE_REAL_KIND)      :: target
+
+        CALL init_shadow (value_holder, target)
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(REAL(value_holder%get_value(), RPE_ALTERNATE_KIND), assignee)
+
+    END SUBROUTINE test_assign_alternate_rpe_shadow
+
+    @TEST
+    SUBROUTINE test_assign_integer_rpe_var ()
+        INTEGER       :: assignee
+        TYPE(rpe_var) :: value_holder
+
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(INT(value_holder%get_value()), assignee)
+
+    END SUBROUTINE test_assign_integer_rpe_var
+
+    @TEST
+    SUBROUTINE test_assign_integer_rpe_shadow ()
+        INTEGER                  :: assignee
+        TYPE(rpe_shadow)         :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: target
+
+        CALL init_shadow (value_holder, target)
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(INT(value_holder%get_value()), assignee)
+
+    END SUBROUTINE test_assign_integer_rpe_shadow
+
+    @TEST
+    SUBROUTINE test_assign_long_rpe_var ()
+        INTEGER(KIND=8) :: assignee
+        TYPE(rpe_var)   :: value_holder
+
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(INT(value_holder%get_value(), 8), assignee)
+
+    END SUBROUTINE test_assign_long_rpe_var
+
+    @TEST
+    SUBROUTINE test_assign_long_rpe_shadow ()
+        INTEGER(KIND=8)          :: assignee
+        TYPE(rpe_shadow)         :: value_holder
+        REAL(KIND=RPE_REAL_KIND) :: target
+
+        CALL init_shadow (value_holder, target)
+        value_holder = utest64
+        assignee = value_holder
+        @ASSERTEQUAL(INT(value_holder%get_value(), 8), assignee)
+
+    END SUBROUTINE test_assign_long_rpe_shadow
+
+END MODULE test_assignment_to_builtin
