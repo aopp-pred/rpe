@@ -11,14 +11,11 @@ import os
 import sys
 
 from rpgen import generate_code, generate_interface
-import rpgen.intrinsics as rpint
+from rpgen.intrinsics import from_json as intrinsics_from_json
 import rpgen.types as rptypes
 
 
-FUNCTIONS = rpint.REGISTRY.items()
-
 DIMENSIONS = (1, 2, 3, 4, 5)
-
 ARGNUMS = (3, 4, 5, 6, 7, 8, 9, 10)
 
 HEADER = """    !-------------------------------------------------------------------
@@ -33,13 +30,13 @@ class Error(Exception):
 
 def generate_function_suite(fn):
     blocks = []
-    if fn.is_kind(rpint.FUNCTYPE_1ARG_SCALAR):
+    if '1argscalar' in fn.interface_types:
         blocks.append(generate_code('1arg_scalar',
                                     type1=rptypes.RPE_TYPE, function=fn))
-    if fn.is_kind(rpint.FUNCTYPE_1ARG_ELEMENTAL):
+    if '1argelemental' in fn.interface_types:
         blocks.append(generate_code('1arg_elemental',
                                     type1=rptypes.RPE_TYPE, function=fn))
-    if fn.is_kind(rpint.FUNCTYPE_2ARG_ELEMENTAL):
+    if '2argelemental' in fn.interface_types:
         blocks.append(generate_code('2arg_elemental',
                                     type1=rptypes.RPE_TYPE,
                                     type2=rptypes.RPE_TYPE, function=fn))
@@ -49,11 +46,11 @@ def generate_function_suite(fn):
         blocks.append(generate_code('2arg_elemental',
                                     type1=rptypes.REAL, type2=rptypes.RPE_TYPE,
                                     function=fn))
-    if fn.is_kind(rpint.FUNCTYPE_1ARRAYARG):
+    if '1arrayarg' in fn.interface_types:
         blocks += [generate_code('arrayarg', type1=rptypes.RPE_TYPE,
                                  function=fn, ndim=n)
                    for n in DIMENSIONS]
-    if fn.is_kind(rpint.FUNCTYPE_MULTIARG):
+    if 'multiarg' in fn.interface_types:
         blocks += [generate_code('multiarg', types=[rptypes.RPE_TYPE] * n,
                                  function=fn)
                    for n in ARGNUMS]
@@ -76,6 +73,8 @@ def main(argv=None):
                     help='file to write intrinsics definitions to')
     ap.add_argument('-f', '--force', action='store_true', default=False,
                     help='write output even if it overwrites an existing file')
+    ap.add_argument('defn',
+                    help='intrinsics function definition file in JSON format')
     argns = ap.parse_args(argv[1:])
     try:
         if not argns.force:
@@ -104,7 +103,7 @@ def main(argv=None):
             raise Error(e)
         # Generate code for each function:
         first = True
-        for fn in FUNCTIONS:
+        for fn in intrinsics_from_json(argns.defn):
             interface, code = generate_function_suite(fn)
             if not first:
                 fi.write('\n\n')

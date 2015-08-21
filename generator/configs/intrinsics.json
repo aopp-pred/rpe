@@ -1,0 +1,196 @@
+{"intrinsics":
+    [
+        {"epsilon":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argscalar"]
+            }
+        },
+        {"huge":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argscalar"]
+            }
+        },
+        {"tiny":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argscalar"]
+            }
+        },
+        {"kind":
+            {
+                "return_type": "integer",
+                "interface_types": ["1argscalar"]
+            }
+        },
+        {"abs":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"cos":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"sin":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"tan":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"acos":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"asin":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"atan":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental", "2argelemental"]
+            }
+        },
+        {"cosh":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"sinh":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"tanh":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"exp":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"log":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"log10":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"sqrt":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"spacing":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"floor":
+            {
+                "return_type": "integer",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"int":
+            {
+                "return_type": "integer",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"nint":
+            {
+                "return_type": "integer",
+                "interface_types": ["1argelemental"]
+            }
+        },
+        {"atan2":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["2argelemental"]
+            }
+        },
+        {"dim":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["2argelemental"]
+            }
+        },
+        {"mod":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["2argelemental"]
+            }
+        },
+        {"nearest":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["2argelemental"]
+            }
+        },
+        {"sign":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["2argelemental"]
+            }
+        },
+        {"min":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["2argelemental", "multiarg"]
+            }
+        },
+        {"max":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["2argelemental", "multiarg"]
+            }
+        },
+        {"minval":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1arrayarg"]
+            }
+        },
+        {"maxval":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1arrayarg"]
+            }
+        },
+        {"sum":
+            {
+                "return_type": "rpe_var",
+                "interface_types": ["1arrayarg"]
+            }
+        }
+    ]
+}

@@ -74,3 +74,10 @@ RPE_SHADOW = FortranType('shadow', 'TYPE(rpe_shadow)', accessor=r'%get_value',
 #: Fortran rpe_temporary contrete type.
 RPE_VAR = FortranType('var', 'TYPE(rpe_var)', accessor=r'%get_value',
                       rpe_instance=True)
+
+
+def get_fortran_type(type_name):
+    type_mapping = {'logical': LOGICAL, 'integer': INTEGER, 'long': LONG,
+                    'real': REAL, 'realalt': REALALT, 'rpe_type': RPE_TYPE,
+                    'rpe_var': RPE_VAR, 'rpe_shadow': RPE_SHADOW}
+    return type_mapping[type_name.lower()]
