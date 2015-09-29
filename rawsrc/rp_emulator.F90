@@ -45,6 +45,10 @@ MODULE rp_emulator
     !: The default number of bits to use in the reduced-precision significand.
     INTEGER, PUBLIC :: RPE_DEFAULT_SBITS = 23
 
+    !: Logical flag for determining if IEEE half-precision rules should
+    !: be used when operating on values with 10 bits in the significand.
+    LOGICAL, PUBLIC :: RPE_IEEE_HALF = .FALSE.
+
     !: An internal value used to represent the case where a reduced-precision
     !: number has no specified precision yet.
     INTEGER, PARAMETER, PRIVATE :: RPE_SBITS_UNSPECIFIED = -1
@@ -432,8 +436,8 @@ CONTAINS
     !     bits in the significand.
     !
         REAL(KIND=RPE_DOUBLE_KIND), INTENT(IN) :: x
-        INTEGER,                  INTENT(IN) :: n
-        REAL(KIND=RPE_DOUBLE_KIND)             :: t
+        INTEGER,                    INTENT(IN) :: n
+        REAL(KIND=RPE_DOUBLE_KIND) :: t
         INTEGER                    :: truncation_bit
         INTEGER(KIND=8), PARAMETER :: two = 2
         INTEGER(KIND=8), PARAMETER :: zero_bits = 0
@@ -456,10 +460,60 @@ CONTAINS
             ! number of bits.
             CALL MVBITS (zero_bits, 0, truncation_bit + 1, bits, 0)
             t = TRANSFER(bits, t)
+            ! Special case for IEEE half-precision representation.
+            IF (n == 10 .AND. RPE_IEEE_HALF) THEN
+                t = adjust_ieee_half(t)
+            END IF
         ELSE
             t = x
         END IF
     END FUNCTION truncate_significand
+
+    ELEMENTAL FUNCTION adjust_ieee_half (x) RESULT (y)
+    ! Adjust a floating-point number according to the IEEE half-precision
+    ! specification by ensuring that numbers outside the range of
+    ! half-precision are either overflowed or denormalized.
+    !
+    ! Arguments:
+    !
+    ! * x: real(kind=RPE_DOUBLE_KIND) [input]
+    !     The floating-point number to adjust.
+    !
+    ! Returns:
+    !
+    ! * y: real(kind=RPE_DOUBLE_KIND) [output]
+    !     The adjusted floating-point value.
+    !
+        REAL(KIND=RPE_DOUBLE_KIND), INTENT(IN)  :: x
+        REAL(KIND=RPE_DOUBLE_KIND)            :: y
+        REAL(KIND=RPE_DOUBLE_KIND), PARAMETER :: two = 2.0_RPE_DOUBLE_KIND
+        REAL(KIND=RPE_DOUBLE_KIND)            :: sx, d1, d2
+        IF (ABS(x) > two ** 15) THEN
+        ! Handle half-precision overflows.
+            sx = SIGN(1.0_RPE_DOUBLE_KIND, x)
+            d1 = HUGE(d1) * sx
+            d2 = HUGE(d2) * sx
+            ! This will deliberately cause a floating-point overflow exception
+            ! and yield an infinity value with the same sign as the input if
+            ! the exception is not handled.
+            y = d1 + d2
+        ELSE IF (ABS(x) < two ** (-14)) THEN
+        ! Handle half-precision subnormal values.
+            d1 = two ** (-24)    ! step size for subnormal values
+            d2 = MOD(ABS(x), d1)
+            ! The new value is the old value rounded to the nearest subnormal
+            ! step interval in the direction of zero.
+            y = (ABS(x) - d2) * SIGN(1.0_RPE_DOUBLE_KIND, x)
+            ! If the rounding should have gone away from zero then correct for
+            ! it afterwards.
+            IF (ABS(d2) > two ** (-25)) THEN
+                y = y + d1 * SIGN(1.0_RPE_DOUBLE_KIND, y)
+            END IF
+        ELSE
+        ! If the value is in range then just return it.
+            y = x
+        END IF
+    END FUNCTION adjust_ieee_half
 
     ELEMENTAL FUNCTION significand_bits (x) RESULT (z)
     ! Retrieve the number of bits in a floating point significand.
