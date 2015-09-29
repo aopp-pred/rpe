@@ -74,6 +74,19 @@ Variables
    This takes effect internally when determining precision levels, but does not bind an :f:type:`rpe_type` instance to a particular precision level (doesn't set :f:var:`rpe_type%sbits`).
 
 
+.. f:variable:: RPE_IEEE_HALF
+   :type: LOGICAL
+   :attrs: default=.FALSE.
+
+   Logical value determining if IEEE half-precision emulation is turned on.
+   If set to ``.TRUE.`` and a 10-bit significand is being emulated the emulator will additionally impose range constraints when applying truncation:
+
+   * Values that overflow IEEE half-precision will lead to real overflows with a corresponding floating-point overflow exception.
+   * Values out of the lower range of IEEE half-precision will be denormalised.
+
+   This option only affects the emulation when emulating a 10-bit significand.
+
+
 Parameters
 ==========
 
