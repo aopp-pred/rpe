@@ -70,4 +70,40 @@ MODULE suite_common
         REAL(z'404cccce', RPE_ALTERNATE_KIND)  & ! 22
     /)
 
+CONTAINS
+
+    FUNCTION min_significand_bits (x) RESULT (n)
+    ! Return the minimum number of bits required to represent the
+    ! significand of the input.
+    !
+    ! This is a helper function used to determine if a number is properly
+    ! truncated. For example, to test if a number is truncated to 10 bits
+    ! you would test:
+    !
+    !     repr_significand_bits(number) <= 10
+    !
+    ! Note that you need to test less-than-or-equal-to, not just equal-to.
+    !
+    ! Argument:
+    !
+    ! * x: real(kind=RPE_REAL_KIND)
+    !
+    ! Returns:
+    !
+    ! * n: integer
+    !     The number of bits required to represent the significand.
+    !
+        REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: x
+        INTEGER         :: n
+        INTEGER(KIND=8) :: bits
+        INTEGER         :: bit
+        bits = TRANSFER(x, bits)
+        n = 0
+        DO bit = 51, 0, -1
+            IF (BTEST(bits, bit)) THEN
+                n = 52 - bit
+            END IF
+        END DO
+    END FUNCTION min_significand_bits
+
 END MODULE suite_common

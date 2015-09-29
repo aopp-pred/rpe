@@ -1,0 +1,99 @@
+MODULE test_apply_truncation
+! Tests for the apply_truncation subroutine
+!
+    USE pfunit_mod
+    USE suite_common, ONLY : utest64, min_significand_bits
+    USE rp_emulator
+    IMPLICIT NONE
+
+    @TESTCASE
+    TYPE, EXTENDS(TestCase) :: EmulatorTest
+        LOGICAL :: rpe_active
+        INTEGER :: rpe_default_sbits
+        LOGICAL :: rpe_ieee_half
+    CONTAINS
+        procedure :: setUp
+        procedure :: tearDown
+    END TYPE EmulatorTest
+
+CONTAINS
+
+    SUBROUTINE setUp (this)
+        CLASS(EmulatorTest), INTENT(INOUT) :: this
+        this%rpe_active = RPE_ACTIVE
+        this%rpe_default_sbits = RPE_DEFAULT_SBITS
+        this%rpe_ieee_half = RPE_IEEE_HALF
+    END SUBROUTINE setUp
+
+    SUBROUTINE tearDown (this)
+        CLASS(EmulatorTest), INTENT(INOUT) :: this
+        RPE_ACTIVE = this%rpe_active
+        RPE_DEFAULT_SBITS = this%rpe_default_sbits
+        RPE_IEEE_HALF = this%rpe_ieee_half
+    END SUBROUTINE tearDown
+
+    @TEST
+    SUBROUTINE test_apply_truncation_ieee_half_null (context)
+    ! Test that nothing different happens to values that are in-range
+    ! for IEEE half-precision.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced1, reduced2
+        REAL(KIND=RPE_REAL_KIND) :: reference
+
+        RPE_DEFAULT_SBITS = 10
+
+        RPE_IEEE_HALF = .TRUE.
+        reduced1 = utest64
+
+        RPE_IEEE_HALF = .FALSE.
+        reduced2 = utest64
+
+        @ASSERTEQUAL(reduced1%get_value(), reduced2%get_value())
+    END SUBROUTINE test_apply_truncation_ieee_half_null
+
+    @TEST
+    SUBROUTINE test_apply_truncation_ieee_half_overflow (context)
+    ! Test that values overflowing IEEE half-precision produce infinity.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+
+        RPE_DEFAULT_SBITS = 10
+        RPE_IEEE_HALF = .TRUE.
+
+        reduced = 32800
+        @ASSERTTRUE(reduced > HUGE(1.0_RPE_REAL_KIND))
+
+        reduced = -32800
+        @ASSERTTRUE(reduced < -HUGE(1.0_RPE_REAL_KIND))
+    END SUBROUTINE test_apply_truncation_ieee_half_overflow
+
+    @TEST
+    SUBROUTINE test_apply_truncation_ieee_half_subnormal (context)
+    ! Test that subnormal IEEE half-precision values are rounded.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+
+        REAL(KIND=RPE_REAL_KIND) :: limit, delta
+
+        RPE_DEFAULT_SBITS = 10
+        RPE_IEEE_HALF = .TRUE.
+
+        limit = 2.0_RPE_REAL_KIND ** (-14)
+        delta = 2.0_RPE_REAL_KIND ** (-24)
+
+        ! Check that positive values are rounded correctly and ensure the
+        ! result of the rounding has no more than 10 bits in the significand.
+        reduced = limit - delta - (2.0_RPE_REAL_KIND ** (-25))
+        @ASSERTEQUAL(limit - 2 * delta, reduced%get_value())
+        @ASSERTLESSTHANOREQUAL(min_significand_bits(reduced%get_value()), 10)
+
+        ! Repeat for negative values.
+        reduced = -limit + delta + (2.0_RPE_REAL_KIND ** (-25))
+        @ASSERTEQUAL(-limit + 2 * delta, reduced%get_value())
+        @ASSERTLESSTHANOREQUAL(min_significand_bits(reduced%get_value()), 10)
+    END SUBROUTINE test_apply_truncation_ieee_half_subnormal
+
+END MODULE test_apply_truncation
