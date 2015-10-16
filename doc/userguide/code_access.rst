@@ -12,7 +12,7 @@ Get a local copy of the code
 The source code of the emulator is sotred in a git repository, you therefore need to have git installed to access the code.
 Currently the repository is located on the ECMWF Stash server, to clone it use::
 
-    git clone https://software.ecmwf.int/stash/scm/~uka7/rpe.git
+    git clone git@gitlab.physics.ox.ac.uk:aopp-pred/rpe.git
 
 This will ask you for your Stash username and password.
 You will now have a copy of the code in the new ``rpe`` directory.
