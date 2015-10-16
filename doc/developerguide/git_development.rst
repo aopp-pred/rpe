@@ -12,10 +12,9 @@ Setting up a development fork
 Create your own forked copy of the emulator
 -------------------------------------------
 
-#. Log in to your Stash account.
+#. Log in to your `Gitlab`_ account.
 #. Go to the `rpe`_ repository page.
-#. Click the 3 dots icon on the top left of the page, and in the menu that pops up click *Fork*.
-#. On the next page, uncheck the *Enable fork syncing* box but otherwise accept the default options.
+#. Click the fork button at the centre of the page, and on the next page click your Gitlab user name.
 
 
 Clone your fork
@@ -23,7 +22,7 @@ Clone your fork
 
 #. Clone your fork to the local computer with::
 
-    git clone https://your-user-name@software.ecmwf.int/stash/scm/~your-user-name/rpe.git
+    git clone git@gitlab.physics.ox.ac.uk:your-user-name/rpe.git
 
 #. Investigate. Change directory to your new repo: ``cd rpe``. Then ``git branch -a`` to show you all branches. You’ll get something like::
 
@@ -33,7 +32,7 @@ Clone your fork
    This tells you that you are currently on the ``master`` branch, and that you also have a ``remote`` connection to ``origin/master``.
    What remote repository is ``remote/origin``?
    Try ``git remote -v`` to see the URLs for the remote.
-   They will point to your Stash fork.
+   They will point to your Gitlab fork.
 
    Now you want to connect to the upstream `rpe`_ repository, so you can merge in changes from trunk.
 
@@ -46,7 +45,7 @@ Linking your repository to the upstream repository
 ::
 
     cd rpe
-    git remote add upstream https://your-user-name@software.ecmwf.int/stash/scm/~uka7/rpe.git
+    git remote add upstream git@gitlab.physics.ox.ac.uk:aopp-pred/rpe.git
 
 ``upstream`` here is just the arbitrary name we're using to refer to the main `rpe`_ repository.
 
@@ -54,10 +53,10 @@ The upstream repository is read-only access, which means you can't accidentally 
 
 You can list your remote repositories with ``git remote -v``, which gives you something like this::
 
-    upstream	https://your-user-name@software.ecmwf.int/stash/scm/~uka7/rpe.git (fetch)
-    upstream	https://your-user-name@software.ecmwf.int/stash/scm/~uka7/rpe.git (push)
-    origin	    https://your-user-name@software.ecmwf.int/stash/scm/~your-user-name/rpe.git (fetch)
-    origin	    https://your-user-name@software.ecmwf.int/stash/scm/~your-user-name/rpe.git (push)
+    upstream    git@gitlab.physics.ox.ac.uk:aopp-pred/rpe.git (fetch)
+    upstream    git@gitlab.physics.ox.ac.uk:aopp-pred/rpe.git (push)
+    origin      git@gitlab.physics.ox.ac.uk:your-user-name/rpe.git (fetch)
+    origin      git@gitlab.physics.ox.ac.uk:your-user-name/rpe.git (push)
 
 
 Tell git who you are
@@ -69,6 +68,8 @@ It is good practice to tell git who you are, for labeling any changes you make t
     git config --global user.email you@yourdomain.example.com
 
 This will write the settings into your git configuration file.
+Make sure that the email address you use is one that Gitlab knows about.
+You can either use the default address (your @physics.ox.ac.uk address) or add other email addresses you want to use via the Gitlab settings page.
 
 
 Development workflow
@@ -122,9 +123,9 @@ For example ``add-ability-to-fly``, or ``buxfix-for-issue-42``.
     git checkout -b my-new-feature upstream/master
 
 Generally, you will want to keep your feature branches on your fork of `rpe`_.
-To do this, you `git push`_ this new branch up to your Stash repository.
-Generally (if you followed the instructions in these pages, and by default), git will have a link to your Stash repository, called ``origin``.
-You push up to your own repo on Stash with::
+To do this, you `git push`_ this new branch up to your Gitlab repository.
+Generally (if you followed the instructions in these pages, and by default), git will have a link to your Gitlab repository, called ``origin``.
+You push up to your own repo on Gitlab with::
 
     git push origin my-new-feature
 
@@ -132,7 +133,7 @@ In git >= 1.7 you can ensure that the link is correctly set by using the ``--set
 
    git push --set-upstream origin my-new-feature
 
-From now on git will know that ``my-new-feature`` is related to the ``my-new-feature`` branch in the Stash repository.
+From now on git will know that ``my-new-feature`` is related to the ``my-new-feature`` branch in the Gitlab repository.
 
 
 Making changes
@@ -164,7 +165,7 @@ Making changes
    You may prefer to manually add the files you wish to commit and then just use plain ``git commit``.
    The latter method is useful if you want to make a commit out of only some of the modified files (this is quite normal).
 
-#. To push the changes up to your forked repository on Stash, do a ``git push`` (see `git push`_).
+#. To push the changes up to your forked repository on Gitlab, do a ``git push`` (see `git push`_).
 
 
 Ask for your changes to be reviewed or merged
@@ -172,13 +173,13 @@ Ask for your changes to be reviewed or merged
 
 When you are ready to ask for someone to review your code and consider a merge:
 
-#. Go to the URL of your forked repo, say ``https://your-user-name@software.ecmwf.int/stash/scm/~your-user-name/rpe.git``.
+#. Go to the URL of your forked repo, say ``https://gitlab.physics.ox.ac.uk/your-user-name/rpe.git``.
 
-#. Click the 3 dots button on the top left and select *Create Pull Request*.
+#. Click the plus sign button on the row of action buttons under the repository name on the main page, then click *New merge request* in the menu that pops up.
 
-#. Use the drop-down boxes to select the branch you wish to be reviewed in the top right box, and the branch that this feature should be merged into (usually master) in the bottom right box.
+#. Use the drop-down boxes to select the branch you wish to be reviewed under the *Source branch* section, and the branch that this feature should be merged into (usually master) under the *Target branch* section.
 
-#. Click *Continue*.
+#. Click *Compare branches*.
 
 #. Enter a title for the set of changes, and some explanation of what you've done.
    Say if there is anything you'd like particular attention for - like a complicated change or some code you are not happy with or are unsure about.
@@ -188,6 +189,8 @@ When you are ready to ask for someone to review your code and consider a merge:
 
    You can also select reviewers for your change.
    Doing so will send them a notification that you have submitted a pull request, so it is a good idea to name at least 1 reviewer in order to get your request reviewed in a timely manner.
+
+#. When you are happy that you have entered all the required information you can click the *Submit new merge request* button.
 
 .. note::
 
@@ -199,15 +202,15 @@ Some other things you might want to do
 ======================================
 
 
-Delete a branch on Stash
-------------------------
+Delete a branch on Gitlab
+-------------------------
 
 ::
 
    git checkout master
    # delete branch locally
    git branch -D my-unwanted-branch
-   # delete branch on Stash
+   # delete branch on Gitlab
    git push origin :my-unwanted-branch
 
 Note the colon ``:`` before ``my-unwanted-branch``.
@@ -400,4 +403,5 @@ If it went wrong, recovery is again possible as explained :ref:`above <recoverin
 
 .. include:: git_links.inc
 
-.. _`rpe`: https://software.ecmwf.int/stash/users/uka7/repos/rpe
+.. _`rpe`: https://gitlab.physics.ox.ac.uk/aopp-pred/rpe
+.. _`Gitlab`: https://gitlab.physics.ox.ac.uk
