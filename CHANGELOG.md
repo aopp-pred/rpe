@@ -1,5 +1,44 @@
 # Change-log
 
+## v3.1.x
+
+
+### Release v3.1.0 (16 October 2015)
+
+#### Features
+
+* Support for IEEE half-precision emulation via the `RPE_IEEE_HALF` module variable.
+
+
+
+## v3.0.x
+
+
+### Release v3.0.0 (21 August 2015)
+
+#### Features
+
+* Support for different precision levels in different variables:
+  - You can set the `%sbits` attribute of any `rpe_type` instance to define
+    the number of significand bits used by that variable.
+
+* A set of unit tests is included to help us ensure the emulator core is robust.
+
+* HTML documentation is included with the source (requires Sphinx to build).
+
+#### Incompatibilities
+
+This version is incompatible with the v2.0.x series.
+
+* The public API is now smaller, including only the required parts of the library.
+
+* Module variables renamed: `RPE_BITS` -> `RPE_DEFAULT_SBITS`
+
+* Reduction of precision subroutine renamed: `reduce_precision` -> `apply_truncation`
+
+* Internal differences to support mixed precision may cause different
+  results to previous versions.
+
 
 
 ## v2.0.x
