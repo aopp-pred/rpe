@@ -1,6 +1,7 @@
 # Reduced Precision Emulator
 
 An emulator for reduced-precision floating-point calculations in Fortran.
+Licensed under the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0.html).
 
 
 ## Building the library
