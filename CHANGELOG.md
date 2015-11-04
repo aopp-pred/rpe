@@ -4,6 +4,9 @@
 
 ## v2.0.x
 
+### Release v2.0.1 (4 November 2015)
+
+* Licensed under Apache 2.0 license.
 
 ### Release v2.0.0 (29 July 2015)
 
@@ -30,6 +33,9 @@
 
 ## v1.0.x
 
+### Release v1.0.1 (4 November 2015)
+
+* Licensed under Apache 2.0 license.
 
 ### Release v1.0.0 (28 July 2015)
 
