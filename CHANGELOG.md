@@ -3,6 +3,11 @@
 ## v3.1.x
 
 
+### Release v3.1.1 (3 November 2015)
+
+* Licensed under Apache 2.0 license.
+
+
 ### Release v3.1.0 (16 October 2015)
 
 #### Features
@@ -12,6 +17,11 @@
 
 
 ## v3.0.x
+
+
+### Release v3.0.1 (4 November 2015)
+
+* Licensed under Apache 2.0 license.
 
 
 ### Release v3.0.0 (21 August 2015)
@@ -44,6 +54,11 @@ This version is incompatible with the v2.0.x series.
 ## v2.0.x
 
 
+### Release v2.0.1 (4 November 2015)
+
+* Licensed under Apache 2.0 license.
+
+
 ### Release v2.0.0 (29 July 2015)
 
 #### Features
@@ -68,6 +83,11 @@ This version is incompatible with the v2.0.x series.
 
 
 ## v1.0.x
+
+
+### Release v1.0.1 (4 November 2015)
+
+* Licensed under Apache 2.0 license.
 
 
 ### Release v1.0.0 (28 July 2015)
