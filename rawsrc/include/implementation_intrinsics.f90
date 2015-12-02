@@ -118,30 +118,6 @@
         x = ATAN(a%get_value())
     END FUNCTION atan_rpe
 
-    ELEMENTAL FUNCTION atan_rpe_rpe (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
-        TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = ATAN(a%get_value(), b%get_value())
-    END FUNCTION atan_rpe_rpe
-
-    ELEMENTAL FUNCTION atan_rpe_real (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
-        TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = ATAN(a%get_value(), b)
-    END FUNCTION atan_rpe_real
-
-    ELEMENTAL FUNCTION atan_real_rpe (a, b) RESULT (x)
-        REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
-        TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = ATAN(a, b%get_value())
-    END FUNCTION atan_real_rpe
-
     !-------------------------------------------------------------------
     ! Overloaded definitions for 'cosh':
     !
@@ -512,22 +488,6 @@
         x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value())
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
-        CLASS(rpe_type), INTENT(IN) :: a6
-        CLASS(rpe_type), INTENT(IN) :: a7
-        CLASS(rpe_type), INTENT(IN) :: a8
-        CLASS(rpe_type), INTENT(IN) :: a9
-        TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6), significand_bits(a7), significand_bits(a8), significand_bits(a9))
-        x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value(), a9%get_value())
-    END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
-
     !-------------------------------------------------------------------
     ! Overloaded definitions for 'max':
     !
@@ -639,22 +599,6 @@
         x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6), significand_bits(a7), significand_bits(a8))
         x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value())
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
-
-    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
-        CLASS(rpe_type), INTENT(IN) :: a6
-        CLASS(rpe_type), INTENT(IN) :: a7
-        CLASS(rpe_type), INTENT(IN) :: a8
-        CLASS(rpe_type), INTENT(IN) :: a9
-        TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6), significand_bits(a7), significand_bits(a8), significand_bits(a9))
-        x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value(), a9%get_value())
-    END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     !-------------------------------------------------------------------
     ! Overloaded definitions for 'minval':

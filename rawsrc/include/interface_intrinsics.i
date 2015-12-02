@@ -51,9 +51,6 @@
     PUBLIC :: atan
     INTERFACE atan
         MODULE PROCEDURE atan_rpe
-        MODULE PROCEDURE atan_rpe_rpe
-        MODULE PROCEDURE atan_rpe_real
-        MODULE PROCEDURE atan_real_rpe
     END INTERFACE atan
 
     PUBLIC :: cosh
@@ -158,7 +155,6 @@
         MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
         MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
         MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
-        MODULE PROCEDURE min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
     END INTERFACE min
 
     PUBLIC :: max
@@ -173,7 +169,6 @@
         MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
         MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
         MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
-        MODULE PROCEDURE max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
     END INTERFACE max
 
     PUBLIC :: minval

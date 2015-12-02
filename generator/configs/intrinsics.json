@@ -63,7 +63,7 @@
         {"atan":
             {
                 "return_type": "rpe_var",
-                "interface_types": ["1argelemental", "2argelemental"]
+                "interface_types": ["1argelemental"]
             }
         },
         {"cosh":
