@@ -17,7 +17,7 @@ In this example we'll add the `GAMMA`_ gfortran intrinsic to the emulator, allow
 Overview of existing definitions
 --------------------------------
 
-We'll need to add a new entry to the ``intrinsics.json`` file in ``generator/configs`` to define this new function, but first let's take a look at some of the existing function definitions:
+We'll need to add a new entry to the ``intrinsics.json`` file in ``generator/configs/`` to define this new function, but first let's take a look at some of the existing function definitions:
 
 .. code-block:: json
 
@@ -128,7 +128,7 @@ Adding a new operator
 The process of adding a new operator proceeds much like :ref:`pygen-adding-intrinsic`, except with a different configuration file and different JSON attributes.
 In this example we'll pretend that we don't already have a ``**`` operator and implement one.
 
-The JSON configuration for operators is the ``operators.json`` file in ``generator/configs``.
+The JSON configuration for operators is the ``operators.json`` file in ``generator/configs/``.
 An operator definition looks like this:
 
 .. code-block:: json

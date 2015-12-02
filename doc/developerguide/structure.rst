@@ -10,14 +10,14 @@ However, the code repository contains several distinct components which are used
 The core library
 ================
 
-The core of the emulator is written in Fortran, and is found in the file ``rawsrc/rp_emulator.F90``.
+The core of the emulator is written in Fortran, and is found in the file ``src/rp_emulator.F90``.
 The emulator library provides two core derived types used to represent reduced precision floating point numbers.
 These types have accompanying overloaded operator definitions, allowing them to be used in the same way as the builtin real number type.
 For maximum ease of use, many of the builtin Fortran intrinsic functions are also overloaded to accept these reduced precision types.
 
-The ``rawsrc/rp_emulator.F90`` file contains the module definition, the definition of the derived types, and the core functions and subroutines that control the emulator's functionality.
+The ``src/rp_emulator.F90`` file contains the module definition, the definition of the derived types, and the core functions and subroutines that control the emulator's functionality.
 However, it does not contain most of the overloaded operator and intrinsic function definitions.
-Instead there are a handful of C preprocessor directives in the file that pull in these definitions from external files in ``rawsrc/include``.
+Instead there are a handful of C preprocessor directives in the file that pull in these definitions from external files in ``src/include/``.
 The way in which these external file are generated is described below.
 
 
@@ -39,7 +39,7 @@ Due to its relative complexity, the :doc:`code_generator/index` is documented se
 Extra definitions
 =================
 
-As well as code that is produced by the code generator, there are two more files in ``rawsrc/include`` that can be edited manually: ``interface_extras.i`` and ``implementation_extras.f90``.
+As well as code that is produced by the code generator, there are two more files in ``src/include/`` that can be edited manually: ``interface_extras.i`` and ``implementation_extras.f90``.
 You can add arbitrary functions/subroutines to the ``implementation_extras.i`` file, with any required interface definitions in ``interface_extras.i``, and they will be included in the main library source file automatically.
 Just make sure you make your interface public, as the default is private.
 
