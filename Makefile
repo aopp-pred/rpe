@@ -20,12 +20,12 @@
 # limitations under the License.
 
 # Source file and headers used to generate the library code:
-gensrc = rawsrc/rp_emulator.F90
-genincdir = rawsrc/include
+src = src/rp_emulator.F90
+genincdir = src/include
 geninc = $(wildcard $(genincdir)/*.i $(genincdir)/*.f90)
 
 # The processed source file:
-source = src/rp_emulator.f90
+unified_source = src/rp_emulator.f90
 
 # The module and library resulting from compiling the processed source:
 object = src/rp_emulator.o
@@ -48,26 +48,23 @@ endif
 
 # Convenience targets for the source code and compiled library:
 .PHONY: all source library
-all: source library
-source: $(source)
-library: $(lib) source
-
-# Generate the full source listing using the C preprocessor:
-$(source): $(gensrc) $(geninc)
-	cpp -I$(genincdir) $(gensrc) | sed '/^#/d' > $(source)
+all: library
+source: $(unified_source)
+library: $(lib)
 
 # Compile the emulator source to generate a module and an object file:
-$(object): $(source)
-	$(F90) -c $(FFLAGS) $(source) -o $(object)
-$(module): $(source) $(object)
+$(object): $(src) $(geninc)
+	$(F90) -c -I$(genincdir) $(FFLAGS) $(src) -o $(object)
+$(module): $(src) $(object)
 
 # Create a library archive from the compiled code:
 $(lib): $(object)
 	ar curv $(lib) $(object)
 
+# Generate the full source listing using the C preprocessor:
+$(unified_source): $(src) $(geninc)
+	cpp -I$(genincdir) $(src) | sed '/^#/d' > $(unified_source)
+
 # Cleanup tasks:
 clean:
-	rm -f $(lib) $(module) $(object)
-
-fullclean: clean
-	rm -f $(source)
+	$(RM) $(lib) $(module) $(object) $(unified_source)
