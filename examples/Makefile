@@ -18,9 +18,25 @@ MODULEDIR=../modules
 LIBDIR=../lib
 LIBS=-lrpe
 
-.PHONY: all test_basic
+# Set the variable F90 if it is not set in the environment.
+ifneq ($(origin F90), environment)
+F90 = gfortran
+endif
+
+# Set the required compiler flags for each supported compiler.
+ifeq ($(F90), gfortran)
+FFLAGS += -Jbasic
+endif
+ifeq ($(F90), ifort)
+FFLAGS += -module basic
+endif
+
+.PHONY: all test_basic clean
 
 all: test_basic
 
-test_basic: test_basic/test.f90 $(LIBDIR)/librpe.a
-	gfortran -o test_basic/test.exe -I$(MODULEDIR) test_basic/test.f90 -L$(LIBDIR) $(LIBS)
+test_basic: basic/test.f90 $(LIBDIR)/librpe.a
+	$(F90) -o basic/test.exe -I$(MODULEDIR) $(FFLAGS) basic/test.f90 -L$(LIBDIR) $(LIBS)
+
+clean:
+	$(RM) basic/*.o basic/*.mod basic/*.exe

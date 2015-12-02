@@ -50,21 +50,21 @@ PROGRAM test_rpe
 
     ! Set the default precision to 23 bits, if otherwise not set an rpe_type
     ! instance will have this many bits of precision in the significand.
-    RPE_DEFAULT_BITS = 23
+    RPE_DEFAULT_SBITS = 23
     
     ! Initialize some variables and write their valus to stdout:
-    initial_value = 1.2345678d0
+    initial_value = 1.2345678_RPE_REAL_KIND
     normal = initial_value
     normal_target = initial_value
     reduced_c = initial_value
     CALL init_shadow (reduced_p, normal_target)
-    CALL reduce_precision (reduced_p) ! reduces precision of reduced_p and 
+    CALL apply_truncation (reduced_p) ! reduces precision of reduced_p and
                                       ! normal_target which it points to
-    WRITE (*, '("Default number of bits (", I0, ")")') RPE_DEFAULT_BITS
+    WRITE (*, '("Default number of bits (", I0, ")")') RPE_DEFAULT_SBITS
     WRITE (*, '("-------------------------------------------------")')
     WRITE (*, '("Stored values:")')
     CALL write_summary (normal, reduced_c%get_value(), reduced_p%get_value(), &
-                        normal_target, RPE_DEFAULT_BITS)
+                        normal_target, RPE_DEFAULT_SBITS)
     
     ! Square with default number of bits:
     squared_normal = normal * normal
@@ -73,7 +73,7 @@ PROGRAM test_rpe
     squared_normal_target = normal_target * normal_target
     WRITE (*, '("Computed squares:")')
     CALL write_summary(squared_normal, squared_reduced_c, squared_reduced_p, &
-                       squared_normal_target, RPE_DEFAULT_BITS)
+                       squared_normal_target, RPE_DEFAULT_SBITS)
     
     ! Perform the same calculations using different numbers of bits in the
     ! floating-point significand.
@@ -85,8 +85,8 @@ PROGRAM test_rpe
         reduced_p%sbits = nbits
         reduced_c = initial_value
         reduced_p = initial_value
-        CALL reduce_precision (reduced_c)
-        CALL reduce_precision (reduced_p)
+        CALL apply_truncation (reduced_c)
+        CALL apply_truncation (reduced_p)
         WRITE (*, '(I0, " bits")') nbits
         WRITE (*, '("-------------------------------------------------")')
         WRITE (*, '("Stored values:")')
