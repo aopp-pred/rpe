@@ -28,7 +28,7 @@ import rpgen.types as rptypes
 
 
 DIMENSIONS = (1, 2, 3, 4, 5)
-ARGNUMS = (3, 4, 5, 6, 7, 8, 9, 10)
+ARGNUMS = (3, 4, 5, 6, 7, 8, 9)
 
 HEADER = """    !-------------------------------------------------------------------
     ! Overloaded definitions for '{}':

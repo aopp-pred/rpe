@@ -33,6 +33,19 @@ moduledir = modules
 module = $(moduledir)/rp_emulator.mod
 lib = lib/librpe.a
 
+# Set the variable F90 if it is not set in the environment.
+ifneq ($(origin F90), environment)
+F90 = gfortran
+endif
+
+# Set the required compiler flags for each supported compiler.
+ifeq ($(F90), gfortran)
+FFLAGS += -ffree-line-length-none -J$(moduledir)
+endif
+ifeq ($(F90), ifort)
+FFLAGS += -module $(moduledir)
+endif
+
 # Convenience targets for the source code and compiled library:
 .PHONY: all source library
 all: source library
@@ -45,7 +58,7 @@ $(source): $(gensrc) $(geninc)
 
 # Compile the emulator source to generate a module and an object file:
 $(object): $(source)
-	gfortran -c -ffree-line-length-none -J$(moduledir) $(source) -o $(object)
+	$(F90) -c $(FFLAGS) $(source) -o $(object)
 $(module): $(source) $(object)
 
 # Create a library archive from the compiled code:
