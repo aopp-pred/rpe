@@ -11,14 +11,14 @@ Building the emulator requires:
 * GCC (gfortran) >= 4.8 or Intel Fortran (ifort) >= 15.0.2
 * GNU Make
 
-The emulator has been tested with GCC 4.8.4 and GCC 4.9.2 and Intel Fortran 15.0.2 and is known to work correctly ith these compilers.
+The emulator has been tested with GCC 4.8.4 and GCC 4.9.2 and Intel Fortran 15.0.2 and is known to work correctly with these compilers.
 No testing of other compilers has been done by us, it might work with other compilers, it might not.
 
 
 Building
 ========
 
-The library is built using GNU Make and a fortran compiler. The default action
+The library is built using GNU Make and a Fortran compiler. The default action
 when invoking `make` is to build the static library `lib/librpe.a` and the
 Fortran module `modules/rp_emulator.mod`.
 
@@ -64,18 +64,27 @@ Integration
 Assuming you did a full build, integration with your project is fairly straightforward, requiring two files to be present, one at compile time and one at link time.
 
 You must make sure that the module file ``rp_emulator.mod`` is available to the compiler when compiling any source file that uses the module.
-You can do this by pecifying an include flag at compile time: ``-I/path/to/rp_emulator.mod``.
-Alternatively you could place the module file in the same directory as your source files, but it is recommended to store it separately and use an include flag.
+You can do this by specifying an include flag at compile time.
+Alternatively you could place the module file in the same directory as your source files, but normally you would store it separately and use an include flag.
 
 At link time the ``librpe.a`` library will also need to be available to the linker.
-You can use a combination of linker path and library options to make sure this is the case: ``-L/path/to/librpe.a -lrpe``.
+You can use a combination of linker path and library options to make sure this is the case.
 Alternatively, you can directly specify the full path to ``librpe.a`` as an object to include in linking.
+
+For example, let's say we have placed the module file at ``$HOME/rpe/modules/rp_emulator.mod`` and the library at ``$HOME/rpe/lib/librpe.a``, our compilation command must tell the compiler to look in the right place for the module file:
+
+    gfortran -c -I$HOME/rpe/modules myprogram.f90
+
+and our linker command must tell the linker which libraries to link and where to look for them:
+
+    gfortran -o myprogram.exe myprogram.o -L$HOME/rpe/lib -lrpe
+
 
 Unified source builds
 ---------------------
 
 If you wish, you can just build the unified source code of the emulator directly in your project.
 However, you need to use the correct options when compiling the emulator.
-The emulator source code may contain some lines longer than the default line-length limit for some compilers (these lines are prodcued by the code generator).
+The emulator source code may contain some lines longer than the default line-length limit for some compilers (these lines are produced by the code generator).
 To make sure the library compiles properly you might need to tell the compiler to ignore line-length restrictions.
 For example, when using `gfortran` the compiler option ``-ffree-line-length-none`` is needed.
