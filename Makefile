@@ -31,7 +31,8 @@ unified_source = src/rp_emulator.f90
 object = src/rp_emulator.o
 moduledir = modules
 module = $(moduledir)/rp_emulator.mod
-lib = lib/librpe.a
+libstatic = lib/librpe.a
+libshared = lib/librpe.so
 
 # Set the variable F90 if it is not set in the environment.
 ifneq ($(origin F90), environment)
@@ -47,19 +48,23 @@ FFLAGS += -module $(moduledir)
 endif
 
 # Convenience targets for the source code and compiled library:
-.PHONY: all source library
+.PHONY: all source library shared
 all: library
 source: $(unified_source)
-library: $(lib)
+library: $(libstatic)
+shared: $(libshared)
 
 # Compile the emulator source to generate a module and an object file:
 $(object): $(src) $(geninc)
-	$(F90) -c -I$(genincdir) $(FFLAGS) $(src) -o $(object)
+	$(F90) -c -I$(genincdir) $(FFLAGS) -fPIC $(src) -o $(object)
 $(module): $(src) $(object)
 
 # Create a library archive from the compiled code:
-$(lib): $(object)
-	ar curv $(lib) $(object)
+$(libstatic): $(object)
+	ar curv $(libstatic) $(object)
+
+$(libshared): $(object)
+	$(F90) -shared -o $(libshared) $(object)
 
 # Generate the full source listing using the C preprocessor:
 $(unified_source): $(src) $(geninc)
@@ -67,4 +72,4 @@ $(unified_source): $(src) $(geninc)
 
 # Cleanup tasks:
 clean:
-	$(RM) $(lib) $(module) $(object) $(unified_source)
+	$(RM) $(libstatic) $(libshared) $(module) $(object) $(unified_source)

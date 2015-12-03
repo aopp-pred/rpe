@@ -29,6 +29,11 @@ will use `gfortran`. The default build is a simple invocation of `make`:
 
     make
 
+It is also possible to build a shared library `lib/librpe.so` using the
+`shared` target of the Makefile:
+
+   make shared
+
 You can optionally specify a compiler on the command line:
 
     F90=ifort make
@@ -49,12 +54,12 @@ of the Makefile:
 
     make source
 
-This will generate the file `src/rp_emulator.f90` (note the lower case
+This will generate the file ``src/rp_emulator.f90`` (note the lower case
 extension) which can be integrated into the source of other projects.
 
 If you choose to work with the unified source program you may need to allow
 for the long lines when compiling it (for gfortran you need the
-`-ffree-line-length-none` compiler flag, other compilers may require other
+``-ffree-line-length-none`` compiler flag, other compilers may require other
 flags).
 
 
@@ -67,7 +72,7 @@ You must make sure that the module file ``rp_emulator.mod`` is available to the 
 You can do this by specifying an include flag at compile time.
 Alternatively you could place the module file in the same directory as your source files, but normally you would store it separately and use an include flag.
 
-At link time the ``librpe.a`` library will also need to be available to the linker.
+At link time the ``librpe.a`` (or ``librpe.so``) library will also need to be available to the linker.
 You can use a combination of linker path and library options to make sure this is the case.
 Alternatively, you can directly specify the full path to ``librpe.a`` as an object to include in linking.
 
@@ -78,6 +83,8 @@ For example, let's say we have placed the module file at ``$HOME/rpe/modules/rp_
 and our linker command must tell the linker which libraries to link and where to look for them:
 
     gfortran -o myprogram.exe myprogram.o -L$HOME/rpe/lib -lrpe
+
+The arguments are the same whether linking the static or shared library.
 
 
 Unified source builds

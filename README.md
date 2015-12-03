@@ -17,6 +17,11 @@ will use `gfortran`. The default build is a simple invocation of `make`:
 
     make
 
+It is also possible to build a shared library `lib/librpe.so` using the
+`shared` target of the Makefile:
+
+   make shared
+
 You can optionally specify a compiler on the command line:
 
     F90=ifort make
