@@ -12,7 +12,7 @@ Configuration files
 ===================
 
 The code generator driver programs require input files that define which overloaded operators and intrinsic functions need to be constructed.
-These files can be found in the ``generator/configs`` directory.
+These files can be found in the ``generator/configs/`` directory.
 The file ``operators.json`` defines overloaded operators and the file ``intrinsics.json`` defines the overloaded intrinsic functions; the files are in `JSON`_ format.
 
 

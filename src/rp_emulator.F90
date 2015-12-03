@@ -52,7 +52,7 @@ MODULE rp_emulator
     !: is double-precision or double-precision if RPE_REAL_KIND is
     !: single-precision.
     INTEGER, PARAMETER, PUBLIC :: RPE_ALTERNATE_KIND = RPE_SINGLE_KIND
-    
+
     !: Logical flag for turning the emulator on/off.
     LOGICAL, PUBLIC :: RPE_ACTIVE = .TRUE.
 
@@ -170,19 +170,19 @@ MODULE rp_emulator
 ! Interfaces for overloaded operators (external):
 !-----------------------------------------------------------------------
 
-    #include "interface_operators.i"
+#include "interface_operators.i"
 
 !-----------------------------------------------------------------------
 ! Interfaces for overloaded intrinsic functions (external):
 !-----------------------------------------------------------------------
 
-    #include "interface_intrinsics.i"
+#include "interface_intrinsics.i"
 
 !-----------------------------------------------------------------------
 ! Interfaces for other extensions (external):
 !-----------------------------------------------------------------------
 
-    #include "interface_extras.i"
+#include "interface_extras.i"
 
 CONTAINS
 
@@ -722,18 +722,18 @@ CONTAINS
 ! Overloaded operator definitions (external):
 !-----------------------------------------------------------------------
 
-    #include "implementation_operators.f90"
+#include "implementation_operators.f90"
 
 !-----------------------------------------------------------------------
 ! Overloaded intrinsic function definitions (external):
 !-----------------------------------------------------------------------
 
-    #include "implementation_intrinsics.f90"
+#include "implementation_intrinsics.f90"
 
 !-----------------------------------------------------------------------
 ! Other extensions (external):
 !-----------------------------------------------------------------------
 
-    #include "implementation_extras.f90"
+#include "implementation_extras.f90"
 
 END MODULE rp_emulator

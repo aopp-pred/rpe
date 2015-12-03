@@ -11,7 +11,7 @@ In addition to the user requirements, there are extra dependencies for developer
 Core
 ----
 
-* `GCC`_ (gfortran) >= 4.8
+* `GCC`_ (gfortran) >= 4.8 or Intel Fortran (ifort) >= 15.0.2
 * `GNU Make`_
 * `Git`_
 

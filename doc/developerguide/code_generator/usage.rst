@@ -20,11 +20,11 @@ Modifying configuration files is covered in :doc:`new_code`.
 Running the generator
 =====================
 
-The generator can be run from the top-level ``generator/`` directory using the Makefile::
+The generator can be run from the top-level directory using the Makefile::
 
     make -C generator
 
-This will produce 4 files in the directory ``generator/generated``:
+This will produce 4 files in the directory ``generator/generated/``:
 
 * ``interface_operators.i``: interface blocks for overloaded operators.
 * ``implementation_operators.f90``: overloaded operator implementations.
@@ -44,20 +44,20 @@ Once you have generated new files, you will want to integrate the generated code
 .. warning::
 
    Make sure you carefully check the generated code is correct before proceeding.
-   It is worthwhile looking at both the generator output, and the difference between each output and the existing file in ``rawsrc/include``, for example::
+   It is worthwhile looking at both the generator output, and the difference between each output and the existing file in ``src/include/``, for example::
 
-       diff generated/implementation_operators.f90 rawsrc/include/implementation_operators.f90
+       diff generated/implementation_operators.f90 src/include/implementation_operators.f90
 
    This way you can be sure that you have achieved the change you wanted without changing something else you didn't expect to change.
 
-To integrate the generated code all you need to do is copy/move the generated files from ``generator/generated`` to ``rawsrc/include``::
+To integrate the generated code all you need to do is copy/move the generated files from ``generator/generated/`` to ``src/include/``::
 
-    cp generator/generated/* rawsrc/include
+    cp generator/generated/* src/include/
 
 Once you have done this you should rebuild the library::
 
-    make fullclean
-    make all
+    make clean
+    make
 
 Now you can run the tests and verify that the new code works as expected::
 
