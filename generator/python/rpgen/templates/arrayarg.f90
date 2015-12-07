@@ -20,7 +20,12 @@
     {%- endmacro %}
     {% macro dimension_full(n) -%}
     {% if ndim != 0 -%}
-    , DIMENSION({% for i in range(n) -%}SIZE(a, {{ i + 1 }}){% if loop.last %}{% else %}, {% endif %}{%- endfor %})
+    , DIMENSION(&
+    {% for i in range(n) %}
+                                            SIZE(a, {{ i + 1 }}){% if not loop.last %}, &
+
+            {% else %}){% endif %}
+    {% endfor %}
     {%- endif %}
     {%- endmacro %}
     FUNCTION {{ function.name }}_{{ type1.name }}_{{ ndim }}d (a) RESULT (x)

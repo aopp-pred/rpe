@@ -21,8 +21,6 @@
 # Include the base pFUnit makefile.
 include $(PFUNIT)/include/base.mk
 
-FFLAGS += -ffree-line-length-none
-
 # Phony declaration for the required target.
 .PHONY: test_cases clean-fsources
 

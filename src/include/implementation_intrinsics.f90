@@ -416,9 +416,9 @@
             significand_bits(a1), &
             significand_bits(a2))
         x = MIN(&
-            a0%val, &        
-            a1%val, &        
-            a2%val)        
+            a0%val, &
+            a1%val, &
+            a2%val)
     END FUNCTION min_ma_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe &
@@ -435,10 +435,10 @@
             significand_bits(a2), &
             significand_bits(a3))
         x = MIN(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val)
     END FUNCTION min_ma_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe &
@@ -457,11 +457,11 @@
             significand_bits(a3), &
             significand_bits(a4))
         x = MIN(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val)
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe &
@@ -482,12 +482,12 @@
             significand_bits(a4), &
             significand_bits(a5))
         x = MIN(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val, &        
-            a5%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val, &
+            a5%val)
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
@@ -510,13 +510,13 @@
             significand_bits(a5), &
             significand_bits(a6))
         x = MIN(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val, &        
-            a5%val, &        
-            a6%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val, &
+            a5%val, &
+            a6%val)
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
@@ -541,14 +541,14 @@
             significand_bits(a6), &
             significand_bits(a7))
         x = MIN(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val, &        
-            a5%val, &        
-            a6%val, &        
-            a7%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val, &
+            a5%val, &
+            a6%val, &
+            a7%val)
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
@@ -575,15 +575,15 @@
             significand_bits(a7), &
             significand_bits(a8))
         x = MIN(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val, &        
-            a5%val, &        
-            a6%val, &        
-            a7%val, &        
-            a8%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val, &
+            a5%val, &
+            a6%val, &
+            a7%val, &
+            a8%val)
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     !-------------------------------------------------------------------
@@ -626,9 +626,9 @@
             significand_bits(a1), &
             significand_bits(a2))
         x = MAX(&
-            a0%val, &        
-            a1%val, &        
-            a2%val)        
+            a0%val, &
+            a1%val, &
+            a2%val)
     END FUNCTION max_ma_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe &
@@ -645,10 +645,10 @@
             significand_bits(a2), &
             significand_bits(a3))
         x = MAX(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val)
     END FUNCTION max_ma_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe &
@@ -667,11 +667,11 @@
             significand_bits(a3), &
             significand_bits(a4))
         x = MAX(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val)
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe &
@@ -692,12 +692,12 @@
             significand_bits(a4), &
             significand_bits(a5))
         x = MAX(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val, &        
-            a5%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val, &
+            a5%val)
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
@@ -720,13 +720,13 @@
             significand_bits(a5), &
             significand_bits(a6))
         x = MAX(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val, &        
-            a5%val, &        
-            a6%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val, &
+            a5%val, &
+            a6%val)
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
@@ -751,14 +751,14 @@
             significand_bits(a6), &
             significand_bits(a7))
         x = MAX(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val, &        
-            a5%val, &        
-            a6%val, &        
-            a7%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val, &
+            a5%val, &
+            a6%val, &
+            a7%val)
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
@@ -785,15 +785,15 @@
             significand_bits(a7), &
             significand_bits(a8))
         x = MAX(&
-            a0%val, &        
-            a1%val, &        
-            a2%val, &        
-            a3%val, &        
-            a4%val, &        
-            a5%val, &        
-            a6%val, &        
-            a7%val, &        
-            a8%val)        
+            a0%val, &
+            a1%val, &
+            a2%val, &
+            a3%val, &
+            a4%val, &
+            a5%val, &
+            a6%val, &
+            a7%val, &
+            a8%val)
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     !-------------------------------------------------------------------

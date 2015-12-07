@@ -41,7 +41,7 @@ endif
 
 # Set the required compiler flags for each supported compiler.
 ifeq ($(F90), gfortran)
-FFLAGS += -ffree-line-length-none -J$(moduledir)
+FFLAGS += -J$(moduledir)
 endif
 ifeq ($(F90), ifort)
 FFLAGS += -module $(moduledir)
