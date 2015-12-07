@@ -11,5 +11,4 @@ This user guide provides documentation for using the reduced precision emulation
    code_access
    build_install
    usage
-   var_vs_shadow
    errors

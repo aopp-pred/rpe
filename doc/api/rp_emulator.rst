@@ -6,53 +6,38 @@ RPE API: :f:mod:`rp_emulator.mod`
 Derived types
 =============
 
-.. f:type:: rpe_type
-   :attrs: abstract
-
-   An abstract type defining a reduced-precision floating-point number. You cannot construct an instance of this type, but you can construct an instance of any type that extends this type.
-
-   :f INTEGER sbits: Number of bits in the significand of the floating-point number
-
-   .. f:function:: rpe_type%get_value()
-
-      Retrieve the real value stored within an :f:type:`rpe_type` instance.
-
-      :r REAL value [KIND=RPE_REAL_KIND]: Reduced-precision value stored in a built-in real-typed variable.
-
-
 .. f:type:: rpe_var
-   :attrs: extends(rpe_type)
 
-   A type extending :f:type:`rpe_type` representing a reduced-precision floating-point number.
+   A type representing a reduced-precision floating-point number.
    This type stores the number it represents internally.
 
-.. f:type:: rpe_shadow
-   :attrs: extends(rpe_type)
+   :f INTEGER sbits: Number of bits in the significand of the floating-point number
+   :f REAL val [KIND=RPE_REAL_KIND]: The real value stored within the instance.
 
-   A type extending :f:type:`rpe_type` representing a reduced-precision floating-point number.
-   The :f:type:`rpe_shadow` provides a memory-view onto an existing double precision floating point number defined outside the type itself.
-   Changing the value of the :f:type:`rpe_shadow` also changes the value of the floating point number it is shadowing and vice-versa, since they both refer to the same block of memory.
-   However, when values are assigned to the :f:type:`rpe_shadow` their precision is reduced, which is not the case when assigning to the variable being shadowed.
 
 User-callable procedures
 ========================
 
-.. f:subroutine:: init_shadow (shadow, target)
-
-   Initialize an :f:type:`rpe_shadow` instance by associating it with a
-   real-valued variable.
-
-   :param rpe_shadow shadow [INOUT]: The :f:type:`rpe_shadow` instance to initialize.
-   :param REAL target [KIND=RPE_REAL_KIND,IN]: A floating-point variable to shadow. This must be a variable defined within the scope of the :f:func:`init_shadow` call otherwise invalid memory references will occur.
 
 .. f:subroutine:: apply_truncation (rpe)
    :attrs: elemental
 
-   Apply the required truncation to the value stored within an :f:type:`rpe_type` instance.
+   Apply the required truncation to the value stored within an :f:type:`rpe_var` instance.
    Operates on the input in-place, modifying its value.
-   The truncation is determined by the :f:var:`sbits` attribute of the :f:type:`rpe_type` instance, if this is not set then the value of :f:var:`RPE_DEFAULT_SBITS`.
+   The truncation is determined by the :f:var:`sbits` attribute of the :f:type:`rpe_var` instance, if this is not set then the value of :f:var:`RPE_DEFAULT_SBITS`.
 
-   :param rpe_type rpe [INOUT]: The :f:type:`rpe_type` instance to alter the precision of.
+   :param rpe_var rpe [INOUT]: The :f:type:`rpe_var` instance to alter the precision of.
+
+
+.. f:function:: significand_bits (x)
+   :attrs: elemental
+
+   Determine the number of significand bits being used by the input types.
+   For inputs that are :f:type:`rpe_var` instances this function returns the number of significand bits in use by the reduced-precision number.
+   For real numbers it will return either 23 for single-precision inputs or 52 for double-precision inputs.
+   For all other input types the result will be zero.
+
+   :param x [IN]: Any Fortran type.
 
 
 Variables
@@ -70,8 +55,8 @@ Variables
    :type: INTEGER
    :attrs: default=23
 
-   The default number of bits used in the significand of an :f:type:`rpe_type` instance when not explicitly specified.
-   This takes effect internally when determining precision levels, but does not bind an :f:type:`rpe_type` instance to a particular precision level (doesn't set :f:var:`rpe_type%sbits`).
+   The default number of bits used in the significand of an :f:type:`rpe_var` instance when not explicitly specified.
+   This takes effect internally when determining precision levels, but does not bind an :f:type:`rpe_var` instance to a particular precision level (doesn't set :f:var:`rpe_var%sbits`).
 
 
 .. f:variable:: RPE_IEEE_HALF

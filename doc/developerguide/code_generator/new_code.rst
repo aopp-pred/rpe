@@ -50,7 +50,7 @@ A complete list of types that can be used in configuartion files can be found in
 The interface type is a concept used within the code generator to work out what kind of code it should produce.
 You can see that the function ``epsilon`` has interface type ``"1argscalar"`` which corresponds to a function that takes one scalar as an argument.
 The function ``floor`` has interface type ``"1argelemental"`` which corresponds again to a function that takes one argument, but this time the function is elemental meaning it can take a scalar or an array as input, and operate element-wise on array inputs returning an array output.
-A function can have more than one interface type if it has multiple interfaces (e.g. ``atan``).
+A function can have more than one interface type if it has multiple interfaces.
 See :ref:`pygen-reference-interface-types` for a list of all intrinsic interface types.
 
 
@@ -75,10 +75,6 @@ Therefore our definition in ``intrinsics.json`` should look like this:
            }
        ]
    }
-
-.. warning::
-
-   Never use ``"rpe_shadow"`` as the return type of a function as it is not possible to properly initialize an :f:type:`rpe_shadow` instance within the limited scope of a function and have it work correctly in the external scope of the function's return value. If you want to return a reduced precision value from a function always use an :f:type:`rpe_var` type by specifying ``"rpe_var"``.
 
 
 Generating the code
@@ -110,13 +106,13 @@ Now let's look in the newly generated ``implementation_intrinsics.f90`` to see t
    !
 
    ELEMENTAL FUNCTION gamma_rpe (a) RESULT (x)
-       CLASS(rpe_type), INTENT(IN) :: a
+       TYPE(rpe_var), INTENT(IN) :: a
        TYPE(rpe_var) :: x
        x%sbits = significand_bits(a)
-       x = GAMMA(a%get_value())
+       x = GAMMA(a%val)
    END FUNCTION gamma_rpe
 
-The generated implementation consists of a single elemental function definition accepting any :f:type:`rpe_type` type or a type that extends it (either :f:type:`rpe_var` or :f:type:`rpe_shadow`) and returns an :f:type:`rpe_var` type.
+The generated implementation consists of a single elemental function definition accepting any :f:type:`rpe_var` type and returns an :f:type:`rpe_var` type.
 The body of the function is simple, it simply sets the nmumber of bits in the significand of the return value to match the input, then calls the normal Fortran ``GAMMA`` intrinsic with the real value cointained by the reduced precision number as input and stores the result in the output variable ``x``. The precision of the return value ``x`` is reduced by the assignment operation.
 
 To include this code in a build of the library simply follow the instructions in :ref:`pygen-usage-integration`.
@@ -145,10 +141,6 @@ In this example ``<name>`` is the name of the operator, in our case this will be
 The value supplied for ``"operator_categories"`` is a list of the categories this operator falls into.
 There are only 2 categories available, ``"unary"`` for unary operators and ``"binary"`` for binary operators.
 The list of categories can contain one or both of these values if appropriate, but is our case exponentiation is a binary operator so we'll supply the one value ``["binary"]``.
-
-.. warning::
-
-   Never use ``"rpe_shadow"`` as the return type of an operator as it is not possible to properly initialize an :f:type:`rpe_shadow` instance within the limited scope of an operator and have it work correctly in the external scope of the operator's return value. If you want to return a reduced precision value from an operator always use an :f:type:`rpe_var` type by specifying ``"rpe_var"``.
 
 Generating the code for the new operator just requires running the Makefile in ``generator/``::
 
@@ -183,8 +175,8 @@ Now let's look at how these operators are defined in the generated ``implementat
    !
 
    ELEMENTAL FUNCTION pow_rpe_rpe (x, y) RESULT (z)
-       CLASS(rpe_type), INTENT(IN) :: x
-       CLASS(rpe_type), INTENT(IN) :: y
+       TYPE(rpe_var), INTENT(IN) :: x
+       TYPE(rpe_var), INTENT(IN) :: y
        TYPE(rpe_var) :: z
        z%sbits = MAX(significand_bits(x), significand_bits(y))
        z = x%get_value() ** y%get_value()
@@ -193,7 +185,7 @@ Now let's look at how these operators are defined in the generated ``implementat
    ...
 
    ELEMENTAL FUNCTION pow_rpe_real (x, y) RESULT (z)
-       CLASS(rpe_type), INTENT(IN) :: x
+       TYPE(rpe_var), INTENT(IN) :: x
        REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: y
        TYPE(rpe_var) :: z
        z%sbits = MAX(significand_bits(x), significand_bits(y))
@@ -204,14 +196,14 @@ Now let's look at how these operators are defined in the generated ``implementat
 
    ELEMENTAL FUNCTION pow_real_rpe (x, y) RESULT (z)
        REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: x
-       CLASS(rpe_type), INTENT(IN) :: y
+       TYPE(rpe_var), INTENT(IN) :: y
        TYPE(rpe_var) :: z
        z%sbits = MAX(significand_bits(x), significand_bits(y))
        z = x ** y%get_value()
    END FUNCTION pow_real_rpe
 
-The first definition defines how the ``**`` operator can be applied to two :f:type:`rpe_type` instances.
-It can operate on either :f:type:`rpe_var` or :f:type:`rpe_shadow` types for each argument and returns an :f:type:`rpe_var` instance.
+The first definition defines how the ``**`` operator can be applied to two :f:type:`rpe_var` instances.
+It can operate on :f:type:`rpe_var` types for each argument and returns an :f:type:`rpe_var` instance.
 The number of bits in the significand of the result is set to the larger of the number of bits in the significands of the inputs, the calculation is then done in full precision and reduced to the specified precision on assignment to the return value ``z``.
 
 The other two functions do something very similar, except they operate on inputs of one reduced precision type and one real number type, the first raising a reduced precision number to the power of a real number, and the second raising a real number to the power of a reduced precision number.
