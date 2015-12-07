@@ -31,7 +31,7 @@ CONTAINS
         TYPE(rpe_var) :: reduced
         
         reduced = utest64
-        @ASSERTEQUAL(reduced%get_value(), utest64_t(23))
+        @ASSERTEQUAL(reduced%val, utest64_t(23))
         
     END SUBROUTINE test_rpe_var_assign_reduce_default
         
@@ -47,7 +47,7 @@ CONTAINS
         DO nbits = 1, 23
             reduced%sbits = nbits
             reduced = utest64
-            @ASSERTEQUAL(reduced%get_value(), utest64_t(nbits))
+            @ASSERTEQUAL(reduced%val, utest64_t(nbits))
         END DO
         
     END SUBROUTINE test_rpe_var_assign_reduce_specified

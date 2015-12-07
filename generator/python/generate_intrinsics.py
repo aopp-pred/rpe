@@ -44,26 +44,26 @@ def generate_function_suite(fn):
     blocks = []
     if '1argscalar' in fn.interface_types:
         blocks.append(generate_code('1arg_scalar',
-                                    type1=rptypes.RPE_TYPE, function=fn))
+                                    type1=rptypes.RPE_VAR, function=fn))
     if '1argelemental' in fn.interface_types:
         blocks.append(generate_code('1arg_elemental',
-                                    type1=rptypes.RPE_TYPE, function=fn))
+                                    type1=rptypes.RPE_VAR, function=fn))
     if '2argelemental' in fn.interface_types:
         blocks.append(generate_code('2arg_elemental',
-                                    type1=rptypes.RPE_TYPE,
-                                    type2=rptypes.RPE_TYPE, function=fn))
+                                    type1=rptypes.RPE_VAR,
+                                    type2=rptypes.RPE_VAR, function=fn))
         blocks.append(generate_code('2arg_elemental',
-                                    type1=rptypes.RPE_TYPE, type2=rptypes.REAL,
+                                    type1=rptypes.RPE_VAR, type2=rptypes.REAL,
                                     function=fn))
         blocks.append(generate_code('2arg_elemental',
-                                    type1=rptypes.REAL, type2=rptypes.RPE_TYPE,
+                                    type1=rptypes.REAL, type2=rptypes.RPE_VAR,
                                     function=fn))
     if '1arrayarg' in fn.interface_types:
-        blocks += [generate_code('arrayarg', type1=rptypes.RPE_TYPE,
+        blocks += [generate_code('arrayarg', type1=rptypes.RPE_VAR,
                                  function=fn, ndim=n)
                    for n in DIMENSIONS]
     if 'multiarg' in fn.interface_types:
-        blocks += [generate_code('multiarg', types=[rptypes.RPE_TYPE] * n,
+        blocks += [generate_code('multiarg', types=[rptypes.RPE_VAR] * n,
                                  function=fn)
                    for n in ARGNUMS]
     names = [b[0] for b in blocks]

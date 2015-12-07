@@ -63,7 +63,7 @@ CONTAINS
         RPE_IEEE_HALF = .FALSE.
         reduced2 = utest64
 
-        @ASSERTEQUAL(reduced1%get_value(), reduced2%get_value())
+        @ASSERTEQUAL(reduced1%val, reduced2%val)
     END SUBROUTINE test_apply_truncation_ieee_half_null
 
     @TEST
@@ -101,13 +101,13 @@ CONTAINS
         ! Check that positive values are rounded correctly and ensure the
         ! result of the rounding has no more than 10 bits in the significand.
         reduced = limit - delta - (2.0_RPE_REAL_KIND ** (-25))
-        @ASSERTEQUAL(limit - 2 * delta, reduced%get_value())
-        @ASSERTLESSTHANOREQUAL(min_significand_bits(reduced%get_value()), 10)
+        @ASSERTEQUAL(limit - 2 * delta, reduced%val)
+        @ASSERTLESSTHANOREQUAL(min_significand_bits(reduced%val), 10)
 
         ! Repeat for negative values.
         reduced = -limit + delta + (2.0_RPE_REAL_KIND ** (-25))
-        @ASSERTEQUAL(-limit + 2 * delta, reduced%get_value())
-        @ASSERTLESSTHANOREQUAL(min_significand_bits(reduced%get_value()), 10)
+        @ASSERTEQUAL(-limit + 2 * delta, reduced%val)
+        @ASSERTLESSTHANOREQUAL(min_significand_bits(reduced%val), 10)
     END SUBROUTINE test_apply_truncation_ieee_half_subnormal
 
 END MODULE test_apply_truncation

@@ -27,7 +27,7 @@
         {{ type1.declaration }}{{ dimension(ndim) }}, INTENT(IN) :: a
         {{ function.return_type.declaration }} :: x
         REAL(KIND=RPE_REAL_KIND){{ dimension_full(ndim) }} :: t
-        {% if function.return_type.rpe_instance %}
+        {% if function.return_type.name == "rpe" %}
         x%sbits = MAXVAL(significand_bits(a))
         {% endif %}
         t = a

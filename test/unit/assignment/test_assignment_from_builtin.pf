@@ -30,7 +30,7 @@ CONTAINS
         value_holder = utest32_64
         assignee%sbits = 23
         assignee = value_holder
-        @ASSERTEQUAL(value_holder, assignee%get_value())
+        @ASSERTEQUAL(value_holder, assignee%val)
 
     END SUBROUTINE test_assign_rpe_var_real_exact
 
@@ -42,38 +42,10 @@ CONTAINS
         value_holder = utest64
         assignee%sbits = 8
         assignee = value_holder
-        @ASSERTEQUAL(utest64_t(8), assignee%get_value())
+        @ASSERTEQUAL(utest64_t(8), assignee%val)
     
     END SUBROUTINE test_assign_rpe_var_real_truncated
     
-    @TEST
-    SUBROUTINE test_assign_rpe_shadow_real_exact ()
-        TYPE(rpe_shadow)         :: assignee
-        REAL(KIND=RPE_REAL_KIND) :: target
-        REAL(KIND=RPE_REAL_KIND) :: value_holder
-    
-        CALL init_shadow (assignee, target)
-        value_holder = utest32_64
-        assignee%sbits = 23
-        assignee = value_holder
-        @ASSERTEQUAL(value_holder, assignee%get_value())
-    
-    END SUBROUTINE test_assign_rpe_shadow_real_exact
-
-    @TEST
-    SUBROUTINE test_assign_rpe_shadow_real_truncated ()
-        TYPE(rpe_shadow)         :: assignee
-        REAL(KIND=RPE_REAL_KIND) :: target
-        REAL(KIND=RPE_REAL_KIND) :: value_holder
-    
-        CALL init_shadow (assignee, target)
-        value_holder = utest64
-        assignee%sbits = 8
-        assignee = value_holder
-        @ASSERTEQUAL(utest64_t(8), assignee%get_value())
-    
-    END SUBROUTINE test_assign_rpe_shadow_real_truncated
-
     @TEST
     SUBROUTINE test_assign_rpe_var_alternate_exact ()
         TYPE(rpe_var)                 :: assignee
@@ -82,7 +54,7 @@ CONTAINS
         value_holder = utest32
         assignee%sbits = 23
         assignee = value_holder
-        @ASSERTEQUAL(value_holder, assignee%get_value())
+        @ASSERTEQUAL(value_holder, assignee%val)
 
     END SUBROUTINE test_assign_rpe_var_alternate_exact
 
@@ -94,38 +66,10 @@ CONTAINS
         value_holder = utest32
         assignee%sbits = 8
         assignee = value_holder
-        @ASSERTEQUAL(utest32_t(8), assignee%get_value())
+        @ASSERTEQUAL(utest32_t(8), assignee%val)
     
     END SUBROUTINE test_assign_rpe_var_alternate_truncated
     
-    @TEST
-    SUBROUTINE test_assign_rpe_shadow_alternate_exact ()
-        TYPE(rpe_shadow)              :: assignee
-        REAL(KIND=RPE_REAL_KIND)      :: target
-        REAL(KIND=RPE_ALTERNATE_KIND) :: value_holder
-    
-        CALL init_shadow (assignee, target)
-        value_holder = utest32
-        assignee%sbits = 23
-        assignee = value_holder
-        @ASSERTEQUAL(value_holder, assignee%get_value())
-    
-    END SUBROUTINE test_assign_rpe_shadow_alternate_exact
-
-    @TEST
-    SUBROUTINE test_assign_rpe_shadow_alternate_truncated ()
-        TYPE(rpe_shadow)              :: assignee
-        REAL(KIND=RPE_REAL_KIND)      :: target
-        REAL(KIND=RPE_ALTERNATE_KIND) :: value_holder
-    
-        CALL init_shadow (assignee, target)
-        value_holder = utest32
-        assignee%sbits = 8
-        assignee = value_holder
-        @ASSERTEQUAL(utest32_t(8), assignee%get_value())
-    
-    END SUBROUTINE test_assign_rpe_shadow_alternate_truncated
-
     @TEST
     SUBROUTINE test_assign_rpe_var_integer_exact ()
         TYPE(rpe_var) :: assignee
@@ -133,7 +77,7 @@ CONTAINS
 
         value_holder = 1024
         assignee = value_holder
-        @ASSERTEQUAL(REAL(value_holder, RPE_REAL_KIND), assignee%get_value())
+        @ASSERTEQUAL(REAL(value_holder, RPE_REAL_KIND), assignee%val)
 
     END SUBROUTINE test_assign_rpe_var_integer_exact
 
@@ -145,36 +89,9 @@ CONTAINS
         value_holder = 10241024
         assignee%sbits = 8
         assignee = value_holder
-        @ASSERTEQUAL(REAL(10256384, RPE_REAL_KIND), assignee%get_value())
+        @ASSERTEQUAL(REAL(10256384, RPE_REAL_KIND), assignee%val)
 
     END SUBROUTINE test_assign_rpe_var_integer_truncated
-
-    @TEST
-    SUBROUTINE test_assign_rpe_shadow_integer_exact ()
-        TYPE(rpe_shadow)         :: assignee
-        REAL(KIND=RPE_REAL_KIND) :: target
-        INTEGER                  :: value_holder
-
-        CALL init_shadow (assignee, target)
-        value_holder = 1024
-        assignee = value_holder
-        @ASSERTEQUAL(REAL(value_holder, RPE_REAL_KIND), assignee%get_value())
-
-    END SUBROUTINE test_assign_rpe_shadow_integer_exact
-
-    @TEST
-    SUBROUTINE test_assign_rpe_shadow_integer_truncated ()
-        TYPE(rpe_shadow)         :: assignee
-        REAL(KIND=RPE_REAL_KIND) :: target
-        INTEGER                  :: value_holder
-
-        CALL init_shadow (assignee, target)
-        value_holder = 10241024
-        assignee%sbits = 8
-        assignee = value_holder
-        @ASSERTEQUAL(REAL(10256384, RPE_REAL_KIND), assignee%get_value())
-
-    END SUBROUTINE test_assign_rpe_shadow_integer_truncated
 
     @TEST
     SUBROUTINE test_assign_rpe_var_long_exact ()
@@ -183,7 +100,7 @@ CONTAINS
 
         value_holder = 1024
         assignee = value_holder
-        @ASSERTEQUAL(REAL(value_holder, RPE_REAL_KIND), assignee%get_value())
+        @ASSERTEQUAL(REAL(value_holder, RPE_REAL_KIND), assignee%val)
 
     END SUBROUTINE test_assign_rpe_var_long_exact
 
@@ -195,35 +112,8 @@ CONTAINS
         value_holder = 10241024
         assignee%sbits = 8
         assignee = value_holder
-        @ASSERTEQUAL(REAL(10256384, RPE_REAL_KIND), assignee%get_value())
+        @ASSERTEQUAL(REAL(10256384, RPE_REAL_KIND), assignee%val)
 
     END SUBROUTINE test_assign_rpe_var_long_truncated
-
-    @TEST
-    SUBROUTINE test_assign_rpe_shadow_long_exact ()
-        TYPE(rpe_shadow)         :: assignee
-        REAL(KIND=RPE_REAL_KIND) :: target
-        INTEGER(KIND=8)          :: value_holder
-
-        CALL init_shadow (assignee, target)
-        value_holder = 1024
-        assignee = value_holder
-        @ASSERTEQUAL(REAL(value_holder, RPE_REAL_KIND), assignee%get_value())
-
-    END SUBROUTINE test_assign_rpe_shadow_long_exact
-
-    @TEST
-    SUBROUTINE test_assign_rpe_shadow_long_truncated ()
-        TYPE(rpe_shadow)         :: assignee
-        REAL(KIND=RPE_REAL_KIND) :: target
-        INTEGER(KIND=8)          :: value_holder
-
-        CALL init_shadow (assignee, target)
-        value_holder = 10241024
-        assignee%sbits = 8
-        assignee = value_holder
-        @ASSERTEQUAL(REAL(10256384, RPE_REAL_KIND), assignee%get_value())
-
-    END SUBROUTINE test_assign_rpe_shadow_long_truncated
 
 END MODULE test_assignment_from_builtin

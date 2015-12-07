@@ -45,29 +45,6 @@ CONTAINS
     END SUBROUTINE test_significand_bits_rpe_var_explicit
 
     @TEST
-    SUBROUTINE test_significand_bits_rpe_shadow ()
-        TYPE(rpe_shadow) :: input
-        INTEGER          :: result, expected
-
-        expected = RPE_DEFAULT_SBITS
-        result = significand_bits(input)
-        @ASSERTEQUAL(expected, result)
-
-    END SUBROUTINE test_significand_bits_rpe_shadow
-
-    @TEST
-    SUBROUTINE test_significand_bits_rpe_shadow_explicit ()
-        TYPE(rpe_shadow) :: input
-        INTEGER          :: result, expected
-
-        expected = 5
-        input%sbits = 5
-        result = significand_bits(input)
-        @ASSERTEQUAL(expected, result)
-
-    END SUBROUTINE test_significand_bits_rpe_shadow_explicit
-
-    @TEST
     SUBROUTINE test_significand_bits_double_precision ()
         REAL(KIND=RPE_DOUBLE_KIND) :: input
         INTEGER                    :: result, expected

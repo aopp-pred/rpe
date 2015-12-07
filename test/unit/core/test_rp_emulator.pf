@@ -50,7 +50,7 @@ CONTAINS
 
         RPE_ACTIVE = .FALSE.
         reduced = utest64
-        @ASSERTEQUAL(utest64, reduced%get_value())
+        @ASSERTEQUAL(utest64, reduced%val)
 
     END SUBROUTINE test_rp_emulator_rpe_active_off
 
@@ -61,7 +61,7 @@ CONTAINS
 
         RPE_ACTIVE = .TRUE.
         reduced = utest64
-        @ASSERTEQUAL(utest64_t(RPE_DEFAULT_SBITS), reduced%get_value())
+        @ASSERTEQUAL(utest64_t(RPE_DEFAULT_SBITS), reduced%val)
 
     END SUBROUTINE test_rp_emulator_rpe_active_on_default
 
@@ -73,7 +73,7 @@ CONTAINS
         RPE_ACTIVE = .TRUE.
         RPE_DEFAULT_SBITS = 8
         reduced = utest64
-        @ASSERTEQUAL(utest64_t(8), reduced%get_value())
+        @ASSERTEQUAL(utest64_t(8), reduced%val)
 
     END SUBROUTINE test_rp_emulator_rpe_active_on_explicit
 

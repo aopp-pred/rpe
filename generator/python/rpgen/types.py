@@ -18,7 +18,7 @@ from __future__ import (absolute_import, print_function)
 class FortranType(object):
     """A Fortran data type."""
 
-    def __init__(self, name, declaration, accessor=None, rpe_instance=False):
+    def __init__(self, name, declaration, accessor=None):
         """Create a Fortran data type.
 
         **Arguments:**
@@ -37,28 +37,10 @@ class FortranType(object):
             the value contained within a type. Defaults to None (no
             accessor syntax).
 
-        *rpe_instance*
-            If `True` the type is an instance of `rpe_type` or subclass.
-
-        **Examples:**
-
-        Create a data type representing an 8-byte integer (on most
-        systems)::
-
-            integer_type = FortranType('integer', 'INTEGER(KIND=8)')
-
-        Create a data type representing a polymorphic derived type class
-        with its value in the `data_value` member::
-
-            my_type = FortranType('my_type', 'CLASS(my_type)',
-                                  accessor='%data_value',
-                                  polymorphic=True)
-
         """
         self.name = name
         self.declaration = declaration
         self.accessor = accessor or ''
-        self.rpe_instance = rpe_instance
 
 
 #: Fortran built-in LOGICAL data type.
@@ -76,21 +58,11 @@ REAL = FortranType('real', 'REAL(KIND=RPE_REAL_KIND)')
 
 REALALT = FortranType('realalt', 'REAL(KIND=RPE_ALTERNATE_KIND)')
 
-#: Fortran rpe_type polymorphic class.
-RPE_TYPE = FortranType('rpe', 'CLASS(rpe_type)', accessor=r'%get_value()',
-                       rpe_instance=True)
-
-#: Fortran rpe_shadow concrete type.
-RPE_SHADOW = FortranType('shadow', 'TYPE(rpe_shadow)', accessor=r'%get_value',
-                         rpe_instance=True)
-
 #: Fortran rpe_temporary contrete type.
-RPE_VAR = FortranType('var', 'TYPE(rpe_var)', accessor=r'%get_value',
-                      rpe_instance=True)
+RPE_VAR = FortranType('rpe', 'TYPE(rpe_var)', accessor=r'%val')
 
 
 def get_fortran_type(type_name):
     type_mapping = {'logical': LOGICAL, 'integer': INTEGER, 'long': LONG,
-                    'real': REAL, 'realalt': REALALT, 'rpe_type': RPE_TYPE,
-                    'rpe_var': RPE_VAR, 'rpe_shadow': RPE_SHADOW}
+                    'real': REAL, 'realalt': REALALT, 'rpe_var': RPE_VAR}
     return type_mapping[type_name.lower()]

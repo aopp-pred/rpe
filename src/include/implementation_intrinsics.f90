@@ -3,10 +3,10 @@
     !
 
     FUNCTION epsilon_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = EPSILON(a%get_value())
+        x = EPSILON(a%val)
     END FUNCTION epsilon_rpe
 
     !-------------------------------------------------------------------
@@ -14,10 +14,10 @@
     !
 
     FUNCTION huge_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = HUGE(a%get_value())
+        x = HUGE(a%val)
     END FUNCTION huge_rpe
 
     !-------------------------------------------------------------------
@@ -25,10 +25,10 @@
     !
 
     FUNCTION tiny_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = TINY(a%get_value())
+        x = TINY(a%val)
     END FUNCTION tiny_rpe
 
     !-------------------------------------------------------------------
@@ -36,9 +36,9 @@
     !
 
     FUNCTION kind_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         INTEGER :: x
-        x = KIND(a%get_value())
+        x = KIND(a%val)
     END FUNCTION kind_rpe
 
     !-------------------------------------------------------------------
@@ -46,10 +46,10 @@
     !
 
     ELEMENTAL FUNCTION abs_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = ABS(a%get_value())
+        x = ABS(a%val)
     END FUNCTION abs_rpe
 
     !-------------------------------------------------------------------
@@ -57,10 +57,10 @@
     !
 
     ELEMENTAL FUNCTION cos_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = COS(a%get_value())
+        x = COS(a%val)
     END FUNCTION cos_rpe
 
     !-------------------------------------------------------------------
@@ -68,10 +68,10 @@
     !
 
     ELEMENTAL FUNCTION sin_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = SIN(a%get_value())
+        x = SIN(a%val)
     END FUNCTION sin_rpe
 
     !-------------------------------------------------------------------
@@ -79,10 +79,10 @@
     !
 
     ELEMENTAL FUNCTION tan_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = TAN(a%get_value())
+        x = TAN(a%val)
     END FUNCTION tan_rpe
 
     !-------------------------------------------------------------------
@@ -90,10 +90,10 @@
     !
 
     ELEMENTAL FUNCTION acos_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = ACOS(a%get_value())
+        x = ACOS(a%val)
     END FUNCTION acos_rpe
 
     !-------------------------------------------------------------------
@@ -101,10 +101,10 @@
     !
 
     ELEMENTAL FUNCTION asin_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = ASIN(a%get_value())
+        x = ASIN(a%val)
     END FUNCTION asin_rpe
 
     !-------------------------------------------------------------------
@@ -112,10 +112,10 @@
     !
 
     ELEMENTAL FUNCTION atan_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = ATAN(a%get_value())
+        x = ATAN(a%val)
     END FUNCTION atan_rpe
 
     !-------------------------------------------------------------------
@@ -123,10 +123,10 @@
     !
 
     ELEMENTAL FUNCTION cosh_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = COSH(a%get_value())
+        x = COSH(a%val)
     END FUNCTION cosh_rpe
 
     !-------------------------------------------------------------------
@@ -134,10 +134,10 @@
     !
 
     ELEMENTAL FUNCTION sinh_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = SINH(a%get_value())
+        x = SINH(a%val)
     END FUNCTION sinh_rpe
 
     !-------------------------------------------------------------------
@@ -145,10 +145,10 @@
     !
 
     ELEMENTAL FUNCTION tanh_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = TANH(a%get_value())
+        x = TANH(a%val)
     END FUNCTION tanh_rpe
 
     !-------------------------------------------------------------------
@@ -156,10 +156,10 @@
     !
 
     ELEMENTAL FUNCTION exp_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = EXP(a%get_value())
+        x = EXP(a%val)
     END FUNCTION exp_rpe
 
     !-------------------------------------------------------------------
@@ -167,10 +167,10 @@
     !
 
     ELEMENTAL FUNCTION log_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = LOG(a%get_value())
+        x = LOG(a%val)
     END FUNCTION log_rpe
 
     !-------------------------------------------------------------------
@@ -178,10 +178,10 @@
     !
 
     ELEMENTAL FUNCTION log10_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = LOG10(a%get_value())
+        x = LOG10(a%val)
     END FUNCTION log10_rpe
 
     !-------------------------------------------------------------------
@@ -189,10 +189,10 @@
     !
 
     ELEMENTAL FUNCTION sqrt_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = SQRT(a%get_value())
+        x = SQRT(a%val)
     END FUNCTION sqrt_rpe
 
     !-------------------------------------------------------------------
@@ -200,10 +200,10 @@
     !
 
     ELEMENTAL FUNCTION spacing_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         TYPE(rpe_var) :: x
         x%sbits = significand_bits(a)
-        x = SPACING(a%get_value())
+        x = SPACING(a%val)
     END FUNCTION spacing_rpe
 
     !-------------------------------------------------------------------
@@ -211,9 +211,9 @@
     !
 
     ELEMENTAL FUNCTION floor_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         INTEGER :: x
-        x = FLOOR(a%get_value())
+        x = FLOOR(a%val)
     END FUNCTION floor_rpe
 
     !-------------------------------------------------------------------
@@ -221,9 +221,9 @@
     !
 
     ELEMENTAL FUNCTION int_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         INTEGER :: x
-        x = INT(a%get_value())
+        x = INT(a%val)
     END FUNCTION int_rpe
 
     !-------------------------------------------------------------------
@@ -231,9 +231,9 @@
     !
 
     ELEMENTAL FUNCTION nint_rpe (a) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         INTEGER :: x
-        x = NINT(a%get_value())
+        x = NINT(a%val)
     END FUNCTION nint_rpe
 
     !-------------------------------------------------------------------
@@ -241,27 +241,27 @@
     !
 
     ELEMENTAL FUNCTION atan2_rpe_rpe (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = ATAN2(a%get_value(), b%get_value())
+        x = ATAN2(a%val, b%val)
     END FUNCTION atan2_rpe_rpe
 
     ELEMENTAL FUNCTION atan2_rpe_real (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = ATAN2(a%get_value(), b)
+        x = ATAN2(a%val, b)
     END FUNCTION atan2_rpe_real
 
     ELEMENTAL FUNCTION atan2_real_rpe (a, b) RESULT (x)
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = ATAN2(a, b%get_value())
+        x = ATAN2(a, b%val)
     END FUNCTION atan2_real_rpe
 
     !-------------------------------------------------------------------
@@ -269,27 +269,27 @@
     !
 
     ELEMENTAL FUNCTION dim_rpe_rpe (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = DIM(a%get_value(), b%get_value())
+        x = DIM(a%val, b%val)
     END FUNCTION dim_rpe_rpe
 
     ELEMENTAL FUNCTION dim_rpe_real (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = DIM(a%get_value(), b)
+        x = DIM(a%val, b)
     END FUNCTION dim_rpe_real
 
     ELEMENTAL FUNCTION dim_real_rpe (a, b) RESULT (x)
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = DIM(a, b%get_value())
+        x = DIM(a, b%val)
     END FUNCTION dim_real_rpe
 
     !-------------------------------------------------------------------
@@ -297,27 +297,27 @@
     !
 
     ELEMENTAL FUNCTION mod_rpe_rpe (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MOD(a%get_value(), b%get_value())
+        x = MOD(a%val, b%val)
     END FUNCTION mod_rpe_rpe
 
     ELEMENTAL FUNCTION mod_rpe_real (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MOD(a%get_value(), b)
+        x = MOD(a%val, b)
     END FUNCTION mod_rpe_real
 
     ELEMENTAL FUNCTION mod_real_rpe (a, b) RESULT (x)
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MOD(a, b%get_value())
+        x = MOD(a, b%val)
     END FUNCTION mod_real_rpe
 
     !-------------------------------------------------------------------
@@ -325,27 +325,27 @@
     !
 
     ELEMENTAL FUNCTION nearest_rpe_rpe (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = NEAREST(a%get_value(), b%get_value())
+        x = NEAREST(a%val, b%val)
     END FUNCTION nearest_rpe_rpe
 
     ELEMENTAL FUNCTION nearest_rpe_real (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = NEAREST(a%get_value(), b)
+        x = NEAREST(a%val, b)
     END FUNCTION nearest_rpe_real
 
     ELEMENTAL FUNCTION nearest_real_rpe (a, b) RESULT (x)
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = NEAREST(a, b%get_value())
+        x = NEAREST(a, b%val)
     END FUNCTION nearest_real_rpe
 
     !-------------------------------------------------------------------
@@ -353,27 +353,27 @@
     !
 
     ELEMENTAL FUNCTION sign_rpe_rpe (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = SIGN(a%get_value(), b%get_value())
+        x = SIGN(a%val, b%val)
     END FUNCTION sign_rpe_rpe
 
     ELEMENTAL FUNCTION sign_rpe_real (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = SIGN(a%get_value(), b)
+        x = SIGN(a%val, b)
     END FUNCTION sign_rpe_real
 
     ELEMENTAL FUNCTION sign_real_rpe (a, b) RESULT (x)
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = SIGN(a, b%get_value())
+        x = SIGN(a, b%val)
     END FUNCTION sign_real_rpe
 
     !-------------------------------------------------------------------
@@ -381,111 +381,209 @@
     !
 
     ELEMENTAL FUNCTION min_rpe_rpe (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MIN(a%get_value(), b%get_value())
+        x = MIN(a%val, b%val)
     END FUNCTION min_rpe_rpe
 
     ELEMENTAL FUNCTION min_rpe_real (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MIN(a%get_value(), b)
+        x = MIN(a%val, b)
     END FUNCTION min_rpe_real
 
     ELEMENTAL FUNCTION min_real_rpe (a, b) RESULT (x)
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MIN(a, b%get_value())
+        x = MIN(a, b%val)
     END FUNCTION min_real_rpe
 
-    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe (a0, a1, a2) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe &
+                       (a0, a1, a2) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2))
-        x = MIN(a0%get_value(), a1%get_value(), a2%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2))
+        x = MIN(&
+            a0%val, &        
+            a1%val, &        
+            a2%val)        
     END FUNCTION min_ma_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe (a0, a1, a2, a3) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3))
-        x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3))
+        x = MIN(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val)        
     END FUNCTION min_ma_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4))
-        x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4))
+        x = MIN(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val)        
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4, a5) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
+        TYPE(rpe_var), INTENT(IN) :: a5
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5))
-        x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4), &
+            significand_bits(a5))
+        x = MIN(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val, &        
+            a5%val)        
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
-        CLASS(rpe_type), INTENT(IN) :: a6
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4, a5, a6) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
+        TYPE(rpe_var), INTENT(IN) :: a5
+        TYPE(rpe_var), INTENT(IN) :: a6
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6))
-        x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4), &
+            significand_bits(a5), &
+            significand_bits(a6))
+        x = MIN(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val, &        
+            a5%val, &        
+            a6%val)        
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
-        CLASS(rpe_type), INTENT(IN) :: a6
-        CLASS(rpe_type), INTENT(IN) :: a7
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4, a5, a6, a7) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
+        TYPE(rpe_var), INTENT(IN) :: a5
+        TYPE(rpe_var), INTENT(IN) :: a6
+        TYPE(rpe_var), INTENT(IN) :: a7
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6), significand_bits(a7))
-        x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4), &
+            significand_bits(a5), &
+            significand_bits(a6), &
+            significand_bits(a7))
+        x = MIN(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val, &        
+            a5%val, &        
+            a6%val, &        
+            a7%val)        
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7, a8) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
-        CLASS(rpe_type), INTENT(IN) :: a6
-        CLASS(rpe_type), INTENT(IN) :: a7
-        CLASS(rpe_type), INTENT(IN) :: a8
+    ELEMENTAL FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4, a5, a6, a7, a8) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
+        TYPE(rpe_var), INTENT(IN) :: a5
+        TYPE(rpe_var), INTENT(IN) :: a6
+        TYPE(rpe_var), INTENT(IN) :: a7
+        TYPE(rpe_var), INTENT(IN) :: a8
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6), significand_bits(a7), significand_bits(a8))
-        x = MIN(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4), &
+            significand_bits(a5), &
+            significand_bits(a6), &
+            significand_bits(a7), &
+            significand_bits(a8))
+        x = MIN(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val, &        
+            a5%val, &        
+            a6%val, &        
+            a7%val, &        
+            a8%val)        
     END FUNCTION min_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     !-------------------------------------------------------------------
@@ -493,111 +591,209 @@
     !
 
     ELEMENTAL FUNCTION max_rpe_rpe (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MAX(a%get_value(), b%get_value())
+        x = MAX(a%val, b%val)
     END FUNCTION max_rpe_rpe
 
     ELEMENTAL FUNCTION max_rpe_real (a, b) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a
+        TYPE(rpe_var), INTENT(IN) :: a
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MAX(a%get_value(), b)
+        x = MAX(a%val, b)
     END FUNCTION max_rpe_real
 
     ELEMENTAL FUNCTION max_real_rpe (a, b) RESULT (x)
         REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: a
-        CLASS(rpe_type), INTENT(IN) :: b
+        TYPE(rpe_var), INTENT(IN) :: b
         TYPE(rpe_var) :: x
         x%sbits = MAX(significand_bits(a), significand_bits(b))
-        x = MAX(a, b%get_value())
+        x = MAX(a, b%val)
     END FUNCTION max_real_rpe
 
-    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe (a0, a1, a2) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe &
+                       (a0, a1, a2) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2))
-        x = MAX(a0%get_value(), a1%get_value(), a2%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2))
+        x = MAX(&
+            a0%val, &        
+            a1%val, &        
+            a2%val)        
     END FUNCTION max_ma_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe (a0, a1, a2, a3) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3))
-        x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3))
+        x = MAX(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val)        
     END FUNCTION max_ma_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4))
-        x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4))
+        x = MAX(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val)        
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4, a5) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
+        TYPE(rpe_var), INTENT(IN) :: a5
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5))
-        x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4), &
+            significand_bits(a5))
+        x = MAX(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val, &        
+            a5%val)        
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
-        CLASS(rpe_type), INTENT(IN) :: a6
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4, a5, a6) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
+        TYPE(rpe_var), INTENT(IN) :: a5
+        TYPE(rpe_var), INTENT(IN) :: a6
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6))
-        x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4), &
+            significand_bits(a5), &
+            significand_bits(a6))
+        x = MAX(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val, &        
+            a5%val, &        
+            a6%val)        
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
-        CLASS(rpe_type), INTENT(IN) :: a6
-        CLASS(rpe_type), INTENT(IN) :: a7
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4, a5, a6, a7) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
+        TYPE(rpe_var), INTENT(IN) :: a5
+        TYPE(rpe_var), INTENT(IN) :: a6
+        TYPE(rpe_var), INTENT(IN) :: a7
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6), significand_bits(a7))
-        x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4), &
+            significand_bits(a5), &
+            significand_bits(a6), &
+            significand_bits(a7))
+        x = MAX(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val, &        
+            a5%val, &        
+            a6%val, &        
+            a7%val)        
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
-    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe (a0, a1, a2, a3, a4, a5, a6, a7, a8) RESULT (x)
-        CLASS(rpe_type), INTENT(IN) :: a0
-        CLASS(rpe_type), INTENT(IN) :: a1
-        CLASS(rpe_type), INTENT(IN) :: a2
-        CLASS(rpe_type), INTENT(IN) :: a3
-        CLASS(rpe_type), INTENT(IN) :: a4
-        CLASS(rpe_type), INTENT(IN) :: a5
-        CLASS(rpe_type), INTENT(IN) :: a6
-        CLASS(rpe_type), INTENT(IN) :: a7
-        CLASS(rpe_type), INTENT(IN) :: a8
+    ELEMENTAL FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe &
+                       (a0, a1, a2, a3, a4, a5, a6, a7, a8) &
+                       RESULT (x)
+        TYPE(rpe_var), INTENT(IN) :: a0
+        TYPE(rpe_var), INTENT(IN) :: a1
+        TYPE(rpe_var), INTENT(IN) :: a2
+        TYPE(rpe_var), INTENT(IN) :: a3
+        TYPE(rpe_var), INTENT(IN) :: a4
+        TYPE(rpe_var), INTENT(IN) :: a5
+        TYPE(rpe_var), INTENT(IN) :: a6
+        TYPE(rpe_var), INTENT(IN) :: a7
+        TYPE(rpe_var), INTENT(IN) :: a8
         TYPE(rpe_var) :: x
-        x%sbits = MAX(significand_bits(a0), significand_bits(a1), significand_bits(a2), significand_bits(a3), significand_bits(a4), significand_bits(a5), significand_bits(a6), significand_bits(a7), significand_bits(a8))
-        x = MAX(a0%get_value(), a1%get_value(), a2%get_value(), a3%get_value(), a4%get_value(), a5%get_value(), a6%get_value(), a7%get_value(), a8%get_value())
+        x%sbits = MAX(&
+            significand_bits(a0), &
+            significand_bits(a1), &
+            significand_bits(a2), &
+            significand_bits(a3), &
+            significand_bits(a4), &
+            significand_bits(a5), &
+            significand_bits(a6), &
+            significand_bits(a7), &
+            significand_bits(a8))
+        x = MAX(&
+            a0%val, &        
+            a1%val, &        
+            a2%val, &        
+            a3%val, &        
+            a4%val, &        
+            a5%val, &        
+            a6%val, &        
+            a7%val, &        
+            a8%val)        
     END FUNCTION max_ma_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe_rpe
 
     !-------------------------------------------------------------------
@@ -605,45 +801,60 @@
     !
 
     FUNCTION minval_rpe_1d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MINVAL(t)
     END FUNCTION minval_rpe_1d
 
     FUNCTION minval_rpe_2d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MINVAL(t)
     END FUNCTION minval_rpe_2d
 
     FUNCTION minval_rpe_3d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MINVAL(t)
     END FUNCTION minval_rpe_3d
 
     FUNCTION minval_rpe_4d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3), SIZE(a, 4)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3), &
+                                            SIZE(a, 4)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MINVAL(t)
     END FUNCTION minval_rpe_4d
 
     FUNCTION minval_rpe_5d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3), SIZE(a, 4), SIZE(a, 5)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3), &
+                                            SIZE(a, 4), &
+                                            SIZE(a, 5)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MINVAL(t)
@@ -654,45 +865,60 @@
     !
 
     FUNCTION maxval_rpe_1d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MAXVAL(t)
     END FUNCTION maxval_rpe_1d
 
     FUNCTION maxval_rpe_2d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MAXVAL(t)
     END FUNCTION maxval_rpe_2d
 
     FUNCTION maxval_rpe_3d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MAXVAL(t)
     END FUNCTION maxval_rpe_3d
 
     FUNCTION maxval_rpe_4d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3), SIZE(a, 4)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3), &
+                                            SIZE(a, 4)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MAXVAL(t)
     END FUNCTION maxval_rpe_4d
 
     FUNCTION maxval_rpe_5d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3), SIZE(a, 4), SIZE(a, 5)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3), &
+                                            SIZE(a, 4), &
+                                            SIZE(a, 5)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = MAXVAL(t)
@@ -703,45 +929,60 @@
     !
 
     FUNCTION sum_rpe_1d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = SUM(t)
     END FUNCTION sum_rpe_1d
 
     FUNCTION sum_rpe_2d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = SUM(t)
     END FUNCTION sum_rpe_2d
 
     FUNCTION sum_rpe_3d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = SUM(t)
     END FUNCTION sum_rpe_3d
 
     FUNCTION sum_rpe_4d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3), SIZE(a, 4)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3), &
+                                            SIZE(a, 4)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = SUM(t)
     END FUNCTION sum_rpe_4d
 
     FUNCTION sum_rpe_5d (a) RESULT (x)
-        CLASS(rpe_type), DIMENSION(:, :, :, :, :), INTENT(IN) :: a
+        TYPE(rpe_var), DIMENSION(:, :, :, :, :), INTENT(IN) :: a
         TYPE(rpe_var) :: x
-        REAL(KIND=RPE_REAL_KIND), DIMENSION(SIZE(a, 1), SIZE(a, 2), SIZE(a, 3), SIZE(a, 4), SIZE(a, 5)) :: t
+        REAL(KIND=RPE_REAL_KIND), DIMENSION(&
+                                            SIZE(a, 1), &
+                                            SIZE(a, 2), &
+                                            SIZE(a, 3), &
+                                            SIZE(a, 4), &
+                                            SIZE(a, 5)) :: t
         x%sbits = MAXVAL(significand_bits(a))
         t = a
         x = SUM(t)

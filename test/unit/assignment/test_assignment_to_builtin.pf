@@ -29,22 +29,9 @@ CONTAINS
 
         value_holder = utest64
         assignee = value_holder
-        @ASSERTEQUAL(value_holder%get_value(), assignee)
+        @ASSERTEQUAL(value_holder%val, assignee)
 
     END SUBROUTINE test_assign_real_rpe_var
-
-    @TEST
-    SUBROUTINE test_assign_real_rpe_shadow ()
-        REAL(KIND=RPE_REAL_KIND) :: assignee
-        TYPE(rpe_shadow)         :: value_holder
-        REAL(KIND=RPE_REAL_KIND) :: target
-
-        CALL init_shadow (value_holder, target)
-        value_holder = utest64
-        assignee = value_holder
-        @ASSERTEQUAL(value_holder%get_value(), assignee)
-
-    END SUBROUTINE test_assign_real_rpe_shadow
 
     @TEST
     SUBROUTINE test_assign_alternate_rpe_var ()
@@ -53,22 +40,9 @@ CONTAINS
 
         value_holder = utest64
         assignee = value_holder
-        @ASSERTEQUAL(REAL(value_holder%get_value(), RPE_ALTERNATE_KIND), assignee)
+        @ASSERTEQUAL(REAL(value_holder%val, RPE_ALTERNATE_KIND), assignee)
 
     END SUBROUTINE test_assign_alternate_rpe_var
-
-    @TEST
-    SUBROUTINE test_assign_alternate_rpe_shadow ()
-        REAL(KIND=RPE_ALTERNATE_KIND) :: assignee
-        TYPE(rpe_shadow)              :: value_holder
-        REAL(KIND=RPE_REAL_KIND)      :: target
-
-        CALL init_shadow (value_holder, target)
-        value_holder = utest64
-        assignee = value_holder
-        @ASSERTEQUAL(REAL(value_holder%get_value(), RPE_ALTERNATE_KIND), assignee)
-
-    END SUBROUTINE test_assign_alternate_rpe_shadow
 
     @TEST
     SUBROUTINE test_assign_integer_rpe_var ()
@@ -77,22 +51,9 @@ CONTAINS
 
         value_holder = utest64
         assignee = value_holder
-        @ASSERTEQUAL(INT(value_holder%get_value()), assignee)
+        @ASSERTEQUAL(INT(value_holder%val), assignee)
 
     END SUBROUTINE test_assign_integer_rpe_var
-
-    @TEST
-    SUBROUTINE test_assign_integer_rpe_shadow ()
-        INTEGER                  :: assignee
-        TYPE(rpe_shadow)         :: value_holder
-        REAL(KIND=RPE_REAL_KIND) :: target
-
-        CALL init_shadow (value_holder, target)
-        value_holder = utest64
-        assignee = value_holder
-        @ASSERTEQUAL(INT(value_holder%get_value()), assignee)
-
-    END SUBROUTINE test_assign_integer_rpe_shadow
 
     @TEST
     SUBROUTINE test_assign_long_rpe_var ()
@@ -101,21 +62,8 @@ CONTAINS
 
         value_holder = utest64
         assignee = value_holder
-        @ASSERTEQUAL(INT(value_holder%get_value(), 8), assignee)
+        @ASSERTEQUAL(INT(value_holder%val, 8), assignee)
 
     END SUBROUTINE test_assign_long_rpe_var
-
-    @TEST
-    SUBROUTINE test_assign_long_rpe_shadow ()
-        INTEGER(KIND=8)          :: assignee
-        TYPE(rpe_shadow)         :: value_holder
-        REAL(KIND=RPE_REAL_KIND) :: target
-
-        CALL init_shadow (value_holder, target)
-        value_holder = utest64
-        assignee = value_holder
-        @ASSERTEQUAL(INT(value_holder%get_value(), 8), assignee)
-
-    END SUBROUTINE test_assign_long_rpe_shadow
 
 END MODULE test_assignment_to_builtin
