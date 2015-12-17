@@ -8,7 +8,7 @@ catch out unsuspecting users.
 Initialization on assignment
 ============================
 
-The emulator overloads the assignment operator allowing you to assign integers, real numbers, and other :f:type:`rpe_type` instances to any :f:type:`rpe_type` instance:
+The emulator overloads the assignment operator allowing you to assign integers, real numbers, and other :f:type:`rpe_var` instances to any :f:type:`rpe_var` instance:
 
 .. code-block:: fortran
 
@@ -30,7 +30,7 @@ The emulator overloads the assignment operator allowing you to assign integers, 
 
    END PROGRAM
 
-However, you cannot perform the same assignments at the time the :f:type:`rpe_type` is defined.
+However, you cannot perform the same assignments at the time the :f:type:`rpe_var` is defined.
 This is not allowed:
 
 .. code-block:: fortran
@@ -96,7 +96,7 @@ Output:
 
 To avoid any issues you may want to insert manual calls to :f:subr:`apply_truncation` to ensure every variable used within the scope of the changed default is represented at the required precision.
 
-In other circumstances this may not be a problem at all, for example around encapsulted subroutine calls.
+In other circumstances this may not be a problem at all, for example around encapsulated subroutine calls.
 In the example below the procedure :f:subr:`some_routine` takes no reduced precision types as arguments, but does work with reduced precision types internally, and in this case setting the default number of bits around the subroutine call is a useful way to set the default precision of all reduced precision variables within the subroutine (and within any routines it calls):
 
 .. code-block:: fortran
@@ -140,7 +140,7 @@ and
 
 However, due to the way the emulator works by doing individual computations in full precision and reducing the precision of the result, these two would not necessarily yield the same result if ``a`` were a reduced precision variable.
 In the first example the compound multiplication would be done in two parts, the first part computes ``a * a`` and the precision of the temporary result is reduced, then the second part multiplies this reduced precision result by ``a`` and once again reduces the precision of the final result.
-However, in the second example a single operation is used to express the computation, this coimputation will be performed in full precision and the result will have its precision reduced.
+However, in the second example a single operation is used to express the computation, this computation will be performed in full precision and the result will have its precision reduced.
 Whereas the first example uses reduced precision to store intermediate results, the second does not.
 
 This is true for any operator that can be expressed as multiple invocations of other operators.

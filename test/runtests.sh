@@ -20,11 +20,11 @@
 set -u
 
 # List of all the test suites that should be run.
-readonly RUN_SUITES="unit"
+readonly RUN_SUITES="unit integration"
 
 # Define a mapping between test suite names and executables.
 readonly UNIT_EXE="unit/unittests.x"
-readonly INTEGRATION_EXE="integration/inttests.x"
+readonly INTEGRATION_EXE="integration/inttests.sh"
 declare -A SUITE_MAP
 SUITE_MAP["unit"]="${UNIT_EXE}"
 SUITE_MAP["integration"]="${INTEGRATION_EXE}"
@@ -40,7 +40,14 @@ main () {
     local suite_status
     local suite_info
     local messages=""
+    echo "========================================================================"
+    echo "Running master test suite"
+    echo "========================================================================"
     for suite in ${RUN_SUITES}; do
+        echo
+        echo "------------------------------------------------------------------------"
+        echo "Running suite: '$suite'"
+        echo "------------------------------------------------------------------------"
         "${SUITE_MAP["${suite}"]}"
         suite_status=$?
         suite_info="  suite: '${suite}'"
@@ -51,7 +58,10 @@ main () {
             messages=$(appendline "${messages}" "${suite_info} PASSED")
         fi
     done
+    echo
+    echo "========================================================================"
     echo "Summary:"
+    echo "========================================================================"
     echo -e "${messages}"
     return $status
 }

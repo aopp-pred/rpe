@@ -16,9 +16,7 @@ Type name (JSON)  Generator Type variable     Fortran type
 ``"long"``        ``rpgen.types.LONG``        ``INTEGER(KIND=8)``
 ``"real"``        ``rpgen.types.REAL``        ``REAL(KIND=RPE_REAL_KIND)``
 ``"realalt"``     ``rpgen.types.REALALT``     ``REAL(KIND=RPE_ALTERNATE_KIND)``
-``"rpe_type"``    ``rpgen.types.RPE_TYPE``    ``CLASS(rpe_type)``
 ``"rpe_var"``     ``rpgen.types.RPE_VAR``     ``TYPE(rpe_var)``
-``"rpe_shadow"``  ``rpgen.types.RPE_SHADOW``  ``TYPE(rpe_shadow)``
 ================  ==========================  =================================
 
 

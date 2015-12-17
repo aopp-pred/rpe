@@ -57,11 +57,6 @@ of the Makefile:
 This will generate the file ``src/rp_emulator.f90`` (note the lower case
 extension) which can be integrated into the source of other projects.
 
-If you choose to work with the unified source program you may need to allow
-for the long lines when compiling it (for gfortran you need the
-``-ffree-line-length-none`` compiler flag, other compilers may require other
-flags).
-
 
 Integration
 ===========
@@ -91,7 +86,3 @@ Unified source builds
 ---------------------
 
 If you wish, you can just build the unified source code of the emulator directly in your project.
-However, you need to use the correct options when compiling the emulator.
-The emulator source code may contain some lines longer than the default line-length limit for some compilers (these lines are produced by the code generator).
-To make sure the library compiles properly you might need to tell the compiler to ignore line-length restrictions.
-For example, when using `gfortran` the compiler option ``-ffree-line-length-none`` is needed.

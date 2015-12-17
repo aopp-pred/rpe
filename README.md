@@ -44,11 +44,6 @@ of the Makefile:
 This will generate the file `src/rp_emulator.f90` (note the lower case
 extension) which can be integrated into the source of other projects.
 
-If you choose to work with the unified source program you may need to allow
-for the long lines when compiling it (for gfortran you need the
-`-ffree-line-length-none` compiler flag, other compilers may require other
-flags).
-
 
 ## Documentation
 

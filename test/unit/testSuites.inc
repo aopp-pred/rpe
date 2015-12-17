@@ -23,7 +23,6 @@ ADD_TEST_SUITE(test_significand_bits_suite)
 ADD_TEST_SUITE(test_apply_truncation_suite)
 
 ! Test suites for the emulator types.
-ADD_TEST_SUITE(test_rpe_shadow_suite)
 ADD_TEST_SUITE(test_rpe_var_suite)
 
 ! Test suites for the assignment operator.

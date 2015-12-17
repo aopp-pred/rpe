@@ -17,7 +17,7 @@
         {{ type1.declaration }}, INTENT(IN) :: a
         {{ type2.declaration }}, INTENT(IN) :: b
         {{ function.return_type.declaration }} :: x
-        {% if function.return_type.rpe_instance %}
+        {% if function.return_type.name == "rpe" %}
         x%sbits = MAX(significand_bits(a), significand_bits(b))
         {% endif %}
         x = {{ function.name.upper() }}(a{{ type1.accessor }}, b{{ type2.accessor }})

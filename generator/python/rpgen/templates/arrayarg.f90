@@ -20,14 +20,19 @@
     {%- endmacro %}
     {% macro dimension_full(n) -%}
     {% if ndim != 0 -%}
-    , DIMENSION({% for i in range(n) -%}SIZE(a, {{ i + 1 }}){% if loop.last %}{% else %}, {% endif %}{%- endfor %})
+    , DIMENSION(&
+    {% for i in range(n) %}
+                                            SIZE(a, {{ i + 1 }}){% if not loop.last %}, &
+
+            {% else %}){% endif %}
+    {% endfor %}
     {%- endif %}
     {%- endmacro %}
     FUNCTION {{ function.name }}_{{ type1.name }}_{{ ndim }}d (a) RESULT (x)
         {{ type1.declaration }}{{ dimension(ndim) }}, INTENT(IN) :: a
         {{ function.return_type.declaration }} :: x
         REAL(KIND=RPE_REAL_KIND){{ dimension_full(ndim) }} :: t
-        {% if function.return_type.rpe_instance %}
+        {% if function.return_type.name == "rpe" %}
         x%sbits = MAXVAL(significand_bits(a))
         {% endif %}
         t = a

@@ -45,16 +45,16 @@ def generate_operator_suite(op):
     """Generate code and an interface for an operator."""
     blocks = []
     if 'unary' in op.operator_categories:
-        blocks.append(generate_code('unaryop', type1=rptypes.RPE_TYPE,
+        blocks.append(generate_code('unaryop', type1=rptypes.RPE_VAR,
                                     operator=op))
     if 'binary' in op.operator_categories:
-        blocks.append(generate_code('binaryop', type1=rptypes.RPE_TYPE,
-                                    type2=rptypes.RPE_TYPE, operator=op))
-        blocks += [generate_code('binaryop', type1=rptypes.RPE_TYPE,
+        blocks.append(generate_code('binaryop', type1=rptypes.RPE_VAR,
+                                    type2=rptypes.RPE_VAR, operator=op))
+        blocks += [generate_code('binaryop', type1=rptypes.RPE_VAR,
                                  type2=datatype, operator=op)
                    for datatype in BINARY_TYPES]
         blocks += [generate_code('binaryop', type1=datatype,
-                                 type2=rptypes.RPE_TYPE, operator=op)
+                                 type2=rptypes.RPE_VAR, operator=op)
                    for datatype in BINARY_TYPES]
     names = [b[0] for b in blocks]
     code = [b[1] for b in blocks]

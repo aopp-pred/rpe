@@ -58,4 +58,5 @@ clean: local-base0-clean clean-test-modules
 
 # Clean all the test module directories, including the common suite module.
 clean-test-modules:
-	for dir in $(TEST_MODULES) common; do $(MAKE) -C $$dir clean; done
+	@for dir in $(TEST_MODULES) common; do $(MAKE) -C $$dir clean; done
+	$(RM) unittests.x

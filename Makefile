@@ -41,14 +41,14 @@ endif
 
 # Set the required compiler flags for each supported compiler.
 ifeq ($(F90), gfortran)
-FFLAGS += -ffree-line-length-none -J$(moduledir)
+FFLAGS += -J$(moduledir)
 endif
 ifeq ($(F90), ifort)
 FFLAGS += -module $(moduledir)
 endif
 
 # Convenience targets for the source code and compiled library:
-.PHONY: all source library shared
+.PHONY: all source library shared test
 all: library
 source: $(unified_source)
 library: $(libstatic)
@@ -69,6 +69,10 @@ $(libshared): $(object)
 # Generate the full source listing using the C preprocessor:
 $(unified_source): $(src) $(geninc)
 	cpp -I$(genincdir) $(src) | sed '/^#/d' > $(unified_source)
+
+# Test the built library.
+test: library
+	$(MAKE) -C test test
 
 # Cleanup tasks:
 clean:

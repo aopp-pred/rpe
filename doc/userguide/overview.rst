@@ -2,17 +2,14 @@
 Overview
 ========
 
-The library contains two core types: :f:type:`rpe_var` and :f:type:`rpe_shadow`.
-Both of these types are subclasses of the abstract type :f:type:`rpe_type`.
-These types can be used in place of real-valued variables to perform calculations with floating-point numbers represented with a reducednumber of bits in the floating-point significand.
+The library contains a derived type: :f:type:`rpe_var`.
+This type can be used in place of real-valued variables to perform calculations with floating-point numbers represented with a reduced number of bits in the floating-point significand.
 
 
-Basic use of the reduced-precision types
-========================================
+Basic use of the reduced-precision type
+=======================================
 
-The :f:type:`rpe_var` type is a simple container for a double precision floating point value, whereas the `rpe_shadow` type acts as a memory-view onto an existing double precision floating point number defined outside the type itself.
-Changing the value of an :f:type:`rpe_shadow` variable also changes the value of the floating point number it is shadowing and vice-versa, since they both refer to the same block of memory.
-
+The :f:type:`rpe_var` type is a simple container for a double precision floating point value.
 Using an :f:type:`rpe_var` instance is as simple as declaring it and using it just as you would a real number:
 
 .. code-block:: fortran
@@ -21,17 +18,6 @@ Using an :f:type:`rpe_var` instance is as simple as declaring it and using it ju
 
    myvar = 12
    myvar = myvar * 1.287   ! reduced-precision result is stored in `myvar`
-
-An :f:type:`rpe_shadow` instance is different, it must first be initialized to point at an existing real-valued variable before it can be used:
-
-.. code-block:: fortran
-
-   REAL(KIND=RPE_REAL_KIND) :: real_target
-   TYPE(rpe_shadow)         :: myvar
-
-   CALL init_shadow (myvar, target)
-   myvar = 12              ! both `myvar` and `real_target` contain the value 12
-   myvar = myvar * 1.287   ! reduced precision result is stored in both `myvar` and `real_target`
 
 
 Controlling the precision
