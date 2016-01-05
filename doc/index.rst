@@ -5,6 +5,8 @@
    userguide/index
    developerguide/index
    api/index
+   downloads
+
 
 Reduced Precision Emulator
 ==========================

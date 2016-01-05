@@ -9,5 +9,5 @@ This developer guide provides extra documentation required for doing development
 
    getting_started
    structure
-   git_development
+   gitwash/index
    code_generator/index

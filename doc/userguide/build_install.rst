@@ -25,23 +25,22 @@ Fortran module `modules/rp_emulator.mod`.
 The code is tested with and set-up for building with GNU gfortran or Intel
 Fortran (ifort) compilers. Which compiler to use is determined by the value
 of the `F90` environment variable. If this variable is not set the Makefile
-will use `gfortran`. The default build is a simple invocation of `make`:
+will use `gfortran`. The default build is a simple invocation of `make`::
 
     make
 
 It is also possible to build a shared library `lib/librpe.so` using the
-`shared` target of the Makefile:
+`shared` target of the Makefile::
 
    make shared
 
-You can optionally specify a compiler on the command line:
+You can optionally specify a compiler on the command line::
 
     F90=ifort make
 
 If you want to use a compiler other than `gfortran` or `ifort` you will
 need to specify both the appropriate `F90` variable and the correct `FFLAGS`
-for your compiler, bearing in mind the source code contains some lines over
-132 characters in length. Compiler flags are also used to ensure the module
+for your compiler. Compiler flags are used in the build to ensure the module
 `rp_emulator.mod` is placed in the `modules/` directory in the source tree.
 
 Unified source
@@ -50,7 +49,7 @@ Unified source
 The source code for the emulator is split across several files, and makes use
 of the C preprocessor to combine them during the build process. If you want to
 generate a unified source file for ease of use you can use the `source` target
-of the Makefile:
+of the Makefile::
 
     make source
 
@@ -71,11 +70,11 @@ At link time the ``librpe.a`` (or ``librpe.so``) library will also need to be av
 You can use a combination of linker path and library options to make sure this is the case.
 Alternatively, you can directly specify the full path to ``librpe.a`` as an object to include in linking.
 
-For example, let's say we have placed the module file at ``$HOME/rpe/modules/rp_emulator.mod`` and the library at ``$HOME/rpe/lib/librpe.a``, our compilation command must tell the compiler to look in the right place for the module file:
+For example, let's say we have placed the module file at ``$HOME/rpe/modules/rp_emulator.mod`` and the library at ``$HOME/rpe/lib/librpe.a``, our compilation command must tell the compiler to look in the right place for the module file::
 
     gfortran -c -I$HOME/rpe/modules myprogram.f90
 
-and our linker command must tell the linker which libraries to link and where to look for them:
+and our linker command must tell the linker which libraries to link and where to look for them::
 
     gfortran -o myprogram.exe myprogram.o -L$HOME/rpe/lib -lrpe
 

@@ -15,6 +15,7 @@
 import sys
 import os
 import shlex
+import time
 
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -55,7 +56,11 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Reduced Precision Emulator'
-copyright = u'2015 Andrew Dawson, Peter Dueben'
+current_year = time.localtime().tm_year
+if current_year > 2015:
+    copyright = u'2015-{} Andrew Dawson, Peter Dueben'.format(current_year)
+else:
+    copyright = u'2015 Andrew Dawson, Peter Dueben'
 author = u'Andrew Dawson, Peter Dueben'
 
 # The version info for the project you're documenting, acts as replacement for

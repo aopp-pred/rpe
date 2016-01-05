@@ -43,7 +43,7 @@ If you want to build the documentation you will need:
 Get the source code
 ===================
 
-Follow the instructions in :doc:`git_development` to set up your source code repository and version control tools.
+Follow the instructions in :doc:`gitwash/index` to set up your source code repository and version control tools.
 
 .. _GCC: https://gcc.gnu.org/
 .. _GNU Make: https://www.gnu.org/software/make/
