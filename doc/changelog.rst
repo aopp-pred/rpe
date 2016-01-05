@@ -1,6 +1,28 @@
 Changelog
 =========
 
+v4.0.x
+------
+
+:Release: v4.0.0
+:Date: 5 January 2016
+
+This release is a major overhaul of the code with the aim of making it more
+portable and reliable.
+
+* Features
+
+  * Compatible with Intel Fortran compilers. The code may work with other
+    compilers too, but only Intel and GNU are tested currently.
+
+* Incompatibilities: This release is not compatible with version 3 or below.
+
+  * Removed the `rpe_shadow` derived type.
+  * Removed abstract base class `rpe_type`, the only user type is now `rpe_var`.
+  * Removed getter and setter methods, the value of an `rpe_var` instance is now
+    accessed directly using the `%val` attribute.
+
+
 v3.1.x
 ------
 
