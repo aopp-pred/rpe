@@ -51,9 +51,22 @@ MODULE rp_emulator
     !: be used when operating on values with 10 bits in the significand.
     LOGICAL, PUBLIC :: RPE_IEEE_HALF = .FALSE.
 
+    !: Logical flag for turning on/off a faster truncation algorithm.
+    LOGICAL, PUBLIC :: RPE_FAST_MODE = .FALSE.
+
     !: An internal value used to represent the case where a reduced-precision
     !: number has no specified precision yet.
     INTEGER, PARAMETER, PRIVATE :: RPE_SBITS_UNSPECIFIED = -1
+
+    !: Pre-computed fast truncation factors.
+    INTEGER, PRIVATE :: RPE_N_IMPLIED
+    REAL(KIND=RPE_REAL_KIND), DIMENSION(0:52), PARAMETER, PRIVATE :: &
+        RPE_FTFACTOR_A = (/ &
+            (REAL(2, RPE_REAL_KIND) ** (52 - RPE_N_IMPLIED), &
+             RPE_N_IMPLIED = 0, 52) &
+        /)
+    REAL(KIND=RPE_REAL_KIND), DIMENSION(0:52), PARAMETER, PRIVATE :: &
+        RPE_FTFACTOR_B = RPE_FTFACTOR_A - 1
 
 !-----------------------------------------------------------------------
 ! Module derived-type definitions:
@@ -144,8 +157,20 @@ CONTAINS
             ELSE
                 truncation = x%sbits
             END IF
-            ! Set the contained value to the truncated value.
-            x%val = truncate_significand(y, truncation)
+            ! Don't do anything if the number of significand bits specified is
+            ! not in the required range (although 52 is valid, it represents no
+            ! truncation so we can skip that value too).
+            IF (truncation < 52 .AND. truncation >= 0) THEN
+                ! Set the contained value to the truncated value.
+                IF (RPE_FAST_MODE) THEN
+                    ! Use a fast bit-shift method conforming to IEEE rounding
+                    ! rules (but subject to potential overflows).
+                    x%val = RPE_FTFACTOR_A(truncation) * y - &
+                            RPE_FTFACTOR_B(truncation) * y
+                ELSE
+                    x%val = truncate_significand(y, truncation)
+                END IF
+            END IF
         END IF
     END SUBROUTINE apply_truncation
 
@@ -156,7 +181,7 @@ CONTAINS
     ! Arguments:
     !
     ! * x: real(kind=RPE_DOUBLE_KIND) [input]
-    !     The doyuble precision number to truncate.
+    !     The double precision number to truncate.
     !
     ! * n: integer [input]
     !     The number of bits to truncate the significand to.
