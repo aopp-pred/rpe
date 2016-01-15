@@ -72,6 +72,23 @@ Variables
    This option only affects the emulation when emulating a 10-bit significand.
 
 
+.. f:variable:: RPE_FAST_MODE
+   :type: LOGICAL
+   :attrs: default=.FALSE.
+
+   Logical value determining whether or not to use a faster algorithm to reduced precision.
+   The faster algorithm uses floating-point operations to bit-shift the value to the required precision, and takes approximately 2/3 of the time as the standard algorithm.
+
+   .. note::
+
+      With ``RPE_FAST_MODE=.TRUE.`` the results will not be the same as with ``RPE_FAST_MODE=.FALSE.`` due to differences in rounding schemes.
+
+   .. warning::
+
+      It is possible that this scheme will generate overflow errors when working with extremely large numbers truncated to a small number of bits.
+      If this affects you then you should not use this mode.
+
+
 Parameters
 ==========
 
