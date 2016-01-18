@@ -72,6 +72,19 @@ Variables
    This option only affects the emulation when emulating a 10-bit significand.
 
 
+.. f:variable:: RPE_IEEE_ROUNDING
+   :type: LOGICAL
+   :attrs: default=.FALSE.
+
+    Logical value determining if full IEEE 754 rounding rules should be used.
+    If ``.TRUE.`` then a *"round to nearest, tie to even"* rounding scheme will be used, which proceeds as normal rounding to the nearest representable number, except in the special case where a number is halfway between two representations where it will be rounded so that the least significant bit of the results is a zero.
+    If ``.FALSE.`` then then rounding scheme rounds numbers halfway between two representations to the representation with larger absolute value.
+
+    .. note::
+
+       It is recommended to set this option to ``.TRUE.``. Currently the default is ``.FALSE.`` for backwards compatibility reasons. In a future release the bahaviour of the ``.TRUE.`` setting will become the default (and possibly only) option.
+
+
 Parameters
 ==========
 
