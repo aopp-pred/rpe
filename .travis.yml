@@ -25,3 +25,6 @@ install:
 
 script:
   - make test
+
+notifications:
+  email: false
