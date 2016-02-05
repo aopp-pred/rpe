@@ -68,7 +68,7 @@ $(libshared): $(object)
 
 # Generate the full source listing using the C preprocessor:
 $(unified_source): $(src) $(geninc)
-	cpp -I$(genincdir) $(src) | sed '/^#/d' > $(unified_source)
+	cpp -w -I$(genincdir) $(src) | sed '/^#/d' > $(unified_source)
 
 # Test the built library.
 test: library
