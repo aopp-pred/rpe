@@ -40,10 +40,10 @@ F90 = gfortran
 endif
 
 # Set the required compiler flags for each supported compiler.
-ifeq ($(F90), gfortran)
+ifneq (,$(findstring gfortran,$(F90)))
 FFLAGS += -J$(moduledir)
 endif
-ifeq ($(F90), ifort)
+ifneq (,$(findstring ifort,$(F90)))
 FFLAGS += -module $(moduledir)
 endif
 

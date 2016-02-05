@@ -1,0 +1,30 @@
+language: c
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.9
+      - gfortran-4.9
+
+env:
+  global:
+    - F90=gfortran-4.9
+    - F90_VENDOR=GNU
+    - PFUNIT=$HOME/pFUnit
+
+install:
+  - git clone git://git.code.sf.net/p/pfunit/code pFUnit
+  - cd pFUnit
+  - make
+  - make install INSTALL_DIR=$PFUNIT
+  - cd ..
+  - rm -rf pFUnit
+  - make library
+
+script:
+  - make test
+
+notifications:
+  email: false
