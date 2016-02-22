@@ -159,7 +159,7 @@ CONTAINS
     ! Arguments:
     !
     ! * x: real(kind=RPE_DOUBLE_KIND) [input]
-    !     The doyuble precision number to truncate.
+    !     The double precision number to truncate.
     !
     ! * n: integer [input]
     !     The number of bits to truncate the significand to.
@@ -317,13 +317,13 @@ CONTAINS
     ! Arguments:
     !
     ! * x: class(*) [input]
-    !       A scalar input of any type.
+    !     A scalar input of any type.
     !
     ! Returns:
     !
     ! * z: integer [output]
-    !       The number of bits in the significand of the input floating-point
-    !       value, or 0 if the input was not a floating-point value.
+    !     The number of bits in the significand of the input floating-point
+    !     value, or 0 if the input was not a floating-point value.
     !
         CLASS(*), INTENT(IN) :: x
         INTEGER :: z
