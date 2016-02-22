@@ -45,6 +45,51 @@ User-callable procedures
    :param rpe_shadow shadow [INOUT]: The :f:type:`rpe_shadow` instance to initialize.
    :param REAL target [KIND=RPE_REAL_KIND,IN]: A floating-point variable to shadow. This must be a variable defined within the scope of the :f:func:`init_shadow` call otherwise invalid memory references will occur.
 
+
+.. f:function:: rpe_literal (x, n)
+
+   Construct an :f:type:`rpe_var` instance from a value.
+   Optionally a number of significand bits used to store the value may be given.
+   The value will be truncated before storage.
+   A typical usage of this constructor is to support reduced precision literal values without having to declare extra variables:
+
+   .. code-block:: fortran
+
+      type(rpe_var) :: a, b, c, d, e
+
+      RPE_DEFAULT_SBITS = 10
+
+      ! variables a, b and c have a 10-bit significands:
+      a = 5.00
+      b = 7.23
+      c = 21.12
+
+      ! The literals 7.29e-5, 3.14 and 18.17 have full precision
+      ! (a 23-bit significand):
+      d = 7.29e-5 * a + 3.14 * b + 18.17 * c  ! d = 406.5
+
+      ! The literals are replaced by rpe_var instances with 10-bit significands:
+      e = rpe_literal(7.29e-5) * a + rpe_literal(3.14) * b + rpe_literal(18.17) * c  ! e = 406.75
+
+   :param x [IN]: A real or integer value to store in the resulting :f:type:`rpe_var` instance.
+   :param integer n [IN,OPTIONAL]: An optional number of significand bits used to represent the number, equivalent of setting the :f:var:`sbits` attribute of an :f:type:`rpe_var` instance. If not specified then the resulting :f:type:`rpe_var` will use the default precision specified by :f:var:`RPE_DEFAULT_SBITS`.
+
+   .. note::
+
+      If you use this to create an :f:type:`rpe_var` instance and then assign the result to another instance, only the value will be copied:
+
+      .. code-block:: fortran
+
+         ! An rpe_var instance with a 13 bit significand:
+         type(rpe_var) :: a
+         a%sbits = 13
+
+         ! Construct an rpe_type instance with a 15-bit significand and assign to a,
+         ! the value will be truncated to 13 bits and the variable a will continue
+         ! to store only 13 significand bits.
+         a = rpe_literal(1.23456789, 15)
+
+
 .. f:subroutine:: apply_truncation (rpe)
    :attrs: elemental
 
