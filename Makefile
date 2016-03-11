@@ -5,7 +5,7 @@
 # which can be compiled into the emulator library and associated module.
 #
 
-# Copyright 2015 Andrew Dawson, Peter Dueben
+# Copyright 2015-2016 Andrew Dawson, Peter Dueben
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ genincdir = src/include
 geninc = $(wildcard $(genincdir)/*.i $(genincdir)/*.f90)
 
 # The processed source file:
-unified_source = src/rp_emulator.f90
+unified_source = src/processed/rp_emulator.f90
 
 # The module and library resulting from compiling the processed source:
 object = src/rp_emulator.o
@@ -68,6 +68,7 @@ $(libshared): $(object)
 
 # Generate the full source listing using the C preprocessor:
 $(unified_source): $(src) $(geninc)
+	mkdir -p $(dir $(unified_source))
 	cpp -I$(genincdir) $(src) | sed '/^#/d' > $(unified_source)
 
 # Test the built library.

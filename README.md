@@ -41,8 +41,8 @@ of the Makefile:
 
     make source
 
-This will generate the file `src/rp_emulator.f90` (note the lower case
-extension) which can be integrated into the source of other projects.
+This will generate the file `src/processed/rp_emulator.f90` which can be
+integrated into the source of other projects.
 
 
 ## Documentation
