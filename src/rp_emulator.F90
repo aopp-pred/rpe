@@ -73,6 +73,16 @@ MODULE rp_emulator
         REAL(KIND=RPE_REAL_KIND) :: val
     END TYPE
 
+    ! Create a public interface for constructing literal reduced
+    ! precision values (rpe_var instances).
+    PUBLIC rpe_literal
+    INTERFACE rpe_literal
+        MODULE PROCEDURE rpe_literal_real
+        MODULE PROCEDURE rpe_literal_alternate
+        MODULE PROCEDURE rpe_literal_integer
+        MODULE PROCEDURE rpe_literal_long
+    END INTERFACE
+
     ! Make the core emulator routines importable.
     PUBLIC :: apply_truncation, significand_bits
 
@@ -159,7 +169,7 @@ CONTAINS
     ! Arguments:
     !
     ! * x: real(kind=RPE_DOUBLE_KIND) [input]
-    !     The doyuble precision number to truncate.
+    !     The double precision number to truncate.
     !
     ! * n: integer [input]
     !     The number of bits to truncate the significand to.
@@ -317,13 +327,13 @@ CONTAINS
     ! Arguments:
     !
     ! * x: class(*) [input]
-    !       A scalar input of any type.
+    !     A scalar input of any type.
     !
     ! Returns:
     !
     ! * z: integer [output]
-    !       The number of bits in the significand of the input floating-point
-    !       value, or 0 if the input was not a floating-point value.
+    !     The number of bits in the significand of the input floating-point
+    !     value, or 0 if the input was not a floating-point value.
     !
         CLASS(*), INTENT(IN) :: x
         INTEGER :: z
@@ -342,6 +352,119 @@ CONTAINS
             z = 0
         END SELECT
     END FUNCTION significand_bits
+
+    FUNCTION rpe_literal_real (x, n) RESULT (z)
+    ! Create an `rpe_var` instance from a real literal.
+    !
+    ! Arguments:
+    !
+    ! * x: real(kind=RPE_REAL_KIND) [input]
+    !     The literal to transform to a reduced precision `rpe_var` instance.
+    !
+    ! * n: integer [input, optional]
+    !     The number of bits in the significand of the resulting reduced
+    !     precision number. If not specified then the result will have the
+    !     default precision.
+    !
+    ! Returns:
+    !
+    ! * z: rpe_var
+    !     An `rpe_var` instance representing the input literal at the given
+    !     precision.
+    !
+        REAL(KIND=RPE_REAL_KIND), INTENT(IN) :: x
+        INTEGER, OPTIONAL,        INTENT(IN) :: n
+        TYPE(rpe_var) :: z
+        IF (PRESENT(n)) THEN
+            z%sbits = n
+        END IF
+        z = x
+    END FUNCTION rpe_literal_real
+
+    FUNCTION rpe_literal_alternate (x, n) RESULT (z)
+    ! Create an `rpe_var` instance from a real literal.
+    !
+    ! Arguments:
+    !
+    ! * x: real(kind=RPE_ALTERNATE_KIND) [input]
+    !     The literal to transform to a reduced precision `rpe_var` instance.
+    !
+    ! * n: integer [input, optional]
+    !     The number of bits in the significand of the resulting reduced
+    !     precision number. If not specified then the result will have the
+    !     default precision.
+    !
+    ! Returns:
+    !
+    ! * z: rpe_var
+    !     An `rpe_var` instance representing the input literal at the given
+    !     precision.
+    !
+        REAL(KIND=RPE_ALTERNATE_KIND),           INTENT(IN) :: x
+        INTEGER,                       OPTIONAL, INTENT(IN) :: n
+        TYPE(rpe_var) :: z
+        IF (PRESENT(n)) THEN
+            z%sbits = n
+        END IF
+        z = x
+    END FUNCTION rpe_literal_alternate
+
+    FUNCTION rpe_literal_integer (x, n) RESULT (z)
+    ! Create an `rpe_var` instance from an integer literal.
+    !
+    ! Arguments:
+    !
+    ! * x: integer [input]
+    !     The literal to transform to a reduced precision `rpe_var` instance.
+    !
+    ! * n: integer [input, optional]
+    !     The number of bits in the significand of the resulting reduced
+    !     precision number. If not specified then the result will have the
+    !     default precision.
+    !
+    ! Returns:
+    !
+    ! * z: rpe_var
+    !     An `rpe_var` instance representing the input literal at the given
+    !     precision.
+    !
+        INTEGER,           INTENT(IN) :: x
+        INTEGER, OPTIONAL, INTENT(IN) :: n
+        TYPE(rpe_var) :: z
+        IF (PRESENT(n)) THEN
+            z%sbits = n
+        END IF
+        z = x
+    END FUNCTION rpe_literal_integer
+
+    FUNCTION rpe_literal_long (x, n) RESULT (z)
+    ! Create an `rpe_var` instance from a long integer literal.
+    !
+    ! Arguments:
+    !
+    ! * x: integer(KIND=8) [input]
+    !     The literal to transform to a reduced precision `rpe_var` instance.
+    !
+    ! * n: integer [input, optional]
+    !     The number of bits in the significand of the resulting reduced
+    !     precision number. If not specified then the result will have the
+    !     default precision.
+    !
+    ! Returns:
+    !
+    ! * z: rpe_var
+    !     An `rpe_var` instance representing the input literal at the given
+    !     precision.
+    !
+        INTEGER(KIND=8),           INTENT(IN) :: x
+        INTEGER,         OPTIONAL, INTENT(IN) :: n
+        TYPE(rpe_var) :: z
+        IF (PRESENT(n)) THEN
+            z%sbits = n
+        END IF
+        z = x
+    END FUNCTION rpe_literal_long
+
 
 !-----------------------------------------------------------------------
 ! Overloaded assignment definitions:

@@ -1,4 +1,4 @@
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -16,40 +16,209 @@ MODULE test_rpe_var
 ! Tests for the `rpe_var` type.
 !
     USE pfunit_mod
-    USE suite_common, ONLY : utest64_t, utest64
+    USE suite_common, ONLY : utest64_t, utest64, utest32, utest32_t
     USE rp_emulator
     IMPLICIT NONE
-    
+
+    @TESTCASE
+    TYPE, EXTENDS(TestCase) :: EmulatorTest
+        LOGICAL :: rpe_active
+        INTEGER :: rpe_default_sbits
+        LOGICAL :: rpe_ieee_half
+        LOGICAL :: rpe_ieee_rounding
+    CONTAINS
+        procedure :: setUp
+        procedure :: tearDown
+    END TYPE EmulatorTest
+
 CONTAINS
 
+    SUBROUTINE setUp (this)
+        CLASS(EmulatorTest), INTENT(INOUT) :: this
+        this%rpe_active = RPE_ACTIVE
+        this%rpe_default_sbits = RPE_DEFAULT_SBITS
+        this%rpe_ieee_half = RPE_IEEE_HALF
+        this%rpe_ieee_rounding = RPE_IEEE_ROUNDING
+    END SUBROUTINE setUp
+
+    SUBROUTINE tearDown (this)
+        CLASS(EmulatorTest), INTENT(INOUT) :: this
+        RPE_ACTIVE = this%rpe_active
+        RPE_DEFAULT_SBITS = this%rpe_default_sbits
+        RPE_IEEE_HALF = this%rpe_ieee_half
+        RPE_IEEE_ROUNDING = this%rpe_ieee_rounding
+    END SUBROUTINE tearDown
+
     @TEST
-    SUBROUTINE test_rpe_var_assign_reduce_default ()
+    SUBROUTINE test_rpe_var_assign_reduce_default (context)
     ! Verify that the precision of a value assigned to an `rpe_var`
     ! instance is reduced to the default number of bits by the
     ! assignment operator when no precision level has been set.
     !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: reduced
-        
+
         reduced = utest64
         @ASSERTEQUAL(reduced%val, utest64_t(23))
-        
+
     END SUBROUTINE test_rpe_var_assign_reduce_default
-        
+
     @TEST
-    SUBROUTINE test_rpe_var_assign_reduce_specified ()
+    SUBROUTINE test_rpe_var_assign_reduce_specified (context)
     ! Verify that the precision of a value assigned to an `rpe_var`
     ! instance is reduced to the instance's specified number of bits by
     ! the assignment operator.
     !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: reduced
         INTEGER       :: nbits
-        
+
         DO nbits = 1, 23
             reduced%sbits = nbits
             reduced = utest64
             @ASSERTEQUAL(reduced%val, utest64_t(nbits))
         END DO
-        
+
     END SUBROUTINE test_rpe_var_assign_reduce_specified
+
+    @TEST
+    SUBROUTINE test_rpe_literal_real_64bit_explicit (context)
+    ! Test that one can construct am rpe_var instance from a real number
+    ! with kind RPE_REAL_KIND.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+        INTEGER       :: nbits
+
+        DO nbits = 1, 23
+            reduced = rpe_literal(utest64, nbits)
+            @ASSERTEQUAL(reduced%val, utest64_t(nbits))
+        END DO
+
+    END SUBROUTINE test_rpe_literal_real_64bit_explicit
+
+    @TEST
+    SUBROUTINE test_rpe_literal_real_64bit_defaults (context)
+    ! Test that one can construct am rpe_var instance from a real number
+    ! with kind RPE_REAL_KIND.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+        INTEGER       :: nbits
+
+        DO nbits = 1, 23
+            RPE_DEFAULT_SBITS = nbits
+            reduced = rpe_literal(utest64)
+            @ASSERTEQUAL(reduced%val, utest64_t(nbits))
+        END DO
+
+    END SUBROUTINE test_rpe_literal_real_64bit_defaults
+
+    @TEST
+    SUBROUTINE test_rpe_literal_real_32bit_explicit (context)
+    ! Test that one can construct am rpe_var instance from a real number
+    ! with kind RPE_REAL_KIND.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+        INTEGER       :: nbits
+
+        DO nbits = 1, 23
+            reduced = rpe_literal(utest32, nbits)
+            @ASSERTEQUAL(utest32_t(nbits), reduced%val)
+        END DO
+
+    END SUBROUTINE test_rpe_literal_real_32bit_explicit
+
+    @TEST
+    SUBROUTINE test_rpe_literal_real_32bit_defaults (context)
+    ! Test that one can construct am rpe_var instance from a real number
+    ! with kind RPE_REAL_KIND.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+        INTEGER       :: nbits
+
+        DO nbits = 1, 23
+            RPE_DEFAULT_SBITS = nbits
+            reduced = rpe_literal(utest32)
+            @ASSERTEQUAL(utest32_t(nbits), reduced%val)
+        END DO
+
+    END SUBROUTINE test_rpe_literal_real_32bit_defaults
+
+    @TEST
+    SUBROUTINE test_rpe_literal_integer_explicit (context)
+    ! Test that one can construct am rpe_var instance from a real number
+    ! with kind RPE_REAL_KIND.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+        INTEGER       :: exact_value, inexact_value
+
+        exact_value = 1024  ! exact at 23-bits (default)
+        reduced = rpe_literal(exact_value)
+        @ASSERTEQUAL(reduced%val, REAL(exact_value, RPE_REAL_KIND))
+        inexact_value = 10241024 ! = 10256384 at 8-bits
+        reduced = rpe_literal(inexact_value, 8)
+        @ASSERTEQUAL(reduced%val, REAL(10256384, RPE_REAL_KIND))
+
+    END SUBROUTINE test_rpe_literal_integer_explicit
+
+    @TEST
+    SUBROUTINE test_rpe_literal_integer_defaults (context)
+    ! Test that one can construct am rpe_var instance from a real number
+    ! with kind RPE_REAL_KIND.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+        INTEGER       :: exact_value, inexact_value
+
+        exact_value = 1024  ! exact at 23-bits (default)
+        reduced = rpe_literal(exact_value)
+        @ASSERTEQUAL(reduced%val, REAL(exact_value, RPE_REAL_KIND))
+        inexact_value = 10241024 ! = 10256384 at 8-bits
+        RPE_DEFAULT_SBITS = 8
+        reduced = rpe_literal(inexact_value)
+        @ASSERTEQUAL(reduced%val, REAL(10256384, RPE_REAL_KIND))
+
+    END SUBROUTINE test_rpe_literal_integer_defaults
+
+    @TEST
+    SUBROUTINE test_rpe_literal_long_explicit (context)
+    ! Test that one can construct am rpe_var instance from a real number
+    ! with kind RPE_REAL_KIND.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var)   :: reduced
+        INTEGER(KIND=8) :: exact_value, inexact_value
+
+        exact_value = 1024  ! exact at 23-bits (default)
+        reduced = rpe_literal(exact_value)
+        @ASSERTEQUAL(reduced%val, REAL(exact_value, RPE_REAL_KIND))
+        inexact_value = 10241024 ! = 10256384 at 8-bits
+        reduced = rpe_literal(inexact_value, 8)
+        @ASSERTEQUAL(reduced%val, REAL(10256384, RPE_REAL_KIND))
+
+    END SUBROUTINE test_rpe_literal_long_explicit
+
+    @TEST
+    SUBROUTINE test_rpe_literal_long_defaults (context)
+    ! Test that one can construct am rpe_var instance from a real number
+    ! with kind RPE_REAL_KIND.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var)   :: reduced
+        INTEGER(KIND=8) :: exact_value, inexact_value
+
+        exact_value = 1024  ! exact at 23-bits (default)
+        reduced = rpe_literal(exact_value)
+        @ASSERTEQUAL(reduced%val, REAL(exact_value, RPE_REAL_KIND))
+        inexact_value = 10241024 ! = 10256384 at 8-bits
+        RPE_DEFAULT_SBITS = 8
+        reduced = rpe_literal(inexact_value)
+        @ASSERTEQUAL(reduced%val, REAL(10256384, RPE_REAL_KIND))
+
+    END SUBROUTINE test_rpe_literal_long_defaults
 
 END MODULE test_rpe_var
