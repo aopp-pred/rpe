@@ -1,4 +1,4 @@
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -16,7 +16,9 @@ MODULE test_apply_truncation
 ! Tests for the apply_truncation subroutine
 !
     USE pfunit_mod
-    USE suite_common, ONLY : utest64, min_significand_bits
+    USE suite_common, ONLY : utest64, &
+                             utest64_ieee, utest64_ieee_t, &
+                             min_significand_bits
     USE rp_emulator
     IMPLICIT NONE
 
@@ -25,6 +27,7 @@ MODULE test_apply_truncation
         LOGICAL :: rpe_active
         INTEGER :: rpe_default_sbits
         LOGICAL :: rpe_ieee_half
+        LOGICAL :: rpe_ieee_rounding
     CONTAINS
         procedure :: setUp
         procedure :: tearDown
@@ -37,6 +40,7 @@ CONTAINS
         this%rpe_active = RPE_ACTIVE
         this%rpe_default_sbits = RPE_DEFAULT_SBITS
         this%rpe_ieee_half = RPE_IEEE_HALF
+        this%rpe_ieee_rounding = RPE_IEEE_ROUNDING
     END SUBROUTINE setUp
 
     SUBROUTINE tearDown (this)
@@ -44,6 +48,7 @@ CONTAINS
         RPE_ACTIVE = this%rpe_active
         RPE_DEFAULT_SBITS = this%rpe_default_sbits
         RPE_IEEE_HALF = this%rpe_ieee_half
+        RPE_IEEE_ROUNDING = this%rpe_ieee_rounding
     END SUBROUTINE tearDown
 
     @TEST
@@ -109,5 +114,22 @@ CONTAINS
         @ASSERTEQUAL(-limit + 2 * delta, reduced%get_value())
         @ASSERTLESSTHANOREQUAL(min_significand_bits(reduced%get_value()), 10)
     END SUBROUTINE test_apply_truncation_ieee_half_subnormal
+
+    @TEST
+    SUBROUTINE test_apply_truncation_ieee_rounding (context)
+    ! Test that IEEE rounding functions correctly.
+    !
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
+        TYPE(rpe_var) :: reduced
+        INTEGER :: nbits
+
+        RPE_IEEE_ROUNDING = .TRUE.
+
+        DO nbits = 1, 52
+            reduced%sbits = nbits
+            reduced = utest64_ieee
+            @ASSERTEQUAL(reduced%get_value(), utest64_ieee_t(nbits))
+        END DO
+    END SUBROUTINE test_apply_truncation_ieee_rounding
 
 END MODULE test_apply_truncation

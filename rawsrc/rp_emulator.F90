@@ -1,4 +1,4 @@
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -62,6 +62,9 @@ MODULE rp_emulator
     !: Logical flag for determining if IEEE half-precision rules should
     !: be used when operating on values with 10 bits in the significand.
     LOGICAL, PUBLIC :: RPE_IEEE_HALF = .FALSE.
+
+    !: Logical flag for determining if IEEE rounding rules should be used.
+    LOGICAL, PUBLIC :: RPE_IEEE_ROUNDING = .FALSE.
 
     !: An internal value used to represent the case where a reduced-precision
     !: number has no specified precision yet.
@@ -464,9 +467,8 @@ CONTAINS
             ! Copy the double-precision bit representation of the input
             ! into an integer so it can be manipulated:
             bits = TRANSFER(x, bits)
-            IF (BTEST(bits, truncation_bit)) THEN
-                ! If the bit at which truncation occurs is set then
-                ! make sure the truncation rounds the number up:
+            IF (do_ieee_rounding(bits, truncation_bit)) THEN
+                ! Round before truncation if required by IEEE rules.
                 bits = bits + two ** truncation_bit
             END IF
             ! Move rounding_bit + 1 bits from the number zero (all bits
@@ -482,6 +484,64 @@ CONTAINS
             t = x
         END IF
     END FUNCTION truncate_significand
+
+    ELEMENTAL FUNCTION do_ieee_rounding (bits, truncation_bit)
+    ! Determine if rounding is required before truncation according to
+    ! IEEE 754 rounding rules.
+    !
+    ! Generally rounding is a round-to-nearest scheme, with a special
+    ! case for values halfway between two representations which in which
+    ! case a round-to-even scheme is used to ensure the last bit of the
+    ! truncated value is a '0'.
+    !
+    ! Arguments:
+    !
+    ! * bits: integer(kind=8) [input]
+    !     The bit-representation of a floating-point number (64 bits)
+    !     stored in an 8-byte integer.
+    !
+    ! * truncation_bit: integer [input]
+    !     The index of the most significant bit to be lost by a
+    !     truncation. Indices start at 0 for the least significant bit.
+    !
+    ! Returns:
+    !
+    ! * do_ieee_rounding: logical
+    !     Either `.TRUE.`, indicating that the floating-point number
+    !     represented by `bits` should be rounded before truncation,
+    !     or `.FALSE.` indicating that no rounding is required.
+    !
+        INTEGER(KIND=8), INTENT(IN) :: bits
+        INTEGER,         INTENT(IN) :: truncation_bit
+        LOGICAL :: do_ieee_rounding
+        LOGICAL :: is_halfway, candidate
+        INTEGER :: bit
+        candidate = BTEST(bits, truncation_bit)
+        IF (candidate .AND. RPE_IEEE_ROUNDING) THEN
+            ! Most significant bit to be truncated is set ('1'), check if
+            ! the remaining bits to be truncated are all '0', if so this
+            ! number is halfway between two representations.
+            is_halfway = .TRUE.
+            DO bit = 0, truncation_bit - 1
+                IF (BTEST(bits, bit)) THEN
+                    is_halfway = .FALSE.
+                    EXIT
+                END IF
+            END DO
+            ! If the number is halfway between two representations and the
+            ! least significant bit of the result is not set ('0') then no
+            ! rounding is required.
+            IF (is_halfway .AND. (.NOT. BTEST(bits, truncation_bit + 1))) THEN
+                do_ieee_rounding = .FALSE.
+            ELSE
+                do_ieee_rounding = .TRUE.
+            END IF
+        ELSE IF (candidate) THEN
+            do_ieee_rounding = .TRUE.
+        ELSE
+            do_ieee_rounding = .FALSE.
+        END IF
+    END FUNCTION do_ieee_rounding
 
     ELEMENTAL FUNCTION adjust_ieee_half (x) RESULT (y)
     ! Adjust a floating-point number according to the IEEE half-precision
