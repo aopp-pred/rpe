@@ -1,4 +1,4 @@
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -19,10 +19,15 @@ MODULE test_significand_bits
     USE rp_emulator
     IMPLICIT NONE
 
+#include "emutest_type.pf"
+
 CONTAINS
 
+#include "emutest_proc.pf"
+
     @TEST
-    SUBROUTINE test_significand_bits_rpe_var ()
+    SUBROUTINE test_significand_bits_rpe_var (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: input
         INTEGER       :: result, expected
 
@@ -33,7 +38,8 @@ CONTAINS
     END SUBROUTINE test_significand_bits_rpe_var
 
     @TEST
-    SUBROUTINE test_significand_bits_rpe_var_explicit ()
+    SUBROUTINE test_significand_bits_rpe_var_explicit (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: input
         INTEGER       :: result, expected
 
@@ -45,7 +51,8 @@ CONTAINS
     END SUBROUTINE test_significand_bits_rpe_var_explicit
 
     @TEST
-    SUBROUTINE test_significand_bits_double_precision ()
+    SUBROUTINE test_significand_bits_double_precision (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         REAL(KIND=RPE_DOUBLE_KIND) :: input
         INTEGER                    :: result, expected
 
@@ -56,7 +63,8 @@ CONTAINS
     END SUBROUTINE test_significand_bits_double_precision
 
     @TEST
-    SUBROUTINE test_significand_bits_single_precision ()
+    SUBROUTINE test_significand_bits_single_precision (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         REAL(KIND=RPE_SINGLE_KIND) :: input
         INTEGER                    :: result, expected
 
@@ -67,7 +75,8 @@ CONTAINS
     END SUBROUTINE test_significand_bits_single_precision
 
     @TEST
-    SUBROUTINE test_significand_bits_integer ()
+    SUBROUTINE test_significand_bits_integer (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         INTEGER :: input
         INTEGER :: result, expected
 
@@ -78,7 +87,8 @@ CONTAINS
     END SUBROUTINE test_significand_bits_integer
 
     @TEST
-    SUBROUTINE test_significand_bits_complex ()
+    SUBROUTINE test_significand_bits_complex (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         COMPLEX :: input
         INTEGER :: result, expected
 

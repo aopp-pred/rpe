@@ -1,4 +1,4 @@
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -20,10 +20,15 @@ MODULE test_assignment_from_builtin
     USE rp_emulator
     IMPLICIT NONE
 
+#include "emutest_type.pf"
+
 CONTAINS
 
+#include "emutest_proc.pf"
+
     @TEST
-    SUBROUTINE test_assign_rpe_var_real_exact ()
+    SUBROUTINE test_assign_rpe_var_real_exact (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var)            :: assignee
         REAL(KIND=RPE_REAL_KIND) :: value_holder
 
@@ -35,7 +40,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_real_exact
 
     @TEST
-    SUBROUTINE test_assign_rpe_var_real_truncated ()
+    SUBROUTINE test_assign_rpe_var_real_truncated (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var)            :: assignee
         REAL(KIND=RPE_REAL_KIND) :: value_holder
     
@@ -47,7 +53,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_real_truncated
     
     @TEST
-    SUBROUTINE test_assign_rpe_var_alternate_exact ()
+    SUBROUTINE test_assign_rpe_var_alternate_exact (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var)                 :: assignee
         REAL(KIND=RPE_ALTERNATE_KIND) :: value_holder
 
@@ -59,7 +66,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_alternate_exact
 
     @TEST
-    SUBROUTINE test_assign_rpe_var_alternate_truncated ()
+    SUBROUTINE test_assign_rpe_var_alternate_truncated (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var)                 :: assignee
         REAL(KIND=RPE_ALTERNATE_KIND) :: value_holder
     
@@ -71,7 +79,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_alternate_truncated
     
     @TEST
-    SUBROUTINE test_assign_rpe_var_integer_exact ()
+    SUBROUTINE test_assign_rpe_var_integer_exact (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: assignee
         INTEGER       :: value_holder
 
@@ -82,7 +91,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_integer_exact
 
     @TEST
-    SUBROUTINE test_assign_rpe_var_integer_truncated ()
+    SUBROUTINE test_assign_rpe_var_integer_truncated (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: assignee
         INTEGER       :: value_holder
 
@@ -94,7 +104,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_integer_truncated
 
     @TEST
-    SUBROUTINE test_assign_rpe_var_long_exact ()
+    SUBROUTINE test_assign_rpe_var_long_exact (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var)   :: assignee
         INTEGER(KIND=8) :: value_holder
 
@@ -105,7 +116,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_long_exact
 
     @TEST
-    SUBROUTINE test_assign_rpe_var_long_truncated ()
+    SUBROUTINE test_assign_rpe_var_long_truncated (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var)   :: assignee
         INTEGER(KIND=8) :: value_holder
 
