@@ -130,7 +130,7 @@ MODULE suite_common
     
     REAL(KIND=RPE_ALTERNATE_KIND), PARAMETER :: utest32 = z'404ccccd'
     REAL(KIND=RPE_REAL_KIND),      PARAMETER :: utest32_64 = z'40099999A0000000'
-    REAL(KIND=RPE_ALTERNATE_KIND), PARAMETER, DIMENSION(22) :: utest32_t = (/ &
+    REAL(KIND=RPE_ALTERNATE_KIND), PARAMETER, DIMENSION(23) :: utest32_t = (/ &
         REAL(z'40400000', RPE_ALTERNATE_KIND), & ! 1
         REAL(z'40400000', RPE_ALTERNATE_KIND), & ! 2
         REAL(z'40500000', RPE_ALTERNATE_KIND), & ! 3
@@ -143,8 +143,8 @@ MODULE suite_common
         REAL(z'404cc000', RPE_ALTERNATE_KIND), & ! 10
         REAL(z'404cd000', RPE_ALTERNATE_KIND), & ! 11
         REAL(z'404cd000', RPE_ALTERNATE_KIND), & ! 12
-        REAL(z'404cc000', RPE_ALTERNATE_KIND), & ! 13
-        REAL(z'404cc000', RPE_ALTERNATE_KIND), & ! 14
+        REAL(z'404ccc00', RPE_ALTERNATE_KIND), & ! 13
+        REAL(z'404ccc00', RPE_ALTERNATE_KIND), & ! 14
         REAL(z'404ccd00', RPE_ALTERNATE_KIND), & ! 15
         REAL(z'404ccd00', RPE_ALTERNATE_KIND), & ! 16
         REAL(z'404cccc0', RPE_ALTERNATE_KIND), & ! 17
@@ -152,7 +152,8 @@ MODULE suite_common
         REAL(z'404cccd0', RPE_ALTERNATE_KIND), & ! 19
         REAL(z'404cccd0', RPE_ALTERNATE_KIND), & ! 20
         REAL(z'404ccccc', RPE_ALTERNATE_KIND), & ! 21
-        REAL(z'404cccce', RPE_ALTERNATE_KIND)  & ! 22
+        REAL(z'404cccce', RPE_ALTERNATE_KIND), & ! 22
+        REAL(z'404ccccd', RPE_ALTERNATE_KIND)  & ! 23
     /)
 
 CONTAINS
