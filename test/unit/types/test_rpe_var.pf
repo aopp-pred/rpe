@@ -20,34 +20,11 @@ MODULE test_rpe_var
     USE rp_emulator
     IMPLICIT NONE
 
-    @TESTCASE
-    TYPE, EXTENDS(TestCase) :: EmulatorTest
-        LOGICAL :: rpe_active
-        INTEGER :: rpe_default_sbits
-        LOGICAL :: rpe_ieee_half
-        LOGICAL :: rpe_ieee_rounding
-    CONTAINS
-        procedure :: setUp
-        procedure :: tearDown
-    END TYPE EmulatorTest
+#include "emutest_type.pf"
 
 CONTAINS
 
-    SUBROUTINE setUp (this)
-        CLASS(EmulatorTest), INTENT(INOUT) :: this
-        this%rpe_active = RPE_ACTIVE
-        this%rpe_default_sbits = RPE_DEFAULT_SBITS
-        this%rpe_ieee_half = RPE_IEEE_HALF
-        this%rpe_ieee_rounding = RPE_IEEE_ROUNDING
-    END SUBROUTINE setUp
-
-    SUBROUTINE tearDown (this)
-        CLASS(EmulatorTest), INTENT(INOUT) :: this
-        RPE_ACTIVE = this%rpe_active
-        RPE_DEFAULT_SBITS = this%rpe_default_sbits
-        RPE_IEEE_HALF = this%rpe_ieee_half
-        RPE_IEEE_ROUNDING = this%rpe_ieee_rounding
-    END SUBROUTINE tearDown
+#include "emutest_proc.pf"
 
     @TEST
     SUBROUTINE test_rpe_var_assign_reduce_default (context)

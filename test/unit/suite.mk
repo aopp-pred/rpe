@@ -4,7 +4,7 @@
 # test suite.
 #
 
-# Copyright 2015 Andrew Dawson, Peter Dueben
+# Copyright 2015-2016 Andrew Dawson, Peter Dueben
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,7 +39,10 @@ test_cases: $(SRCS) $(OBJS)
 # Fortran 90 files are generated from the definition files by the program
 # pFUnitParser.py, part of pFUnit. The generated files may include C
 # preprocessor directives so have the .F90 extension.
-%.F90: %.pf
+%.pfp: %.pf
+	cpp -w -I../include $< > $@
+
+%.F90: %.pfp
 	$(PFUNIT)/bin/pFUnitParser.py $< $@
 
 # Objects are generated from Fortran 90 source via the Fortran compiler.

@@ -1,4 +1,4 @@
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -20,32 +20,15 @@ MODULE test_rp_emulator
     USE rp_emulator
     IMPLICIT NONE
 
-    @TESTCASE
-    TYPE, EXTENDS(TestCase) :: test_modify_defaults
-        INTEGER :: original_rpe_default_sbits
-    CONTAINS
-        procedure :: setUp
-        procedure :: tearDown
-    END TYPE test_modify_defaults
+#include "emutest_type.pf"
 
 CONTAINS
 
-    SUBROUTINE setUp (this)
-        ! Record the state of default values in the rp_emulator module.
-        CLASS(test_modify_defaults), INTENT(INOUT) :: this
-        this%original_rpe_default_sbits = RPE_DEFAULT_SBITS
-    END SUBROUTINE setUp
-    
-    SUBROUTINE tearDown (this)
-        ! Ensure default values are reset to their state before the test
-        ! was run.
-        CLASS(test_modify_defaults), INTENT(INOUT) :: this
-        RPE_DEFAULT_SBITS = this%original_rpe_default_sbits
-    END SUBROUTINE tearDown
+#include "emutest_proc.pf"
 
     @TEST
     SUBROUTINE test_rp_emulator_rpe_active_off (this)
-        CLASS(test_modify_defaults), INTENT(INOUT) :: this
+        CLASS(EmulatorTest), INTENT(INOUT) :: this
         TYPE(rpe_var) :: reduced
 
         RPE_ACTIVE = .FALSE.
@@ -56,7 +39,7 @@ CONTAINS
 
     @TEST
     SUBROUTINE test_rp_emulator_rpe_active_on_default (this)
-        CLASS(test_modify_defaults), INTENT(INOUT) :: this
+        CLASS(EmulatorTest), INTENT(INOUT) :: this
         TYPE(rpe_var) :: reduced
 
         RPE_ACTIVE = .TRUE.
@@ -67,7 +50,7 @@ CONTAINS
 
     @TEST
     SUBROUTINE test_rp_emulator_rpe_active_on_explicit (this)
-        CLASS(test_modify_defaults), INTENT(INOUT) :: this
+        CLASS(EmulatorTest), INTENT(INOUT) :: this
         TYPE(rpe_var) :: reduced
 
         RPE_ACTIVE = .TRUE.

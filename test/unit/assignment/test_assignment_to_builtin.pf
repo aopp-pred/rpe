@@ -1,4 +1,4 @@
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -20,10 +20,15 @@ MODULE test_assignment_to_builtin
     USE rp_emulator
     IMPLICIT NONE
 
+#include "emutest_type.pf"
+
 CONTAINS
 
+#include "emutest_proc.pf"
+
     @TEST
-    SUBROUTINE test_assign_real_rpe_var ()
+    SUBROUTINE test_assign_real_rpe_var (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         REAL(KIND=RPE_REAL_KIND) :: assignee
         TYPE(rpe_var)            :: value_holder
 
@@ -34,7 +39,8 @@ CONTAINS
     END SUBROUTINE test_assign_real_rpe_var
 
     @TEST
-    SUBROUTINE test_assign_alternate_rpe_var ()
+    SUBROUTINE test_assign_alternate_rpe_var (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         REAL(KIND=RPE_ALTERNATE_KIND) :: assignee
         TYPE(rpe_var)                 :: value_holder
 
@@ -45,7 +51,8 @@ CONTAINS
     END SUBROUTINE test_assign_alternate_rpe_var
 
     @TEST
-    SUBROUTINE test_assign_integer_rpe_var ()
+    SUBROUTINE test_assign_integer_rpe_var (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         INTEGER       :: assignee
         TYPE(rpe_var) :: value_holder
 
@@ -56,7 +63,8 @@ CONTAINS
     END SUBROUTINE test_assign_integer_rpe_var
 
     @TEST
-    SUBROUTINE test_assign_long_rpe_var ()
+    SUBROUTINE test_assign_long_rpe_var (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         INTEGER(KIND=8) :: assignee
         TYPE(rpe_var)   :: value_holder
 

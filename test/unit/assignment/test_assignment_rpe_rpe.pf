@@ -1,4 +1,4 @@
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -20,14 +20,19 @@ MODULE test_assignment_rpe_rpe
     USE rp_emulator
     IMPLICIT NONE
 
+#include "emutest_type.pf"
+
 CONTAINS
+
+#include "emutest_proc.pf"
 
 !-----------------------------------------------------------------------
 ! Assigning an `rpe_var` instance to an `rpe_var` instance.
 !
 
     @TEST
-    SUBROUTINE test_assign_rpe_var_rpe_var_sbits_default ()
+    SUBROUTINE test_assign_rpe_var_rpe_var_sbits_default (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: assignee, value_holder
         value_holder = utest64
         assignee = value_holder
@@ -35,7 +40,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_rpe_var_sbits_default
 
     @TEST
-    SUBROUTINE test_assign_rpe_var_rpe_var_sbits_explicit ()
+    SUBROUTINE test_assign_rpe_var_rpe_var_sbits_explicit (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: assignee, value_holder
         value_holder%sbits = 4
         assignee%sbits = 4
@@ -45,7 +51,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_rpe_var_sbits_explicit
     
     @TEST
-    SUBROUTINE test_assign_rpe_var_rpe_var_lower_to_higher ()
+    SUBROUTINE test_assign_rpe_var_rpe_var_lower_to_higher (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: assignee, value_holder
         value_holder%sbits = 16
         assignee%sbits = 4
@@ -55,7 +62,8 @@ CONTAINS
     END SUBROUTINE test_assign_rpe_var_rpe_var_lower_to_higher
 
     @TEST
-    SUBROUTINE test_assign_rpe_var_rpe_var_higher_to_lower ()
+    SUBROUTINE test_assign_rpe_var_rpe_var_higher_to_lower (context)
+        CLASS(EmulatorTest), INTENT(INOUT) :: context
         TYPE(rpe_var) :: assignee, value_holder
         value_holder%sbits = 4
         assignee%sbits = 16
