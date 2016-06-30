@@ -144,7 +144,7 @@ CONTAINS
     !
         TYPE(rpe_var), INTENT(INOUT) :: x
         REAL(KIND=RPE_DOUBLE_KIND)   :: y
-        INTEGER :: truncation
+        INTEGER :: n
         IF (RPE_ACTIVE) THEN
             ! Cast the input to a double-precision value.
             y = REAL(x%val, RPE_DOUBLE_KIND)
@@ -153,12 +153,11 @@ CONTAINS
                 ! the default precision. This is does not fix the precision of
                 ! the input variable, it will still use whatever is specified
                 ! as the default, even if that changes later.
-                truncation = RPE_DEFAULT_SBITS
+                n = RPE_DEFAULT_SBITS
             ELSE
-                truncation = x%sbits
+                n = x%sbits
             END IF
-            ! Set the contained value to the truncated value.
-            x%val = truncate_significand(y, truncation)
+            x%val = truncate_significand(y, n)
         END IF
     END SUBROUTINE apply_truncation
 
@@ -183,26 +182,47 @@ CONTAINS
         REAL(KIND=RPE_DOUBLE_KIND), INTENT(IN) :: x
         INTEGER,                    INTENT(IN) :: n
         REAL(KIND=RPE_DOUBLE_KIND) :: t
-        INTEGER                    :: truncation_bit
+        INTEGER                    :: lmtb
         INTEGER(KIND=8), PARAMETER :: two = 2
         INTEGER(KIND=8), PARAMETER :: zero_bits = 0
         INTEGER(KIND=8)            :: bits
-        ! The truncation bit is the last bit that will be truncated
+        ! The left-most truncated bit is the last bit that will be truncated
         ! (counting from 0 at the right-most bit). Double precision values
         ! have 52 bits in their significand.
-        truncation_bit = 52 - n - 1
-        IF (truncation_bit .GE. 0) THEN
+        lmtb = 52 - n - 1
+        IF (lmtb >= 0) THEN
             ! Copy the double-precision bit representation of the input
             ! into an integer so it can be manipulated:
             bits = TRANSFER(x, bits)
-            IF (do_ieee_rounding(bits, truncation_bit)) THEN
-                ! Round before truncation if required by IEEE rules.
-                bits = bits + two ** truncation_bit
+            ! Round the number up first if required according to IEEE 754
+            ! specifications. Currently this is round to nearest when
+            ! RPE_IEEE_ROUNDING=.FALSE. and round-to-nearest, tie-to-even
+            ! when RPE_IEEE_ROUNDING=.TRUE.:
+            IF (BTEST(bits, lmtb)) THEN
+                IF (RPE_IEEE_ROUNDING) THEN
+                    IF (IAND(bits, two ** (lmtb + 1) - 1) == two ** lmtb) THEN
+                        ! We are truncating a number half-way between two
+                        ! representations and RPE_IEEE_ROUNDING=.TRUE. so we
+                        ! must round to the nearest even representation.
+                        IF (BTEST(bits, lmtb + 1)) THEN
+                            bits = bits + two ** (lmtb + 1)
+                        END IF
+                    ELSE
+                        ! The left-most truncated bit is set and we are not
+                        ! half-way between two representations so we need to
+                        ! round to the nearest representation.
+                        bits = bits + two ** (lmtb + 1)
+                    END IF
+                ELSE
+                    ! When RPE_IEEE_ROUNDING=.FALSE. we will always round to
+                    ! nearest if the left-most truncated bit is set:
+                    bits = bits + two ** (lmtb + 1)
+                END IF
             END IF
             ! Move rounding_bit + 1 bits from the number zero (all bits
             ! set to zero) into the target to truncate at the given
             ! number of bits.
-            CALL MVBITS (zero_bits, 0, truncation_bit + 1, bits, 0)
+            CALL MVBITS (zero_bits, 0, lmtb + 1, bits, 0)
             t = TRANSFER(bits, t)
             ! Special case for IEEE half-precision representation.
             IF (n == 10 .AND. RPE_IEEE_HALF) THEN
@@ -212,64 +232,6 @@ CONTAINS
             t = x
         END IF
     END FUNCTION truncate_significand
-
-    ELEMENTAL FUNCTION do_ieee_rounding (bits, truncation_bit)
-    ! Determine if rounding is required before truncation according to
-    ! IEEE 754 rounding rules.
-    !
-    ! Generally rounding is a round-to-nearest scheme, with a special
-    ! case for values halfway between two representations which in which
-    ! case a round-to-even scheme is used to ensure the last bit of the
-    ! truncated value is a '0'.
-    !
-    ! Arguments:
-    !
-    ! * bits: integer(kind=8) [input]
-    !     The bit-representation of a floating-point number (64 bits)
-    !     stored in an 8-byte integer.
-    !
-    ! * truncation_bit: integer [input]
-    !     The index of the most significant bit to be lost by a
-    !     truncation. Indices start at 0 for the least significant bit.
-    !
-    ! Returns:
-    !
-    ! * do_ieee_rounding: logical
-    !     Either `.TRUE.`, indicating that the floating-point number
-    !     represented by `bits` should be rounded before truncation,
-    !     or `.FALSE.` indicating that no rounding is required.
-    !
-        INTEGER(KIND=8), INTENT(IN) :: bits
-        INTEGER,         INTENT(IN) :: truncation_bit
-        LOGICAL :: do_ieee_rounding
-        LOGICAL :: is_halfway, candidate
-        INTEGER :: bit
-        candidate = BTEST(bits, truncation_bit)
-        IF (candidate .AND. RPE_IEEE_ROUNDING) THEN
-            ! Most significant bit to be truncated is set ('1'), check if
-            ! the remaining bits to be truncated are all '0', if so this
-            ! number is halfway between two representations.
-            is_halfway = .TRUE.
-            DO bit = 0, truncation_bit - 1
-                IF (BTEST(bits, bit)) THEN
-                    is_halfway = .FALSE.
-                    EXIT
-                END IF
-            END DO
-            ! If the number is halfway between two representations and the
-            ! least significant bit of the result is not set ('0') then no
-            ! rounding is required.
-            IF (is_halfway .AND. (.NOT. BTEST(bits, truncation_bit + 1))) THEN
-                do_ieee_rounding = .FALSE.
-            ELSE
-                do_ieee_rounding = .TRUE.
-            END IF
-        ELSE IF (candidate) THEN
-            do_ieee_rounding = .TRUE.
-        ELSE
-            do_ieee_rounding = .FALSE.
-        END IF
-    END FUNCTION do_ieee_rounding
 
     ELEMENTAL FUNCTION adjust_ieee_half (x) RESULT (y)
     ! Adjust a floating-point number according to the IEEE half-precision
