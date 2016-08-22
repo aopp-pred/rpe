@@ -23,21 +23,21 @@ We'll need to add a new entry to the ``intrinsics.json`` file in ``generator/con
 
    {"intrinsics":
        [
-           ...
+
            {"epsilon":
                {
                    "return_type": "rpe_var",
                    "interface_types": ["1argscalar"]
                }
            },
-           ...
+
            {"floor":
                {
                    "return_type": "integer",
                    "interface_types": ["1argelemental"]
                }
            },
-           ...
+
        ]
    }
 
@@ -62,18 +62,12 @@ We can also see that the function should be elemental, meaning it can be applied
 Therefore our definition in ``intrinsics.json`` should look like this:
 
 .. code-block:: json
-   :emphasize-lines: 4-9
 
-   {"intrinsics":
-       [
-           ...
-           {"gamma":
-               {
-                   "return_type": "rpe_var"
-                   "interface_types": ["1argelemental"]
-               }
-           }
-       ]
+   {"gamma":
+       {
+           "return_type": "rpe_var",
+           "interface_types": ["1argelemental"]
+       }
    }
 
 
@@ -129,11 +123,11 @@ An operator definition looks like this:
 
 .. code-block:: json
 
-   {<name>:
+   {"<operator-name>":
        {
-           "operator": <operator-symbol>,
-           "return_type": <return-type>,
-           "operator_categories": [<categories>]
+           "operator": "<operator-symbol>",
+           "return_type": "<return-type>",
+           "operator_categories": ["<categories>"]
        }
    }
 
