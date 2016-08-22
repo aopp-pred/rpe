@@ -46,7 +46,7 @@ This is not allowed:
 
 Compiling this code with `gfortran` will give the following compilation error:
 
-.. code-block:: fortran
+.. code-block:: text
 
        TYPE(rpe_var) :: x = 4
                            1
