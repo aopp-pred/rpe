@@ -7,9 +7,8 @@ set -e
 set -u
 
 # Define the contents of the final archive:
-readonly ARCHIVE_CONTENTS=("examples/" "lib/" "LICENSE" "Makefile" \
-                           "modules/" "README.md" "src/" "test/" \
-                           "VERSION")
+readonly ARCHIVE_CONTENTS=("lib/" "LICENSE" "Makefile" "modules/" \
+                           "README.md" "src/" "test/" "VERSION")
 
 # Clean the code directory first:
 make clean
