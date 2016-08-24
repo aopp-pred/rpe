@@ -36,7 +36,7 @@ CONTAINS
         TYPE(rpe_var) :: reduced
 
         reduced = utest64
-        @ASSERTEQUAL(reduced%val, utest64_t(23))
+        @ASSERTEQUAL(reduced%val, utest64_t(52))
 
     END SUBROUTINE test_rpe_var_assign_reduce_default
 
@@ -50,7 +50,7 @@ CONTAINS
         TYPE(rpe_var) :: reduced
         INTEGER       :: nbits
 
-        DO nbits = 1, 23
+        DO nbits = 1, 52
             reduced%sbits = nbits
             reduced = utest64
             @ASSERTEQUAL(reduced%val, utest64_t(nbits))
@@ -67,7 +67,7 @@ CONTAINS
         TYPE(rpe_var) :: reduced
         INTEGER       :: nbits
 
-        DO nbits = 1, 23
+        DO nbits = 1, 52
             reduced = rpe_literal(utest64, nbits)
             @ASSERTEQUAL(reduced%val, utest64_t(nbits))
         END DO
@@ -83,7 +83,7 @@ CONTAINS
         TYPE(rpe_var) :: reduced
         INTEGER       :: nbits
 
-        DO nbits = 1, 23
+        DO nbits = 1, 52
             RPE_DEFAULT_SBITS = nbits
             reduced = rpe_literal(utest64)
             @ASSERTEQUAL(reduced%val, utest64_t(nbits))
@@ -133,8 +133,8 @@ CONTAINS
         TYPE(rpe_var) :: reduced
         INTEGER       :: exact_value, inexact_value
 
-        exact_value = 1024  ! exact at 23-bits (default)
-        reduced = rpe_literal(exact_value)
+        exact_value = 1024  ! exact at 23-bits
+        reduced = rpe_literal(exact_value, 23)
         @ASSERTEQUAL(reduced%val, REAL(exact_value, RPE_REAL_KIND))
         inexact_value = 10241024 ! = 10256384 at 8-bits
         reduced = rpe_literal(inexact_value, 8)
@@ -151,7 +151,8 @@ CONTAINS
         TYPE(rpe_var) :: reduced
         INTEGER       :: exact_value, inexact_value
 
-        exact_value = 1024  ! exact at 23-bits (default)
+        exact_value = 1024  ! exact at 23-bits
+        RPE_DEFAULT_SBITS = 23
         reduced = rpe_literal(exact_value)
         @ASSERTEQUAL(reduced%val, REAL(exact_value, RPE_REAL_KIND))
         inexact_value = 10241024 ! = 10256384 at 8-bits
@@ -170,8 +171,8 @@ CONTAINS
         TYPE(rpe_var)   :: reduced
         INTEGER(KIND=8) :: exact_value, inexact_value
 
-        exact_value = 1024  ! exact at 23-bits (default)
-        reduced = rpe_literal(exact_value)
+        exact_value = 1024  ! exact at 23-bits
+        reduced = rpe_literal(exact_value, 23)
         @ASSERTEQUAL(reduced%val, REAL(exact_value, RPE_REAL_KIND))
         inexact_value = 10241024 ! = 10256384 at 8-bits
         reduced = rpe_literal(inexact_value, 8)
@@ -188,7 +189,8 @@ CONTAINS
         TYPE(rpe_var)   :: reduced
         INTEGER(KIND=8) :: exact_value, inexact_value
 
-        exact_value = 1024  ! exact at 23-bits (default)
+        exact_value = 1024  ! exact at 23-bits
+        RPE_DEFAULT_SBITS = 23
         reduced = rpe_literal(exact_value)
         @ASSERTEQUAL(reduced%val, REAL(exact_value, RPE_REAL_KIND))
         inexact_value = 10241024 ! = 10256384 at 8-bits
