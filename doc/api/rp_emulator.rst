@@ -102,6 +102,11 @@ Variables
    The default number of bits used in the significand of an :f:type:`rpe_var` instance when not explicitly specified.
    This takes effect internally when determining precision levels, but does not bind an :f:type:`rpe_var` instance to a particular precision level (doesn't set :f:var:`rpe_var%sbits`).
 
+   .. admonition:: Default value change
+      :class: danger
+
+      The default value will change from 23 to 52 in version 5.0
+
 
 .. f:variable:: RPE_IEEE_HALF
    :type: LOGICAL
@@ -124,9 +129,12 @@ Variables
     If ``.TRUE.`` then a *"round to nearest, tie to even"* rounding scheme will be used, which proceeds as normal rounding to the nearest representable number, except in the special case where a number is halfway between two representations where it will be rounded so that the least significant bit of the results is a zero.
     If ``.FALSE.`` then then rounding scheme rounds numbers halfway between two representations to the representation with larger absolute value.
 
-    .. note::
+    .. admonition:: Transitioning to new behaviour
+       :class: danger
 
-       It is recommended to set this option to ``.TRUE.``. Currently the default is ``.FALSE.`` for backwards compatibility reasons. In a future release the bahaviour of the ``.TRUE.`` setting will become the default (and possibly only) option.
+       This option is provided to ease the transition to a new IEEE 754 compliant rounding mode.
+       In version 5.0 this option will be removed and the only rounding mode will be IEEE.
+       You can use this option to test your code with the new rounding mode prior to moving to version 5.0 when it is released.
 
 
 Parameters
