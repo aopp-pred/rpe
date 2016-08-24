@@ -6,7 +6,7 @@ v4.1.x
 ------
 
 :Release: v4.1.1
-:Date:
+:Date: 24 August 2016
 
 Add deprecation notices to API documentation. There are no changes to the source
 code and no need to upgrade from v4.1.0.
