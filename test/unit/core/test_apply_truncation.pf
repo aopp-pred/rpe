@@ -17,7 +17,6 @@ MODULE test_apply_truncation
 !
     USE pfunit_mod
     USE suite_common, ONLY : utest64, &
-                             utest64_ieee, utest64_ieee_t, &
                              min_significand_bits
     USE rp_emulator
     IMPLICIT NONE
@@ -91,22 +90,5 @@ CONTAINS
         @ASSERTEQUAL(-limit + 2 * delta, reduced%val)
         @ASSERTLESSTHANOREQUAL(min_significand_bits(reduced%val), 10)
     END SUBROUTINE test_apply_truncation_ieee_half_subnormal
-
-    @TEST
-    SUBROUTINE test_apply_truncation_ieee_rounding (context)
-    ! Test that IEEE rounding functions correctly.
-    !
-        CLASS(EmulatorTest), INTENT(INOUT) :: context
-        TYPE(rpe_var) :: reduced
-        INTEGER :: nbits
-
-        RPE_IEEE_ROUNDING = .TRUE.
-
-        DO nbits = 1, 52
-            reduced%sbits = nbits
-            reduced = utest64_ieee
-            @ASSERTEQUAL(reduced%val, utest64_ieee_t(nbits))
-        END DO
-    END SUBROUTINE test_apply_truncation_ieee_rounding
 
 END MODULE test_apply_truncation

@@ -3,7 +3,6 @@ TYPE, EXTENDS(TestCase) :: EmulatorTest
     LOGICAL :: rpe_active
     INTEGER :: rpe_default_sbits
     LOGICAL :: rpe_ieee_half
-    LOGICAL :: rpe_ieee_rounding
 CONTAINS
     procedure :: setUp
     procedure :: tearDown

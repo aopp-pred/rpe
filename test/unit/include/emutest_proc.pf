@@ -3,7 +3,6 @@ SUBROUTINE setUp (this)
     this%rpe_active = RPE_ACTIVE
     this%rpe_default_sbits = RPE_DEFAULT_SBITS
     this%rpe_ieee_half = RPE_IEEE_HALF
-    this%rpe_ieee_rounding = RPE_IEEE_ROUNDING
 END SUBROUTINE setUp
 
 SUBROUTINE tearDown (this)
@@ -11,5 +10,4 @@ SUBROUTINE tearDown (this)
     RPE_ACTIVE = this%rpe_active
     RPE_DEFAULT_SBITS = this%rpe_default_sbits
     RPE_IEEE_HALF = this%rpe_ieee_half
-    RPE_IEEE_ROUNDING = this%rpe_ieee_rounding
 END SUBROUTINE tearDown

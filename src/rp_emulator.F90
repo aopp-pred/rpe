@@ -51,9 +51,6 @@ MODULE rp_emulator
     !: be used when operating on values with 10 bits in the significand.
     LOGICAL, PUBLIC :: RPE_IEEE_HALF = .FALSE.
 
-    !: Logical flag for determining if IEEE rounding rules should be used.
-    LOGICAL, PUBLIC :: RPE_IEEE_ROUNDING = .FALSE.
-
     !: An internal value used to represent the case where a reduced-precision
     !: number has no specified precision yet.
     INTEGER, PARAMETER, PRIVATE :: RPE_SBITS_UNSPECIFIED = -1
@@ -195,27 +192,19 @@ CONTAINS
             ! into an integer so it can be manipulated:
             bits = TRANSFER(x, bits)
             ! Round the number up first if required according to IEEE 754
-            ! specifications. Currently this is round to nearest when
-            ! RPE_IEEE_ROUNDING=.FALSE. and round-to-nearest, tie-to-even
-            ! when RPE_IEEE_ROUNDING=.TRUE.:
+            ! specifications.
             IF (BTEST(bits, lmtb)) THEN
-                IF (RPE_IEEE_ROUNDING) THEN
-                    IF (IAND(bits, two ** (lmtb + 1) - 1) == two ** lmtb) THEN
-                        ! We are truncating a number half-way between two
-                        ! representations and RPE_IEEE_ROUNDING=.TRUE. so we
-                        ! must round to the nearest even representation.
-                        IF (BTEST(bits, lmtb + 1)) THEN
-                            bits = bits + two ** (lmtb + 1)
-                        END IF
-                    ELSE
-                        ! The left-most truncated bit is set and we are not
-                        ! half-way between two representations so we need to
-                        ! round to the nearest representation.
+                IF (IAND(bits, two ** (lmtb + 1) - 1) == two ** lmtb) THEN
+                    ! We are truncating a number half-way between two
+                    ! representations so we must round to the nearest even
+                    ! representation.
+                    IF (BTEST(bits, lmtb + 1)) THEN
                         bits = bits + two ** (lmtb + 1)
                     END IF
                 ELSE
-                    ! When RPE_IEEE_ROUNDING=.FALSE. we will always round to
-                    ! nearest if the left-most truncated bit is set:
+                    ! The left-most truncated bit is set and we are not
+                    ! half-way between two representations so we need to
+                    ! round to the nearest representation.
                     bits = bits + two ** (lmtb + 1)
                 END IF
             END IF
