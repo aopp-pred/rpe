@@ -97,15 +97,10 @@ Variables
 
 .. f:variable:: RPE_DEFAULT_SBITS
    :type: INTEGER
-   :attrs: default=23
+   :attrs: default=52
 
    The default number of bits used in the significand of an :f:type:`rpe_var` instance when not explicitly specified.
    This takes effect internally when determining precision levels, but does not bind an :f:type:`rpe_var` instance to a particular precision level (doesn't set :f:var:`rpe_var%sbits`).
-
-   .. admonition:: Default value change
-      :class: danger
-
-      The default value will change from 23 to 52 in version 5.0
 
 
 .. f:variable:: RPE_IEEE_HALF

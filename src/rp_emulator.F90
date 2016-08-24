@@ -45,7 +45,7 @@ MODULE rp_emulator
     LOGICAL, PUBLIC :: RPE_ACTIVE = .TRUE.
 
     !: The default number of bits to use in the reduced-precision significand.
-    INTEGER, PUBLIC :: RPE_DEFAULT_SBITS = 23
+    INTEGER, PUBLIC :: RPE_DEFAULT_SBITS = 52
 
     !: Logical flag for determining if IEEE half-precision rules should
     !: be used when operating on values with 10 bits in the significand.
