@@ -5,6 +5,12 @@ Changelog
 v4.1.x
 ------
 
+:Release: v4.1.1
+:Date:
+
+Add deprecation notices to API documentation. There are no changes to the source
+code and no need to upgrade from v4.1.0.
+
 :Release: v4.1.0
 :Date: 22 August 2016
 
