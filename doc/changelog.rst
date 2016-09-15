@@ -2,6 +2,24 @@ Changelog
 =========
 
 
+v5.0.x
+------
+
+:Release: v5.0.0
+:Date:
+
+* Incompatibilities
+
+  * The rounding mode has changed to be compliant with IEEE 754. The new mode
+    will likely give different (but more realistic) results. The new behaviour
+    is the same as that obtained in v4.1 with the option
+    ``RPE_IEEE_ROUNDING = .true.``.
+
+  * The option ``RPE_IEEE_ROUNDING`` has been removed, the new rounding
+    behaviour is equivalent to ``RPE_IEEE_ROUNDING = .true.``. There is no
+    option to change to the behaviour of ``RPE_IEEE_ROUNDING = .false.``.
+
+
 v4.1.x
 ------
 

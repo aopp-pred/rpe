@@ -148,7 +148,7 @@ test_10_bit () {
 test_10_bit_ieee () {
     local test_file="$RUNDIR/results/l63.10bit.ieee.txt"
     runtest_with_file "test_10_bit_ieee" \
-                      "diff ${test_file} <(${L63RED} -n 10) 2>&1" \
+                      "diff ${test_file} <(${L63RED} -n 10 --ieee) 2>&1" \
                       "10 bit IEEE mode integration does not match expected result" \
                       "$test_file"
     return $?
