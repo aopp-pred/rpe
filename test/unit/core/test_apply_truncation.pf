@@ -57,10 +57,10 @@ CONTAINS
         RPE_DEFAULT_SBITS = 10
         RPE_IEEE_HALF = .TRUE.
 
-        reduced = 32800
+        reduced = 655040
         @ASSERTTRUE(reduced > HUGE(1.0_RPE_REAL_KIND))
 
-        reduced = -32800
+        reduced = -655040
         @ASSERTTRUE(reduced < -HUGE(1.0_RPE_REAL_KIND))
     END SUBROUTINE test_apply_truncation_ieee_half_overflow
 
