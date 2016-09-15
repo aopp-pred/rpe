@@ -8,6 +8,14 @@ v5.0.x
 :Release: v5.0.0
 :Date:
 
+* Major changes
+
+  * The upper limit for the value of an IEEE half-precision number has been
+    corrected to 65504. This value was previously too small (32768) resulting
+    in an over-conservative representation of IEEE half-precision values. This
+    change only affects code running with the ``RPE_IEEE_HALF`` option turned
+    on.
+
 * Incompatibilities
 
   * The rounding mode has changed to be compliant with IEEE 754. The new mode

@@ -241,7 +241,7 @@ CONTAINS
         REAL(KIND=RPE_DOUBLE_KIND)            :: y
         REAL(KIND=RPE_DOUBLE_KIND), PARAMETER :: two = 2.0_RPE_DOUBLE_KIND
         REAL(KIND=RPE_DOUBLE_KIND)            :: sx, d1, d2
-        IF (ABS(x) > two ** 15) THEN
+        IF (ABS(x) > 65504.0_RPE_DOUBLE_KIND) THEN
         ! Handle half-precision overflows.
             sx = SIGN(1.0_RPE_DOUBLE_KIND, x)
             d1 = HUGE(d1) * sx
