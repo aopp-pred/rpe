@@ -44,9 +44,8 @@ l63_reference: $(refexe)
 l63_reduced: $(redexe)
 
 # Build the command line support library:
-$(cliobj): $(clisrc)
+$(cliobj) $(climod): $(clisrc)
 	$(F90) -c $^
-$(climod): $(cliobj)
 
 # Reference model executable:
 $(refobj): $(refsrc)
