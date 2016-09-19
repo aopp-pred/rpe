@@ -1,9 +1,5 @@
 # Makefile for the reduced-precision emulator.
 #
-# Uses a two-stage build, first the full library source is generated
-# manually using the C preprocessor, which yields a single source file
-# which can be compiled into the emulator library and associated module.
-#
 
 # Copyright 2015-2016 Andrew Dawson, Peter Dueben
 #
@@ -55,9 +51,8 @@ library: $(libstatic)
 shared: $(libshared)
 
 # Compile the emulator source to generate a module and an object file:
-$(object): $(src) $(geninc)
+$(object) $(module): $(src) $(geninc)
 	$(F90) -c -I$(genincdir) $(FFLAGS) -fPIC $(src) -o $(object)
-$(module): $(src) $(object)
 
 # Create a library archive from the compiled code:
 $(libstatic): $(object)
