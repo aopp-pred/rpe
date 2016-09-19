@@ -10,17 +10,6 @@
     END FUNCTION epsilon_rpe
 
     !-------------------------------------------------------------------
-    ! Overloaded definitions for 'huge':
-    !
-
-    FUNCTION huge_rpe (a) RESULT (x)
-        TYPE(rpe_var), INTENT(IN) :: a
-        TYPE(rpe_var) :: x
-        x%sbits = significand_bits(a)
-        x = HUGE(a%val)
-    END FUNCTION huge_rpe
-
-    !-------------------------------------------------------------------
     ! Overloaded definitions for 'tiny':
     !
 

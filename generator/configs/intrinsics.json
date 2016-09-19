@@ -6,12 +6,6 @@
                 "interface_types": ["1argscalar"]
             }
         },
-        {"huge":
-            {
-                "return_type": "rpe_var",
-                "interface_types": ["1argscalar"]
-            }
-        },
         {"tiny":
             {
                 "return_type": "rpe_var",
