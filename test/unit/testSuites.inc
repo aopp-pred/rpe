@@ -3,7 +3,7 @@
 ! If a suite does not have an entry in this file it will not be included
 ! in the test driver application.
 !
-! Copyright 2015 Andrew Dawson, Peter Dueben
+! Copyright 2015-2016 Andrew Dawson, Peter Dueben
 !
 ! Licensed under the Apache License, Version 2.0 (the "License");
 ! you may not use this file except in compliance with the License.
@@ -29,3 +29,6 @@ ADD_TEST_SUITE(test_rpe_var_suite)
 ADD_TEST_SUITE(test_assignment_to_builtin_suite)
 ADD_TEST_SUITE(test_assignment_from_builtin_suite)
 ADD_TEST_SUITE(test_assignment_rpe_rpe_suite)
+
+! Test suites for intrinsic functions.
+ADD_TEST_SUITE(test_huge_suite)
