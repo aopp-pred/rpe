@@ -1,7 +1,7 @@
 # Makefile for the reduced-precision emulator unit test driver.
 #
 
-# Copyright 2015 Andrew Dawson, Peter Dueben
+# Copyright 2015-2016 Andrew Dawson, Peter Dueben
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 include $(PFUNIT)/include/base.mk
 
 # A list of all test modules that should be built.
-TEST_MODULES = core types assignment
+TEST_MODULES = core types assignment intrinsics
 
 # Phony targets for building external test modules (where the tests are
 # actually implemented).

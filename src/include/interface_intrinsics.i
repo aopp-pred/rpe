@@ -3,11 +3,6 @@
         MODULE PROCEDURE epsilon_rpe
     END INTERFACE epsilon
 
-    PUBLIC :: huge
-    INTERFACE huge
-        MODULE PROCEDURE huge_rpe
-    END INTERFACE huge
-
     PUBLIC :: tiny
     INTERFACE tiny
         MODULE PROCEDURE tiny_rpe
