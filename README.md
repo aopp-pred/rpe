@@ -1,7 +1,13 @@
+[![Build Status](https://travis-ci.org/aopp-pred/rpe.svg?branch=master)](https://travis-ci.org/aopp-pred/rpe)
+[![DOI](https://zenodo.org/badge/49064493.svg)](https://zenodo.org/badge/latestdoi/49064493)
+
 # Reduced Precision Emulator
 
 An emulator for reduced-precision floating-point calculations in Fortran.
 Licensed under the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0.html).
+
+* Documentation: http://rpe.readthedocs.io
+* Mailing list:  https://groups.google.com/d/forum/aopp-pred-rpe
 
 
 ## Building the library
@@ -20,7 +26,7 @@ will use `gfortran`. The default build is a simple invocation of `make`:
 It is also possible to build a shared library `lib/librpe.so` using the
 `shared` target of the Makefile:
 
-   make shared
+    make shared
 
 You can optionally specify a compiler on the command line:
 
@@ -47,4 +53,6 @@ integrated into the source of other projects.
 
 ## Documentation
 
-See the bundled HTML documentation for a user guide, developer guide and API reference.
+See the [online documentation](http://rpe.readthedocs.io) for a user guide,
+developer guide and API reference. The source code for the documentation is
+distributed along with rpe in the `doc/` directory.
