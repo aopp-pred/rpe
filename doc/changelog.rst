@@ -8,13 +8,23 @@ v5.0.x
 :Release: v5.0.0
 :Date:
 
-* Major changes
+* Change summary
+
+  * The default value for ``RPE_DEFAULT_SBITS`` has changed to 52, previously
+    it was 23. This change means that by default all ``rpe_var`` types behave
+    like double precision ``real`` types.
 
   * The upper limit for the value of an IEEE half-precision number has been
     corrected to 65504. This value was previously too small (32768) resulting
     in an over-conservative representation of IEEE half-precision values. This
     change only affects code running with the ``RPE_IEEE_HALF`` option turned
     on.
+
+  * The ``huge`` intrinsic has been reimplemented for ``rpe_var`` types. It now
+    returns the largest value with an 11-bit exponent and the number of
+    significand bits in its input. It also behaves correctly when
+    using a 10-bit significand and ``RPE_IEEE_HALF = .true.``, returning the
+    largest number with a 5-bit exponent and 10-bit significand (65504).
 
 * Incompatibilities
 
