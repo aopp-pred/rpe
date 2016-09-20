@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/aopp-pred/rpe.svg?branch=master)](https://travis-ci.org/aopp-pred/rpe)
+[![DOI](https://zenodo.org/badge/49064493.svg)](https://zenodo.org/badge/latestdoi/49064493)
+
 # Reduced Precision Emulator
 
 An emulator for reduced-precision floating-point calculations in Fortran.
