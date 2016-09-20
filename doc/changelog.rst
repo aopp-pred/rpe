@@ -6,7 +6,7 @@ v5.0.x
 ------
 
 :Release: v5.0.0
-:Date:
+:Date: 20 September 2016
 
 * Change summary
 
