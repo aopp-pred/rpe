@@ -26,7 +26,7 @@ will use `gfortran`. The default build is a simple invocation of `make`:
 It is also possible to build a shared library `lib/librpe.so` using the
 `shared` target of the Makefile:
 
-   make shared
+    make shared
 
 You can optionally specify a compiler on the command line:
 
@@ -53,4 +53,6 @@ integrated into the source of other projects.
 
 ## Documentation
 
-See the bundled HTML documentation for a user guide, developer guide and API reference.
+See the [online documentation](http://rpe.readthedocs.io) for a user guide,
+developer guide and API reference. The source code for the documentation is
+distributed along with rpe in the `doc/` directory.
