@@ -3,6 +3,9 @@
 An emulator for reduced-precision floating-point calculations in Fortran.
 Licensed under the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0.html).
 
+* Documentation: http://rpe.readthedocs.io
+* Mailing list:  https://groups.google.com/d/forum/aopp-pred-rpe
+
 
 ## Building the library
 
