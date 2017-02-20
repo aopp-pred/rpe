@@ -11,3 +11,4 @@ This developer guide provides extra documentation required for doing development
    structure
    gitwash/index
    code_generator/index
+   releases
