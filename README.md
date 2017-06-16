@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/aopp-pred/rpe.svg?branch=master)](https://travis-ci.org/aopp-pred/rpe)
 [![DOI](https://zenodo.org/badge/49064493.svg)](https://zenodo.org/badge/latestdoi/49064493)
+[![DOI (paper)](https://img.shields.io/badge/DOI%20%28paper%29-10.5194%2Fgmd--10--2221--2017-blue.svg)]
 
 # Reduced Precision Emulator
 
@@ -8,6 +9,20 @@ Licensed under the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.
 
 * Documentation: http://rpe.readthedocs.io
 * Mailing list:  https://groups.google.com/d/forum/aopp-pred-rpe
+
+
+## Documentation
+
+See the [online documentation](http://rpe.readthedocs.io) for a user guide,
+developer guide and API reference. The source code for the documentation is
+distributed along with rpe in the `doc/` directory.
+
+
+## Citation
+
+The emulator is described in a [GMD paper](https://doi.org/10.5194/gmd-10-2221-2017).
+If you use the software for published research please cite this paper, as well as the
+DOI for the software repository itself.
 
 
 ## Building the library
@@ -50,9 +65,3 @@ of the Makefile:
 This will generate the file `src/processed/rp_emulator.f90` which can be
 integrated into the source of other projects.
 
-
-## Documentation
-
-See the [online documentation](http://rpe.readthedocs.io) for a user guide,
-developer guide and API reference. The source code for the documentation is
-distributed along with rpe in the `doc/` directory.
