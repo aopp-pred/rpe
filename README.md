@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/aopp-pred/rpe.svg?branch=master)](https://travis-ci.org/aopp-pred/rpe)
-[![DOI](https://zenodo.org/badge/49064493.svg)](https://zenodo.org/badge/latestdoi/49064493)
-[![DOI (paper)](https://img.shields.io/badge/DOI%20%28paper%29-10.5194%2Fgmd--10--2221--2017-blue.svg)]
+[![Build Status](https://travis-ci.org/aopp-pred/rpe.svg?branch=master)](https://travis-ci.org/aopp-pred/rpe) [![DOI (paper)](https://img.shields.io/badge/DOI%20%28paper%29-10.5194%2Fgmd--10--2221--2017-blue.svg)](https://doi.org/10.5194/gmd-10-2221-2017) [![DOI](https://zenodo.org/badge/49064493.svg)](https://zenodo.org/badge/latestdoi/49064493)
 
 # Reduced Precision Emulator
 
